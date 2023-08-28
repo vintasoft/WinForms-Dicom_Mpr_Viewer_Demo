@@ -1,0 +1,459 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>  
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>    
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Version>12.2.6.1</Version>
+    <AssemblyName>DicomMprViewerDemo</AssemblyName>
+    <RootNamespace>DicomMprViewerDemo</RootNamespace>
+    <StartupObject>DicomMprViewerDemo.Program</StartupObject>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>NETCORE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>NETCORE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vintasoft.Imaging" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="5.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="5.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="5.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="5.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="8.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.UI" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging.WebpCodec" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Shared" Version="4.0.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomControls\AnchorTypeEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\AnchorTypeEditorControl.designer.cs">
+      <DependentUpon>AnchorTypeEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ColorPanelControl\ColorPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\ColorPanelControl\ColorPanelControl.designer.cs">
+      <DependentUpon>ColorPanelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ColorPickerControl\ColorPickerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\ColorPickerControl\ColorPickerControl.designer.cs">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ColorSampleControl\ColorSampleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\ColorSampleControl\ColorSampleControl.designer.cs">
+      <DependentUpon>ColorSampleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ValueEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\ValueEditorControl.designer.cs">
+      <DependentUpon>ValueEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Dicom\DicomSeriesController.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\AssembliesLoader\Jpeg2000AssemblyLoader.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\CodecsFileFilters.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\BmpEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\BmpEncoderSettingsForm.designer.cs">
+      <DependentUpon>BmpEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\GifEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\GifEncoderSettingsForm.designer.cs">
+      <DependentUpon>GifEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\JpegEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\JpegEncoderSettingsForm.designer.cs">
+      <DependentUpon>JpegEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PbmEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PbmEncoderSettingsForm.designer.cs">
+      <DependentUpon>PbmEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PngEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PngEncoderSettingsForm.designer.cs">
+      <DependentUpon>PngEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\SvgEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\SvgEncoderSettingsForm.designer.cs">
+      <DependentUpon>SvgEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TgaEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TgaEncoderSettingsForm.designer.cs">
+      <DependentUpon>TgaEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TiffEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TiffEncoderSettingsForm.designer.cs">
+      <DependentUpon>TiffEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\WebpEncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\WebpEncoderSettingsForm.designer.cs">
+      <DependentUpon>WebpEncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\ImagingEncoderFactory.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\PluginsEncoderFactory\Dialogs\Jpeg2000EncoderSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Codecs\PluginsEncoderFactory\Dialogs\Jpeg2000EncoderSettingsForm.designer.cs">
+      <DependentUpon>Jpeg2000EncoderSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\ColorPickerDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\ColorPickerDialogForm.designer.cs">
+      <DependentUpon>ColorPickerDialogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\ImageViewerToolStrip\ImageViewerToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\ImageViewerToolStrip\ImageViewerToolStrip.designer.cs">
+      <DependentUpon>ImageViewerToolStrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\ImageViewerToolStrip\PageIndexChangedEventArgs.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\PropertyGridForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\PropertyGridForm.designer.cs">
+      <DependentUpon>PropertyGridForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\Resources\DemosResourcesManager.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode.Imaging\SaveImageFileForm.cs">
+    </Compile>
+    <Compile Include="DemosCommonCode\AboutBoxBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemosCommonCode\AboutBoxBaseForm.designer.cs">
+      <DependentUpon>AboutBoxBaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemosCommonCode\DemosTools.cs">
+    </Compile>
+    <Compile Include="CustomControls\CheckedToolStripSplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBoxForm.Designer.cs">
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DicomOverlaySettingEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DicomOverlaySettingEditorForm.Designer.cs">
+      <DependentUpon>DicomOverlaySettingEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\DicomMeasureToolUtils.cs" />
+    <Compile Include="Dialogs\MPR\DicomMprFillDataProgressTextOverlay.cs" />
+    <Compile Include="Dialogs\MPR\DicomMprToolInteractionModeToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\DicomMprToolInteractionModeToolStrip.Designer.cs">
+      <DependentUpon>DicomMprToolInteractionModeToolStrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Mpr2DForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Mpr2DForm.Designer.cs">
+      <DependentUpon>Mpr2DForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprCurvilinearSliceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprCurvilinearSliceForm.Designer.cs">
+      <DependentUpon>MprCurvilinearSliceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprImage3DAxisGraphicObject.cs" />
+    <Compile Include="Dialogs\MPR\MprImageSlicesEncodingPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprImageSlicesEncodingPropertiesForm.Designer.cs">
+      <DependentUpon>MprImageSlicesEncodingPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprParametersViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprParametersViewerForm.Designer.cs">
+      <DependentUpon>MprParametersViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettings.cs" />
+    <Compile Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettingsForm.Designer.cs">
+      <DependentUpon>MprImageToolAppearanceSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Settings\SliceType.cs" />
+    <Compile Include="Dialogs\MPR\Settings\VisualMprSliceAppearanceEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Settings\VisualMprSliceAppearanceEditorControl.Designer.cs">
+      <DependentUpon>VisualMprSliceAppearanceEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\Settings\VisualMprSliceAppearanceSettings.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MprSourceDataController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\AnchorTypeEditorControl.resx">
+      <DependentUpon>AnchorTypeEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\ColorPanelControl\ColorPanelControl.resx">
+      <DependentUpon>ColorPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\ColorPickerControl\ColorPickerControl.resx">
+      <DependentUpon>ColorPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\ColorSampleControl\ColorSampleControl.resx">
+      <DependentUpon>ColorSampleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\ValueEditorControl.resx">
+      <DependentUpon>ValueEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\BmpEncoderSettingsForm.resx">
+      <DependentUpon>BmpEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\GifEncoderSettingsForm.resx">
+      <DependentUpon>GifEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\JpegEncoderSettingsForm.resx">
+      <DependentUpon>JpegEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PbmEncoderSettingsForm.resx">
+      <DependentUpon>PbmEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\PngEncoderSettingsForm.resx">
+      <DependentUpon>PngEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\SvgEncoderSettingsForm.resx">
+      <DependentUpon>SvgEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TgaEncoderSettingsForm.resx">
+      <DependentUpon>TgaEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\TiffEncoderSettingsForm.resx">
+      <DependentUpon>TiffEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\ImagingEncoderFactory\Dialogs\WebpEncoderSettingsForm.resx">
+      <DependentUpon>WebpEncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\Codecs\PluginsEncoderFactory\Dialogs\Jpeg2000EncoderSettingsForm.resx">
+      <DependentUpon>Jpeg2000EncoderSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ColorPickerDialogForm.resx">
+      <DependentUpon>ColorPickerDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\ImageViewerToolStrip.resx">
+      <DependentUpon>ImageViewerToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\PropertyGridForm.resx">
+      <DependentUpon>PropertyGridForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode\AboutBoxBaseForm.resx">
+      <DependentUpon>AboutBoxBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutBoxForm.resx">
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DicomOverlaySettingEditorForm.resx">
+      <DependentUpon>DicomOverlaySettingEditorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\DicomMprToolInteractionModeToolStrip.resx">
+      <DependentUpon>DicomMprToolInteractionModeToolStrip.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\Mpr2DForm.resx">
+      <DependentUpon>Mpr2DForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprCurvilinearSliceForm.resx">
+      <DependentUpon>MprCurvilinearSliceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprImageSlicesEncodingPropertiesForm.resx">
+      <DependentUpon>MprImageSlicesEncodingPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprParametersViewerForm.resx">
+      <DependentUpon>MprParametersViewerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettingsForm.resx">
+      <DependentUpon>MprImageToolAppearanceSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\Settings\VisualMprSliceAppearanceEditorControl.resx">
+      <DependentUpon>VisualMprSliceAppearanceEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Browse_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Measure_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\MouseWheel.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Pan_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Roll_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Rotate3D_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\WindowLevel_111.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\Zoom_111.png" />
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\camera.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\navigate_beginning.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\navigate_end.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\navigate_left.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\navigate_right.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\open.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\printer.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\save.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\scanner.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\zoom_in.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemosCommonCode.Imaging\ImageViewerToolStrip\Resources\zoom_out.png">
+    </EmbeddedResource>
+    <Content Include="CustomControls\ColorSampleControl\ColorSampleBackground.png">
+    </Content>
+    <Content Include="App.ico" />
+  </ItemGroup>
+  
+</Project>
