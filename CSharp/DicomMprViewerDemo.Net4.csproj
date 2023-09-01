@@ -82,16 +82,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="Vintasoft.Imaging" Version="12.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="12.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="12.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="12.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="5.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="5.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="5.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="5.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="8.2.6.1" />
-    <PackageReference Include="Vintasoft.Imaging.UI" Version="12.2.6.1" />
+    <PackageReference Include="Vintasoft.Imaging" Version="12.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="12.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="12.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="12.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="5.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="5.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="5.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="5.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="8.2.7.1" />
+    <PackageReference Include="Vintasoft.Imaging.UI" Version="12.2.7.1" />
     <PackageReference Include="Vintasoft.Shared" Version="4.0.0.3" />
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +297,7 @@
     <Compile Include="MprSourceDataController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="directives.txt" />
     <EmbeddedResource Include="CustomControls\AnchorTypeEditorControl.resx">
       <DependentUpon>AnchorTypeEditorControl.cs</DependentUpon>
     </EmbeddedResource>
