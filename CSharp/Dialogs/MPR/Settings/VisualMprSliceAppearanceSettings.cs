@@ -91,19 +91,19 @@ namespace DicomMprViewerDemo
             }
         }
 
-        MprSliceRenderingMode _rederingMode = MprSliceRenderingMode.MPR;
+        MprSliceRenderingMode _renderingMode = MprSliceRenderingMode.MPR;
         /// <summary>
         /// Gets or sets the MPR image slice rendering mode.
         /// </summary>
-        public MprSliceRenderingMode RederingMode
+        public MprSliceRenderingMode RenderingMode
         {
             get
             {
-                return _rederingMode;
+                return _renderingMode;
             }
             set
             {
-                _rederingMode = value;
+                _renderingMode = value;
             }
         }
 
@@ -139,7 +139,7 @@ namespace DicomMprViewerDemo
             manager.SliceLineWidth = SliceLineWidth;
             manager.MarkerPointDiameter = MarkerPointDiameter;
             manager.Thickness = Thickness;
-            manager.RederingMode = RederingMode;
+            manager.RenderingMode = RenderingMode;
             manager.CurveTension = CurveTension;
         }
 
@@ -156,7 +156,7 @@ namespace DicomMprViewerDemo
 
             sliceVisualizer.MarkerPointDiameter = MarkerPointDiameter;
             sliceVisualizer.Slice.Thickness = Thickness;
-            sliceVisualizer.Slice.RenderingMode = RederingMode;
+            sliceVisualizer.Slice.RenderingMode = RenderingMode;
             
             MprCurvilinearSlice slice = sliceVisualizer.Slice as MprCurvilinearSlice;
             if (slice != null)

@@ -90,7 +90,7 @@ namespace DemosCommonCode.Imaging.Codecs.Dialogs
         #region UI
 
         /// <summary>
-        /// Handles the Click event of OkButton object.
+        /// Handles the Click event of okButton object.
         /// </summary>
         private void okButton_Click(object sender, EventArgs e)
         {
@@ -124,7 +124,7 @@ namespace DemosCommonCode.Imaging.Codecs.Dialogs
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of EncoderNameComboBox object.
+        /// Handles the SelectedIndexChanged event of encoderNameComboBox object.
         /// </summary>
         private void encoderNameComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

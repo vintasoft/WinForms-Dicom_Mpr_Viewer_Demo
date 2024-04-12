@@ -343,6 +343,9 @@ namespace DemosCommonCode.Imaging.Codecs
                         return true;
                     }
 #endif
+
+                case "Docx":
+                    return true;
             }
 
             return false;

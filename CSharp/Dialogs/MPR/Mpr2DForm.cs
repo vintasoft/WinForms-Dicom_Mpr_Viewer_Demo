@@ -599,7 +599,7 @@ namespace DicomMprViewerDemo
         #region 'Animation' menu
 
         /// <summary>
-        /// Handles the Click event of ShowAnimationToolStripMenuItem object.
+        /// Handles the Click event of showAnimationToolStripMenuItem object.
         /// </summary>
         private void showAnimationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -607,7 +607,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of AnimationRepeatToolStripMenuItem object.
+        /// Handles the Click event of animationRepeatToolStripMenuItem object.
         /// </summary>
         private void animationRepeatToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -615,7 +615,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the TextChanged event of AnimationDelayToolStripComboBox object.
+        /// Handles the TextChanged event of animationDelayToolStripComboBox object.
         /// </summary>
         private void animationDelayToolStripComboBox_TextChanged(object sender, EventArgs e)
         {

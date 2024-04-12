@@ -218,7 +218,7 @@ namespace DicomMprViewerDemo
         #region 'File' menu
 
         /// <summary>
-        /// Handles the Click event of OpenDICOMFilesFromFolderToolStripMenuItem object.
+        /// Handles the Click event of openDICOMFilesFromFolderToolStripMenuItem object.
         /// </summary>
         private void openDICOMFilesFromFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -247,7 +247,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of OpenDICOMFilesToolStripMenuItem object.
+        /// Handles the Click event of openDICOMFilesToolStripMenuItem object.
         /// </summary>
         private void openDICOMFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -255,7 +255,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the OpenFile event of ImageViewerToolStrip1 object.
+        /// Handles the OpenFile event of imageViewerToolStrip1 object.
         /// </summary>
         private void imageViewerToolStrip1_OpenFile(object sender, EventArgs e)
         {
@@ -263,7 +263,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CloseDICOMSeriesToolStripMenuItem object.
+        /// Handles the Click event of closeDICOMSeriesToolStripMenuItem object.
         /// </summary>
         private void closeDICOMSeriesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -272,7 +272,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SaveImageToolStripMenuItem object.
+        /// Handles the Click event of saveImageToolStripMenuItem object.
         /// </summary>
         private void saveImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -285,7 +285,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SaveAllImagesToolStripMenuItem object.
+        /// Handles the Click event of saveAllImagesToolStripMenuItem object.
         /// </summary>
         private void saveAllImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -308,7 +308,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CopyImageToClipboardToolStripMenuItem object.
+        /// Handles the Click event of copyImageToClipboardToolStripMenuItem object.
         /// </summary>
         private void copyImageToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -321,7 +321,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SaveImageSliceToolStripMenuItem object.
+        /// Handles the Click event of saveImageSliceToolStripMenuItem object.
         /// </summary>
         private void saveImageSliceToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -338,7 +338,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SaveAllImagesSlicesToolStripMenuItem object.
+        /// Handles the Click event of saveAllImagesSlicesToolStripMenuItem object.
         /// </summary>
         private void saveAllImagesSlicesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -363,7 +363,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CopyImageSliceToClipboardToolStripMenuItem object.
+        /// Handles the Click event of copyImageSliceToClipboardToolStripMenuItem object.
         /// </summary>
         private void copyImageSliceToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -380,7 +380,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of ExitToolStripMenuItem object.
+        /// Handles the Click event of exitToolStripMenuItem object.
         /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -393,7 +393,7 @@ namespace DicomMprViewerDemo
         #region 'View' menu
 
         /// <summary>
-        /// Handles the Click event of ResetSceneToolStripMenuItem object.
+        /// Handles the Click event of resetSceneToolStripMenuItem object.
         /// </summary>
         private void resetSceneToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -404,7 +404,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of FitSceneToolStripMenuItem object.
+        /// Handles the Click event of fitSceneToolStripMenuItem object.
         /// </summary>
         private void fitSceneToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -412,7 +412,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SynchronizeWindowLevelToolStripMenuItem object.
+        /// Handles the Click event of synchronizeWindowLevelToolStripMenuItem object.
         /// </summary>
         private void synchronizeWindowLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -439,7 +439,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of NegativeImageToolStripMenuItem object.
+        /// Handles the Click event of negativeImageToolStripMenuItem object.
         /// </summary>
         private void negativeImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -450,7 +450,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of ResetToDefaultWindowLevelToolStripMenuItem object.
+        /// Handles the Click event of resetToDefaultWindowLevelToolStripMenuItem object.
         /// </summary>
         private void resetToDefaultWindowLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -460,7 +460,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of UseInterpolationToolStripMenuItem object.
+        /// Handles the Click event of useInterpolationToolStripMenuItem object.
         /// </summary>
         private void useInterpolationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -486,7 +486,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of ShowAxisToolStripMenuItem object.
+        /// Handles the Click event of showAxisToolStripMenuItem object.
         /// </summary>
         private void showAxisToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -498,7 +498,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of Show3DAxisToolStripMenuItem object.
+        /// Handles the Click event of show3DAxisToolStripMenuItem object.
         /// </summary>
         private void show3DAxisToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -508,7 +508,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of ShowMPRParametersToolStripMenuItem object.
+        /// Handles the Click event of showMPRParametersToolStripMenuItem object.
         /// </summary>
         private void showMPRParametersToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -537,7 +537,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of FullScreenToolStripMenuItem object.
+        /// Handles the CheckedChanged event of fullScreenToolStripMenuItem object.
         /// </summary>
         private void fullScreenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
@@ -545,7 +545,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the CheckedChanged event of TopPanelAlwaysVisibleToolStripMenuItem object.
+        /// Handles the CheckedChanged event of topPanelAlwaysVisibleToolStripMenuItem object.
         /// </summary>
         private void topPanelAlwaysVisibleToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
@@ -563,7 +563,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of TextOverlaySettingsToolStripMenuItem object.
+        /// Handles the Click event of textOverlaySettingsToolStripMenuItem object.
         /// </summary>
         private void textOverlaySettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -580,7 +580,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of ShowTextOverlayToolStripMenuItem object.
+        /// Handles the Click event of showTextOverlayToolStripMenuItem object.
         /// </summary>
         private void showTextOverlayToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -592,7 +592,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of SettingsToolStripMenuItem object.
+        /// Handles the Click event of settingsToolStripMenuItem object.
         /// </summary>
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -621,7 +621,7 @@ namespace DicomMprViewerDemo
         #region 'MPR' menu
 
         /// <summary>
-        /// Handles the Click event of SagittalToolStripMenuItem object.
+        /// Handles the Click event of sagittalToolStripMenuItem object.
         /// </summary>
         private void sagittalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -634,7 +634,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CoronalToolStripMenuItem object.
+        /// Handles the Click event of coronalToolStripMenuItem object.
         /// </summary>
         private void coronalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -648,7 +648,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of AxialToolStripMenuItem object.
+        /// Handles the Click event of axialToolStripMenuItem object.
         /// </summary>
         private void axialToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -661,7 +661,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CurvilinearSliceOnSagittalToolStripMenuItem object.
+        /// Handles the Click event of curvilinearSliceOnSagittalToolStripMenuItem object.
         /// </summary>
         private void curvilinearSliceOnSagittalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -674,7 +674,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CurvilinearSliceOnCoronalToolStripMenuItem object.
+        /// Handles the Click event of curvilinearSliceOnCoronalToolStripMenuItem object.
         /// </summary>
         private void curvilinearSliceOnCoronalToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -687,7 +687,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of CurvilinearSliceOnAxialToolStripMenuItem object.
+        /// Handles the Click event of curvilinearSliceOnAxialToolStripMenuItem object.
         /// </summary>
         private void curvilinearSliceOnAxialToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -700,7 +700,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the Click event of MprImagePropertiesToolStripMenuItem object.
+        /// Handles the Click event of mprImagePropertiesToolStripMenuItem object.
         /// </summary>
         private void mprImagePropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -750,7 +750,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the MouseDown event of DicomMprTool object.
+        /// Handles the MouseDown event of dicomMprTool object.
         /// </summary>
         private void dicomMprTool_MouseDown(object sender, VisualToolMouseEventArgs e)
         {
@@ -766,7 +766,7 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the MouseMove event of DicomMprTool object.
+        /// Handles the MouseMove event of dicomMprTool object.
         /// </summary>
         private void dicomMprTool_MouseMove(object sender, VisualToolMouseEventArgs e)
         {
@@ -787,7 +787,7 @@ namespace DicomMprViewerDemo
         #region 'Help' menu
 
         /// <summary>
-        /// Handles the Click event of AboutToolStripMenuItem object.
+        /// Handles the Click event of aboutToolStripMenuItem object.
         /// </summary>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {

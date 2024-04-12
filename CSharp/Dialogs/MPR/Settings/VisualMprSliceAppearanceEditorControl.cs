@@ -97,7 +97,7 @@ namespace DicomMprViewerDemo
                 sliceLineWidthNumericUpDown.Value = (decimal)SliceSettings.SliceLineWidth;
                 markerPointDiameterNumericUpDown.Value = (decimal)SliceSettings.MarkerPointDiameter;
                 thicknessNumericUpDown.Value = (decimal)SliceSettings.Thickness;
-                renderingModeComboBox.SelectedItem = SliceSettings.RederingMode;
+                renderingModeComboBox.SelectedItem = SliceSettings.RenderingMode;
                 curveTensionNumericUpDown.Value = (decimal)SliceSettings.CurveTension;
             }
 
@@ -168,9 +168,9 @@ namespace DicomMprViewerDemo
         {
             if (SliceSettings != null)
             {
-                SliceSettings.RederingMode = (MprSliceRenderingMode)renderingModeComboBox.SelectedItem;
+                SliceSettings.RenderingMode = (MprSliceRenderingMode)renderingModeComboBox.SelectedItem;
 
-                if (SliceSettings.RederingMode == MprSliceRenderingMode.MPR)
+                if (SliceSettings.RenderingMode == MprSliceRenderingMode.MPR)
                     thicknessNumericUpDown.Enabled = false;
                 else
                     thicknessNumericUpDown.Enabled = true;
