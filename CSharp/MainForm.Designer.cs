@@ -28,12 +28,12 @@ namespace DicomMprViewerDemo
         /// </summary>
         private void InitializeComponent()
         {
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard1 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings1 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard2 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings2 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard3 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings3 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
+            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard4 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
+            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings4 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
+            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard5 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
+            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings5 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
+            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard6 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
+            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings6 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainPanel = new System.Windows.Forms.Panel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -42,6 +42,8 @@ namespace DicomMprViewerDemo
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.imageInfoToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.viewersPanel = new System.Windows.Forms.Panel();
+            this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.dicomSeriesManagerControl1 = new Vintasoft.Imaging.Dicom.UI.DicomSeriesManagerControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.imageViewer1 = new Vintasoft.Imaging.UI.ImageViewer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -101,14 +103,18 @@ namespace DicomMprViewerDemo
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
-            this.openDicomFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.dicomMprToolInteractionModeToolStrip1 = new DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip();
+            this.openDicomFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.mainPanel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.viewersPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
+            this.mainSplitContainer.Panel1.SuspendLayout();
+            this.mainSplitContainer.Panel2.SuspendLayout();
+            this.mainSplitContainer.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -129,7 +135,7 @@ namespace DicomMprViewerDemo
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(749, 622);
+            this.mainPanel.Size = new System.Drawing.Size(1011, 622);
             this.mainPanel.TabIndex = 5;
             // 
             // statusStrip1
@@ -141,14 +147,14 @@ namespace DicomMprViewerDemo
             this.imageInfoToolStripStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 600);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(749, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1011, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // progressBar1
             // 
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 16);
+            this.progressBar1.Size = new System.Drawing.Size(197, 16);
             this.progressBar1.Visible = false;
             // 
             // actionLabel
@@ -161,7 +167,7 @@ namespace DicomMprViewerDemo
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(734, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(693, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // imageInfoToolStripStatusLabel
@@ -171,18 +177,63 @@ namespace DicomMprViewerDemo
             // 
             // viewersPanel
             // 
-            this.viewersPanel.Controls.Add(this.splitContainer1);
+            this.viewersPanel.Controls.Add(this.mainSplitContainer);
             this.viewersPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewersPanel.Location = new System.Drawing.Point(0, 52);
             this.viewersPanel.Name = "viewersPanel";
-            this.viewersPanel.Size = new System.Drawing.Size(749, 545);
+            this.viewersPanel.Size = new System.Drawing.Size(1011, 570);
             this.viewersPanel.TabIndex = 4;
+            // 
+            // mainSplitContainer
+            // 
+            this.mainSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.mainSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.mainSplitContainer.Name = "mainSplitContainer";
+            // 
+            // mainSplitContainer.Panel1
+            // 
+            this.mainSplitContainer.Panel1.Controls.Add(this.dicomSeriesManagerControl1);
+            // 
+            // mainSplitContainer.Panel2
+            // 
+            this.mainSplitContainer.Panel2.Controls.Add(this.splitContainer1);
+            this.mainSplitContainer.Size = new System.Drawing.Size(1011, 570);
+            this.mainSplitContainer.SplitterDistance = 200;
+            this.mainSplitContainer.TabIndex = 2;
+            // 
+            // dicomSeriesManagerControl1
+            // 
+            this.dicomSeriesManagerControl1.BackColor = System.Drawing.Color.Black;
+            this.dicomSeriesManagerControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dicomSeriesManagerControl1.FocusedSeriesIdentifier = null;
+            this.dicomSeriesManagerControl1.IsKeyboardNavigationEnabled = true;
+            this.dicomSeriesManagerControl1.Location = new System.Drawing.Point(0, 0);
+            this.dicomSeriesManagerControl1.Name = "dicomSeriesManagerControl1";
+            this.dicomSeriesManagerControl1.PanelTextPadding = new System.Windows.Forms.Padding(1);
+            this.dicomSeriesManagerControl1.PatientPanelFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dicomSeriesManagerControl1.PatientPanelPadding = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.dicomSeriesManagerControl1.SelectedSeriesPanelFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.dicomSeriesManagerControl1.SeriesImageCountFont = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold);
+            this.dicomSeriesManagerControl1.SeriesImageCountPadding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.dicomSeriesManagerControl1.SeriesImageCountTextColor = System.Drawing.Color.White;
+            this.dicomSeriesManagerControl1.SeriesPanelFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.dicomSeriesManagerControl1.SeriesPanelPadding = new System.Windows.Forms.Padding(0);
+            this.dicomSeriesManagerControl1.Size = new System.Drawing.Size(200, 570);
+            this.dicomSeriesManagerControl1.StudyPanelFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
+            this.dicomSeriesManagerControl1.StudyPanelPadding = new System.Windows.Forms.Padding(0);
+            this.dicomSeriesManagerControl1.TabIndex = 0;
+            this.dicomSeriesManagerControl1.Text = "dicomSeriesManagerControl1";
+            this.dicomSeriesManagerControl1.TextBlockFontDefaultValue = new System.Drawing.Font("Consolas", 10F);
+            this.dicomSeriesManagerControl1.TextBlockTextColorDefaultValue = System.Drawing.Color.White;
+            this.dicomSeriesManagerControl1.ThumbnailImageBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dicomSeriesManagerControl1.ThumbnailImageBorderWidth = 1;
+            this.dicomSeriesManagerControl1.ThumbnailImagePadding = new System.Windows.Forms.Padding(6, 0, 6, 6);
+            this.dicomSeriesManagerControl1.ThumbnailImageSize = new System.Drawing.Size(150, 150);
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -193,25 +244,30 @@ namespace DicomMprViewerDemo
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(749, 547);
-            this.splitContainer1.SplitterDistance = 379;
+            this.splitContainer1.Size = new System.Drawing.Size(807, 570);
+            this.splitContainer1.SplitterDistance = 407;
             this.splitContainer1.TabIndex = 1;
             // 
             // imageViewer1
             // 
             this.imageViewer1.BackColor = System.Drawing.Color.Transparent;
             this.imageViewer1.CenterImage = true;
-            this.imageViewer1.Clipboard = winFormsSystemClipboard1;
+            this.imageViewer1.Clipboard = winFormsSystemClipboard4;
             this.imageViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewer1.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.imageViewer1.FastScrollingInterval = 10;
+            this.imageViewer1.FastScrollingMinDistance = 5F;
+            this.imageViewer1.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.imageViewer1.FastScrollingScale = 0.5F;
             this.imageViewer1.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.imageViewer1.ImageRenderingSettings = renderingSettings1;
+            this.imageViewer1.ImageRenderingSettings = renderingSettings4;
             this.imageViewer1.ImageRotationAngle = 0;
             this.imageViewer1.Location = new System.Drawing.Point(0, 0);
             this.imageViewer1.Name = "imageViewer1";
             this.imageViewer1.ShortcutDelete = System.Windows.Forms.Shortcut.None;
             this.imageViewer1.ShortcutInsert = System.Windows.Forms.Shortcut.None;
             this.imageViewer1.ShortcutSelectAll = System.Windows.Forms.Shortcut.None;
-            this.imageViewer1.Size = new System.Drawing.Size(379, 547);
+            this.imageViewer1.Size = new System.Drawing.Size(407, 570);
             this.imageViewer1.SizeMode = Vintasoft.Imaging.UI.ImageSizeMode.BestFit;
             this.imageViewer1.TabIndex = 0;
             this.imageViewer1.Text = "imageViewer1";
@@ -230,25 +286,30 @@ namespace DicomMprViewerDemo
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.imageViewer3);
-            this.splitContainer2.Size = new System.Drawing.Size(366, 547);
-            this.splitContainer2.SplitterDistance = 264;
+            this.splitContainer2.Size = new System.Drawing.Size(396, 570);
+            this.splitContainer2.SplitterDistance = 274;
             this.splitContainer2.TabIndex = 0;
             // 
             // imageViewer2
             // 
             this.imageViewer2.BackColor = System.Drawing.Color.Transparent;
             this.imageViewer2.CenterImage = true;
-            this.imageViewer2.Clipboard = winFormsSystemClipboard2;
+            this.imageViewer2.Clipboard = winFormsSystemClipboard5;
             this.imageViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewer2.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.imageViewer2.FastScrollingInterval = 10;
+            this.imageViewer2.FastScrollingMinDistance = 5F;
+            this.imageViewer2.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.imageViewer2.FastScrollingScale = 0.5F;
             this.imageViewer2.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.imageViewer2.ImageRenderingSettings = renderingSettings2;
+            this.imageViewer2.ImageRenderingSettings = renderingSettings5;
             this.imageViewer2.ImageRotationAngle = 0;
             this.imageViewer2.Location = new System.Drawing.Point(0, 0);
             this.imageViewer2.Name = "imageViewer2";
             this.imageViewer2.ShortcutDelete = System.Windows.Forms.Shortcut.None;
             this.imageViewer2.ShortcutInsert = System.Windows.Forms.Shortcut.None;
             this.imageViewer2.ShortcutSelectAll = System.Windows.Forms.Shortcut.None;
-            this.imageViewer2.Size = new System.Drawing.Size(366, 264);
+            this.imageViewer2.Size = new System.Drawing.Size(396, 274);
             this.imageViewer2.SizeMode = Vintasoft.Imaging.UI.ImageSizeMode.BestFit;
             this.imageViewer2.TabIndex = 0;
             this.imageViewer2.Text = "imageViewer2";
@@ -257,17 +318,22 @@ namespace DicomMprViewerDemo
             // 
             this.imageViewer3.BackColor = System.Drawing.Color.Transparent;
             this.imageViewer3.CenterImage = true;
-            this.imageViewer3.Clipboard = winFormsSystemClipboard3;
+            this.imageViewer3.Clipboard = winFormsSystemClipboard6;
             this.imageViewer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewer3.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.imageViewer3.FastScrollingInterval = 10;
+            this.imageViewer3.FastScrollingMinDistance = 5F;
+            this.imageViewer3.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.imageViewer3.FastScrollingScale = 0.5F;
             this.imageViewer3.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.imageViewer3.ImageRenderingSettings = renderingSettings3;
+            this.imageViewer3.ImageRenderingSettings = renderingSettings6;
             this.imageViewer3.ImageRotationAngle = 0;
             this.imageViewer3.Location = new System.Drawing.Point(0, 0);
             this.imageViewer3.Name = "imageViewer3";
             this.imageViewer3.ShortcutDelete = System.Windows.Forms.Shortcut.None;
             this.imageViewer3.ShortcutInsert = System.Windows.Forms.Shortcut.None;
             this.imageViewer3.ShortcutSelectAll = System.Windows.Forms.Shortcut.None;
-            this.imageViewer3.Size = new System.Drawing.Size(366, 279);
+            this.imageViewer3.Size = new System.Drawing.Size(396, 292);
             this.imageViewer3.SizeMode = Vintasoft.Imaging.UI.ImageSizeMode.BestFit;
             this.imageViewer3.TabIndex = 0;
             this.imageViewer3.Text = "imageViewer3";
@@ -279,7 +345,7 @@ namespace DicomMprViewerDemo
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
             this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(749, 52);
+            this.topPanel.Size = new System.Drawing.Size(1011, 52);
             this.topPanel.TabIndex = 3;
             // 
             // menuStrip1
@@ -291,7 +357,7 @@ namespace DicomMprViewerDemo
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(749, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1011, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -713,15 +779,7 @@ namespace DicomMprViewerDemo
             this.toolStripPanel.Name = "toolStripPanel";
             this.toolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.toolStripPanel.RowMargin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.toolStripPanel.Size = new System.Drawing.Size(749, 28);
-            // 
-            // openDicomFileDialog
-            // 
-            this.openDicomFileDialog.Filter = "DICOM files|*.dcm;*.dic;*.acr|All files|*.*";
-            // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.ShowNewFolderButton = false;
+            this.toolStripPanel.Size = new System.Drawing.Size(1011, 28);
             // 
             // imageViewerToolStrip1
             // 
@@ -729,17 +787,17 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.CanNavigate = false;
             this.imageViewerToolStrip1.CanPrint = false;
             this.imageViewerToolStrip1.CanSaveFile = false;
+            this.imageViewerToolStrip1.CaptureFromCameraButtonEnabled = true;
             this.imageViewerToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.imageViewerToolStrip1.ImageViewer = this.imageViewer1;
-            this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator12});
-            this.imageViewerToolStrip1.Location = new System.Drawing.Point(4, 0);
+            this.imageViewerToolStrip1.Location = new System.Drawing.Point(3, 0);
             this.imageViewerToolStrip1.Name = "imageViewerToolStrip1";
             this.imageViewerToolStrip1.PageCount = 0;
             this.imageViewerToolStrip1.PrintButtonEnabled = true;
-            this.imageViewerToolStrip1.SaveButtonEnabled = true;
-            this.imageViewerToolStrip1.Size = new System.Drawing.Size(18, 25);
+            this.imageViewerToolStrip1.ScanButtonEnabled = true;
+            this.imageViewerToolStrip1.Size = new System.Drawing.Size(151, 25);
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
             this.imageViewerToolStrip1.UseImageViewerImages = true;
@@ -755,7 +813,7 @@ namespace DicomMprViewerDemo
             this.dicomMprToolInteractionModeToolStrip1.DicomMprTools = null;
             this.dicomMprToolInteractionModeToolStrip1.DisabledInteractionModes = null;
             this.dicomMprToolInteractionModeToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(181, 0);
+            this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(154, 0);
             this.dicomMprToolInteractionModeToolStrip1.Name = "dicomMprToolInteractionModeToolStrip1";
             this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(218, 25);
             this.dicomMprToolInteractionModeToolStrip1.SupportedInteractionModes = new Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode[] {
@@ -768,10 +826,18 @@ namespace DicomMprViewerDemo
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure};
             this.dicomMprToolInteractionModeToolStrip1.TabIndex = 4;
             // 
+            // openDicomFileDialog
+            // 
+            this.openDicomFileDialog.Filter = "DICOM files|*.dcm;*.dic;*.acr|All files|*.*";
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.ShowNewFolderButton = false;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 622);
+            this.ClientSize = new System.Drawing.Size(1011, 622);
             this.Controls.Add(this.mainPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -783,6 +849,10 @@ namespace DicomMprViewerDemo
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.viewersPanel.ResumeLayout(false);
+            this.mainSplitContainer.Panel1.ResumeLayout(false);
+            this.mainSplitContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
+            this.mainSplitContainer.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
@@ -874,5 +944,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem curvilinearSliceOnSagittalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem curvilinearSliceOnCoronalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem curvilinearSliceOnAxialToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer mainSplitContainer;
+        private Vintasoft.Imaging.Dicom.UI.DicomSeriesManagerControl dicomSeriesManagerControl1;
     }
 }

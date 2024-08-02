@@ -6,21 +6,22 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
+using DemosCommonCode;
+using DemosCommonCode.Imaging;
+using DemosCommonCode.Imaging.Codecs;
+
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Codecs;
 using Vintasoft.Imaging.Codecs.ImageFiles.Dicom;
 using Vintasoft.Imaging.Dicom.Mpr;
 using Vintasoft.Imaging.Dicom.Mpr.UI;
 using Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools;
+using Vintasoft.Imaging.Dicom.UI;
 using Vintasoft.Imaging.Dicom.UI.VisualTools;
 using Vintasoft.Imaging.ImageProcessing;
+using Vintasoft.Imaging.Metadata;
 using Vintasoft.Imaging.UI;
 using Vintasoft.Imaging.UI.VisualTools;
-
-using DemosCommonCode;
-using DemosCommonCode.Imaging;
-using DemosCommonCode.Imaging.Codecs;
-using DemosCommonCode.Dicom;
 
 namespace DicomMprViewerDemo
 {
@@ -31,16 +32,6 @@ namespace DicomMprViewerDemo
     {
 
         #region Fields
-
-        /// <summary>
-        /// Template of the application title.
-        /// </summary>
-        string _titlePrefix = "VintaSoft DICOM MPR Viewer Demo v" + ImagingGlobalSettings.ProductVersion + " - {0}";
-
-        /// <summary>
-        /// Controller of files in current DICOM series.
-        /// </summary>
-        DicomSeriesController _dicomSeriesController = new DicomSeriesController();
 
         /// <summary>
         /// Controller of source data in MPR image.
@@ -88,14 +79,14 @@ namespace DicomMprViewerDemo
         MprParametersViewerForm _mprParametersForm;
 
         /// <summary>
-        /// The DICOM images.
-        /// </summary>
-        ImageCollection _images = new ImageCollection();
-
-        /// <summary>
         /// A value indicating whether the application form is closing.
         /// </summary> 
         bool _isFormClosing = false;
+
+        /// <summary>
+        /// A value indicating whether the MPR cube is initialized.
+        /// </summary> 
+        bool _isMprCubeInitialized = false;
 
         #endregion
 
@@ -110,7 +101,7 @@ namespace DicomMprViewerDemo
 
             InitializeComponent();
 
-            this.Text = string.Format(_titlePrefix, "(Untitled)");
+            this.Text = "VintaSoft DICOM MPR Viewer Demo v" + ImagingGlobalSettings.ProductVersion;
 
             MoveDicomCodecToFirstPosition();
 
@@ -121,6 +112,9 @@ namespace DicomMprViewerDemo
             imageViewer2.GotFocus += new EventHandler(ImageViewer_GotFocus);
             imageViewer3.GotFocus += new EventHandler(ImageViewer_GotFocus);
 
+            dicomSeriesManagerControl1.AddedFileCountChanged += DicomSeriesManagerControl1_AddedFileCountChanged;
+            dicomSeriesManagerControl1.FocusedSeriesIdentifierChanged += DicomSeriesManagerControl1_FocusedSeriesIdentifierChanged;
+
             UpdateUI();
         }
 
@@ -130,19 +124,19 @@ namespace DicomMprViewerDemo
 
         #region Properties
 
-        bool _isDicomFileOpening = false;
+        bool _isDicomSeriesOpening = false;
         /// <summary>
-        /// Gets or sets a value indicating whether the DICOM file is opening.
+        /// Gets or sets a value indicating whether the DICOM series is opening.
         /// </summary>
-        private bool IsDicomFileOpening
+        private bool IsDicomSeriesOpening
         {
             get
             {
-                return _isDicomFileOpening;
+                return _isDicomSeriesOpening;
             }
             set
             {
-                _isDicomFileOpening = value;
+                _isDicomSeriesOpening = value;
 
                 if (InvokeRequired)
                     InvokeUpdateUI();
@@ -224,25 +218,12 @@ namespace DicomMprViewerDemo
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                // get the DICOM codec
-                Codec dicomCodec = AvailableCodecs.GetCodecByName("Dicom");
-
                 // get the folder path
                 string folderPath = folderBrowserDialog1.SelectedPath;
-                // get the file names
-                List<string> fileNames = new List<string>();
 
-                // for each DICOM file extension
-                foreach (string fileExtension in dicomCodec.FileExtensions)
-                {
-                    // get files
-                    string[] files = Directory.GetFiles(folderPath, "*" + fileExtension, SearchOption.TopDirectoryOnly);
+                CloseDicomSeries();
 
-                    // add files to the list with filenames
-                    fileNames.AddRange(files);
-                }
-
-                OpenDicomFiles(fileNames.ToArray());
+                dicomSeriesManagerControl1.AddDirectory(folderPath, true);
             }
         }
 
@@ -811,6 +792,62 @@ namespace DicomMprViewerDemo
                 imageViewerToolStrip1.ImageViewer = (ImageViewer)sender;
         }
 
+        /// <summary>
+        /// Handles the AddedFileCountChanged event of DicomSeriesManagerControl1 object.
+        /// </summary>
+        private void DicomSeriesManagerControl1_AddedFileCountChanged(object sender, EventArgs e)
+        {
+            DicomSeriesManagerControl control = (DicomSeriesManagerControl)sender;
+
+            // if DICOM files loaded
+            if (control.AddedFileCount == control.AddingFileCount)
+            {
+                // hide action label and progress bar
+                progressBar1.Visible = false;
+                progressBar1.Maximum = 0;
+
+                if (!_isFormClosing)
+                {
+                    // update the UI
+                    IsDicomSeriesOpening = false;
+
+                    if (control.FocusedSeriesIdentifier == null)
+                    {
+                        IList<string> seriesIdentifiers = control.SeriesManager.GetAllSeriesIdentifiers();
+                        if (seriesIdentifiers.Count > 0)
+                            control.FocusedSeriesIdentifier = seriesIdentifiers[0];
+                    }
+                    
+                    InitializeMprCube(control.FocusedSeriesIdentifier);
+                }
+            }
+            else
+            {
+                // if DICOM files loading started
+                if (control.AddingFileCount != progressBar1.Maximum)
+                {
+                    progressBar1.Visible = true;
+                    progressBar1.Maximum = control.AddingFileCount;
+                    // update the UI
+                    IsDicomSeriesOpening = true;
+                }
+
+                progressBar1.Value = control.AddedFileCount;
+            }
+        }
+
+        /// <summary>
+        /// Handles the FocusedSeriesIdentifierChanged event of DicomSeriesManagerControl1 object.
+        /// </summary>
+        private void DicomSeriesManagerControl1_FocusedSeriesIdentifierChanged(object sender, EventArgs e)
+        {
+            DicomSeriesManagerControl control = (DicomSeriesManagerControl)sender;
+
+            // if DICOM files loaded
+            if (control.AddedFileCount == control.AddingFileCount)
+                InitializeMprCube(control.FocusedSeriesIdentifier);
+        }
+
         #endregion
 
 
@@ -837,53 +874,55 @@ namespace DicomMprViewerDemo
                 // exit
                 return;
 
-            bool isDicomFileLoaded = _dicomSeriesController.ImageCount > 0 && _visualizationController != null;
-            bool isDicomFileOpening = _isDicomFileOpening;
+            bool isDicomSeriesLoaded = dicomSeriesManagerControl1.Images.Count > 0;
+            bool isDicomSeriesOpening = _isDicomSeriesOpening;
+
+            bool isMprCubeInitialized = _isMprCubeInitialized && _visualizationController != null;
 
             // 'File' menu
             //
-            openDICOMFilesToolStripMenuItem.Enabled = !isDicomFileOpening;
-            openDICOMFilesFromFolderToolStripMenuItem.Enabled = !isDicomFileOpening;
-            saveImageToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            saveAllImagesToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            copyImageToClipboardToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            openDICOMFilesToolStripMenuItem.Enabled = !isDicomSeriesOpening;
+            openDICOMFilesFromFolderToolStripMenuItem.Enabled = !isDicomSeriesOpening;
+            saveImageToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            saveAllImagesToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            copyImageToClipboardToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
-            saveImageSliceToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            saveAllImagesSlicesToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            copyImageSliceToClipboardToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            saveImageSliceToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            saveAllImagesSlicesToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            copyImageSliceToClipboardToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
-            closeDICOMSeriesToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            closeDICOMSeriesToolStripMenuItem.Enabled = isDicomSeriesLoaded;
 
             // 'View' menu
             //
-            resetSceneToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            fitSceneToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            synchronizeWindowLevelToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            negativeImageToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            resetSceneToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            fitSceneToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            synchronizeWindowLevelToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            negativeImageToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
-            resetToDefaultWindowLevelToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            useInterpolationToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            showAxisToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            show3DAxisToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            showMPRParametersToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            resetToDefaultWindowLevelToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            useInterpolationToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            showAxisToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            show3DAxisToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            showMPRParametersToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
-            fullScreenToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            topPanelAlwaysVisibleToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            textOverlaySettingsToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            showTextOverlayToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            settingsToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            fullScreenToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            topPanelAlwaysVisibleToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            textOverlaySettingsToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            showTextOverlayToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            settingsToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
             // 'MPR' menu
             //
-            sagittalToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            coronalToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            axialToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            curvilinearSliceOnSagittalToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            curvilinearSliceOnCoronalToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            curvilinearSliceOnAxialToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
-            mprImagePropertiesToolStripMenuItem.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            sagittalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            coronalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            axialToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            curvilinearSliceOnSagittalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            curvilinearSliceOnCoronalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            curvilinearSliceOnAxialToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            mprImagePropertiesToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
-            dicomMprToolInteractionModeToolStrip1.Enabled = isDicomFileLoaded && !isDicomFileOpening;
+            dicomMprToolInteractionModeToolStrip1.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
         }
 
         #endregion
@@ -899,124 +938,165 @@ namespace DicomMprViewerDemo
             openDicomFileDialog.Multiselect = true;
             if (openDicomFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenDicomFiles(openDicomFileDialog.FileNames);
+                // close the previously opened DICOM files
+                CloseDicomSeries();
+
+                // add DICOM files to the DICOM series
+                dicomSeriesManagerControl1.AddFiles(openDicomFileDialog.FileNames);
             }
         }
 
         /// <summary>
-        /// Opens the specified DICOM files.
+        /// Closes series of DICOM frames.
         /// </summary>
-        /// <param name="fileNames">The DICOM file names.</param>
-        private void OpenDicomFiles(params string[] fileNames)
+        private void CloseDicomSeries()
         {
-            if (fileNames != null && fileNames.Length > 0)
+            CloseMprCube();
+
+            dicomSeriesManagerControl1.CloseAllSeries();
+
+            // update the UI
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Initializes the MPR cube.
+        /// </summary>
+        /// <param name="seriesIdentifier">The series identifier.</param>
+        private void InitializeMprCube(string seriesIdentifier)
+        {
+            CloseMprCube();
+
+            if (string.IsNullOrEmpty(seriesIdentifier))
+                return;
+
+            VintasoftImage[] images = dicomSeriesManagerControl1.SeriesManager.GetSeriesImages(seriesIdentifier);
+            // get DICOM files, which represent DICOM frames for MPR cube
+            DicomFile[] dicomFiles = DicomFile.GetFilesAssociatedWithImages(images);
+
+            if (dicomFiles.Length > 0)
             {
-                IsDicomFileOpening = true;
-                try
+                // update source data of MPR image
+                _mprSourceDataController.SetSourceMprData(dicomFiles);
+
+                if (InitializeVisualizationController(images))
                 {
-                    // close the previously opened DICOM files
-                    CloseDicomSeries();
+                    _isMprCubeInitialized = true;
 
-                    // add DICOM files to the DICOM series
-                    AddDicomFilesToSeries(fileNames);
-
-                    // if DICOM images are loaded
-                    if (_images.Count > 0)
-                    {
-                        // update source data of MPR image
-                        _mprSourceDataController.SetSourceMprData(_dicomSeriesController.GetFilesOfSeries());
-
-                        if (!InitializeVisualizationController())
-                            CloseDicomSeries();
-                    }
+                    // update the UI
+                    UpdateUI();
                 }
-                finally
+                else
                 {
-                    if (!_isFormClosing)
-                        IsDicomFileOpening = false;
+                    CloseMprCube();
                 }
             }
         }
 
         /// <summary>
-        /// Initializes the <see cref="_visualizationController"/>.
+        /// Closes the MPR cube.
         /// </summary>
-        private bool InitializeVisualizationController()
+        private void CloseMprCube()
         {
-            DicomFrame dicomFrame = DicomFrame.GetFrameAssociatedWithImage(_images[0]);
+            _isMprCubeInitialized = false;
 
-            // create the MPR image
-            if (!_mprSourceDataController.SetMprData(dicomFrame, true))
-                return false;
+            lock (_mprSourceDataController)
+            {
+                dicomMprToolInteractionModeToolStrip1.DicomMprTools = null;
 
-            MprVisualizationController oldVisualizationController = _visualizationController;
-            // create visualization controller
-            _visualizationController = new MprVisualizationController(
-                _mprSourceDataController.MprImage,
-                imageViewer1, imageViewer2, imageViewer3);
+                if (_visualizationController != null)
+                    _visualizationController.Dispose();
 
-            _mprSettingsManager.SetMprVisualizationControllerSettings(_visualizationController);
+                _mprSourceDataController.ClearSourceMprData();
+            }
 
-            // get DICOM MPR tools of image viewers
-            _dicomMprTools = new DicomMprTool[] {
+            // update the UI
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Initializes the visualization controller.
+        /// </summary>
+        /// <param name="images">The images.</param>
+        private bool InitializeVisualizationController(VintasoftImage[] images)
+        {
+            lock (_mprSourceDataController)
+            {
+                DicomFrame dicomFrame = DicomFrame.GetFrameAssociatedWithImage(images[0]);
+
+                // create the MPR image
+                if (!_mprSourceDataController.SetMprData(dicomFrame, true))
+                    return false;
+
+                MprVisualizationController oldVisualizationController = _visualizationController;
+                // create visualization controller
+                _visualizationController = new MprVisualizationController(
+                    _mprSourceDataController.MprImage,
+                    imageViewer1, imageViewer2, imageViewer3);
+
+                _mprSettingsManager.SetMprVisualizationControllerSettings(_visualizationController);
+
+                // get DICOM MPR tools of image viewers
+                _dicomMprTools = new DicomMprTool[] {
                 _visualizationController.GetDicomMprToolAssociatedWithImageViewer(imageViewer1),
                 _visualizationController.GetDicomMprToolAssociatedWithImageViewer(imageViewer2),
                 _visualizationController.GetDicomMprToolAssociatedWithImageViewer(imageViewer3)
-            };
-            // set main DICOM MPR tool
-            dicomMprToolInteractionModeToolStrip1.DicomMprTools = _dicomMprTools;
+                };
+                // set main DICOM MPR tool
+                dicomMprToolInteractionModeToolStrip1.DicomMprTools = _dicomMprTools;
 
-            // create slices
-            _slices = _visualizationController.AddThreeSlicesVisualization(
-                _mprSourceDataController.MprImage.XLength / 2.0, _mprSettingsManager.SagittalSliceAppearance.SliceColor,
-                _mprSourceDataController.MprImage.YLength / 2.0, _mprSettingsManager.CoronalSliceAppearance.SliceColor,
-                _mprSourceDataController.MprImage.ZLength / 2.0, _mprSettingsManager.AxialSliceAppearance.SliceColor);
+                // create slices
+                _slices = _visualizationController.AddThreeSlicesVisualization(
+                    _mprSourceDataController.MprImage.XLength / 2.0, _mprSettingsManager.SagittalSliceAppearance.SliceColor,
+                    _mprSourceDataController.MprImage.YLength / 2.0, _mprSettingsManager.CoronalSliceAppearance.SliceColor,
+                    _mprSourceDataController.MprImage.ZLength / 2.0, _mprSettingsManager.AxialSliceAppearance.SliceColor);
 
-            // apply the appearance settings to the slices
-            _mprSettingsManager.SetSliceSettings(
-                _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[0]),
-                _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[1]),
-                _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[2]));
+                // apply the appearance settings to the slices
+                _mprSettingsManager.SetSliceSettings(
+                    _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[0]),
+                    _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[1]),
+                    _visualizationController.GetVisualMprSliceAssociatedWithMprSlice(_slices[2]));
 
-            // save the default values of slices
-            _defaultSlices = new MprSlice[_slices.Length];
-            for (int i = 0; i < _slices.Length; i++)
-                _defaultSlices[i] = _slices[i].CreateCopy();
+                // save the default values of slices
+                _defaultSlices = new MprSlice[_slices.Length];
+                for (int i = 0; i < _slices.Length; i++)
+                    _defaultSlices[i] = _slices[i].CreateCopy();
 
-            // apply appearance settings to the visual tools
-            _mprSettingsManager.SetMprToolSettings(_dicomMprTools[0].MprImageTool);
-            _mprSettingsManager.SetMprToolSettings(_dicomMprTools[1].MprImageTool);
-            _mprSettingsManager.SetMprToolSettings(_dicomMprTools[2].MprImageTool);
+                // apply appearance settings to the visual tools
+                _mprSettingsManager.SetMprToolSettings(_dicomMprTools[0].MprImageTool);
+                _mprSettingsManager.SetMprToolSettings(_dicomMprTools[1].MprImageTool);
+                _mprSettingsManager.SetMprToolSettings(_dicomMprTools[2].MprImageTool);
 
-            // for each DICOM MPR tool
-            foreach (DicomMprTool mprTool in _dicomMprTools)
-            {
-                mprTool.DicomViewerTool.DicomImageVoiLutChanged += new EventHandler<VoiLutChangedEventArgs>(DicomViewerTool_DicomImageVoiLutChanged);
-                mprTool.MouseMove += new VisualToolMouseEventHandler(dicomMprTool_MouseMove);
-                mprTool.MouseDown += new VisualToolMouseEventHandler(dicomMprTool_MouseDown);
+                // for each DICOM MPR tool
+                foreach (DicomMprTool mprTool in _dicomMprTools)
+                {
+                    mprTool.DicomViewerTool.DicomImageVoiLutChanged += new EventHandler<VoiLutChangedEventArgs>(DicomViewerTool_DicomImageVoiLutChanged);
+                    mprTool.MouseMove += new VisualToolMouseEventHandler(dicomMprTool_MouseMove);
+                    mprTool.MouseDown += new VisualToolMouseEventHandler(dicomMprTool_MouseDown);
 
-                DicomMprFillDataProgressTextOverlay loadingProgressOverlay = new DicomMprFillDataProgressTextOverlay();
-                mprTool.TextOverlay.Add(loadingProgressOverlay);
+                    DicomMprFillDataProgressTextOverlay loadingProgressOverlay = new DicomMprFillDataProgressTextOverlay();
+                    mprTool.TextOverlay.Add(loadingProgressOverlay);
+                }
+
+                // shows the slices on viewers
+                _visualizationController.ShowSliceInViewer(imageViewer1, _slices[0]);
+                _visualizationController.ShowSliceInViewer(imageViewer2, _slices[1]);
+                _visualizationController.ShowSliceInViewer(imageViewer3, _slices[2]);
+
+                if (oldVisualizationController != null)
+                {
+                    useInterpolationToolStripMenuItem.Checked = true;
+
+                    oldVisualizationController.SetProperties(_visualizationController);
+                    Set3DAxisVisibility(show3DAxisToolStripMenuItem.Checked);
+
+                    oldVisualizationController.Dispose();
+                }
+
+                imageViewer1.Focus();
+
+                return true;
             }
-
-            // shows the slices on viewers
-            _visualizationController.ShowSliceInViewer(imageViewer1, _slices[0]);
-            _visualizationController.ShowSliceInViewer(imageViewer2, _slices[1]);
-            _visualizationController.ShowSliceInViewer(imageViewer3, _slices[2]);
-
-            if (oldVisualizationController != null)
-            {
-                useInterpolationToolStripMenuItem.Checked = true;
-
-                oldVisualizationController.SetProperties(_visualizationController);
-                Set3DAxisVisibility(show3DAxisToolStripMenuItem.Checked);
-
-                oldVisualizationController.Dispose();
-            }
-
-            imageViewer1.Focus();
-
-            return true;
         }
 
         /// <summary>
@@ -1046,200 +1126,6 @@ namespace DicomMprViewerDemo
             _mprParametersForm.MprImage = dicomMprTool.MprImageTool.MprImage;
             _mprParametersForm.Slice = dicomMprTool.MprImageTool.FocusedSlice;
             _mprParametersForm.UpdateValues();
-        }
-
-        /// <summary>
-        /// Adds the DICOM files to the series.
-        /// </summary>
-        /// <param name="filesPath">Files path.</param>
-        private void AddDicomFilesToSeries(params string[] filesPath)
-        {
-            try
-            {
-                List<DicomFile> filesForLoadPresentationState = new List<DicomFile>();
-                string dirPath = null;
-
-                // show action label and progress bar
-                actionLabel.Visible = true;
-                progressBar1.Visible = true;
-                progressBar1.Maximum = filesPath.Length;
-                progressBar1.Value = 0;
-
-                bool skipCorruptedFiles = false;
-
-                foreach (string filePath in filesPath)
-                {
-                    if (dirPath == null)
-                        dirPath = Path.GetDirectoryName(filePath);
-
-                    // set action info
-                    actionLabel.Text = string.Format("Loading {0}", Path.GetFileName(filePath));
-                    // update progress bar
-                    progressBar1.Value++;
-                    statusStrip1.Update();
-
-                    DicomFile dicomFile = null;
-                    try
-                    {
-                        // if the series already contains the specified DICOM file
-                        if (_dicomSeriesController.Contains(filePath))
-                        {
-                            DemosTools.ShowInfoMessage(string.Format("The series already contains DICOM file \"{0}\".", Path.GetFileName(filePath)));
-                            return;
-                        }
-
-                        // instance number of new DICOM file
-                        int newDicomFileInstanceNumber = 0;
-                        // add DICOM file to the current series of DICOM images and get the DICOM images of new DICOM file
-                        ImageCollection newDicomImages =
-                            _dicomSeriesController.AddDicomFileToSeries(filePath, out dicomFile, out newDicomFileInstanceNumber);
-
-                        // if DICOM file does not contain images
-                        if (dicomFile.Pages.Count == 0)
-                        {
-                            // show message for user
-                            DemosTools.ShowInfoMessage("DICOM file does not contain image.");
-                        }
-                        else
-                        {
-                            // update frame count in series
-                            imageViewerToolStrip1.PageCount = _images.Count + dicomFile.Pages.Count;
-
-                            // get image index in image collection of current DICOM file
-                            int imageIndex = GetImageIndexInImageCollectionForNewImage(newDicomFileInstanceNumber);
-
-                            try
-                            {
-                                // insert images to the specified index
-                                _images.InsertRange(imageIndex, newDicomImages.ToArray());
-                            }
-                            catch
-                            {
-                                // remove new DICOM images from image collection of image viewer
-                                foreach (VintasoftImage newDicomImage in newDicomImages)
-                                    _images.Remove(newDicomImage);
-
-                                // close new DICOM file
-                                _dicomSeriesController.CloseDicomFile(dicomFile);
-                                dicomFile = null;
-
-                                // update frame count in series
-                                imageViewerToolStrip1.PageCount = _images.Count;
-
-                                throw;
-                            }
-                        }
-
-                        // update header of form
-                        this.Text = string.Format(_titlePrefix, Path.GetFileName(filePath));
-                    }
-                    catch (Exception ex)
-                    {
-                        // close file
-                        if (dicomFile != null)
-                            _dicomSeriesController.CloseDicomFile(dicomFile);
-
-                        if (!skipCorruptedFiles)
-                        {
-                            if (filesPath.Length == 1)
-                            {
-                                DemosTools.ShowErrorMessage(ex);
-
-                                dirPath = null;
-                                CloseDicomSeries();
-                            }
-                            else
-                            {
-                                string exceptionMessage = string.Format(
-                                    "The file '{0}' can not be opened:\r\n\"{1}\"\r\nDo you want to continue anyway?",
-                                    Path.GetFileName(filePath), DemosTools.GetFullExceptionMessage(ex).Trim());
-                                if (MessageBox.Show(
-                                    exceptionMessage,
-                                    "Error",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Error) == DialogResult.No)
-                                {
-                                    dirPath = null;
-                                    CloseDicomSeries();
-                                    break;
-                                }
-                            }
-
-                            skipCorruptedFiles = true;
-                        }
-                    }
-                }
-
-                // hide action label and progress bar
-                actionLabel.Text = string.Empty;
-                actionLabel.Visible = false;
-                progressBar1.Visible = false;
-
-                // update UI
-                UpdateUI();
-            }
-            finally
-            {
-                // hide action label and progress bar
-                actionLabel.Text = string.Empty;
-                actionLabel.Visible = false;
-                progressBar1.Visible = false;
-            }
-        }
-
-        /// <summary>
-        /// Returns the index, in image collection, where the new DICOM image must be inserted.
-        /// </summary>
-        /// <param name="dicomFileInstanceNumber">The DICOM file instance number of new image.</param>
-        /// <returns>
-        /// The image index of image collection.
-        /// </returns>
-        private int GetImageIndexInImageCollectionForNewImage(int newImageDicomFileInstanceNumber)
-        {
-            int imageIndex = _images.Count;
-            while (imageIndex > 0)
-            {
-                // get DICOM file instance number for the image from image collection
-                int imageDicomFileInstanceNumber =
-                    _dicomSeriesController.GetDicomFileInstanceNumber(_images[imageIndex - 1]);
-
-                // if new image must be inserted after the image from image collection
-                if (newImageDicomFileInstanceNumber > imageDicomFileInstanceNumber)
-                    break;
-
-                imageIndex--;
-            }
-            return imageIndex;
-        }
-
-        /// <summary>
-        /// Closes series of DICOM frames.
-        /// </summary>
-        private void CloseDicomSeries()
-        {
-            dicomMprToolInteractionModeToolStrip1.DicomMprTools = null;
-
-            if (_visualizationController != null)
-                _visualizationController.IsEnabled = false;
-
-            // if DICOM series has files
-            if (_dicomSeriesController.FileCount > 0)
-            {
-                _mprSourceDataController.ClearSourceMprData();
-
-                imageViewerToolStrip1.SelectedPageIndex = -1;
-                imageViewerToolStrip1.PageCount = 0;
-
-                // clear image collection of image viewer and dispose all images
-                _images.ClearAndDisposeItems();
-
-                _dicomSeriesController.CloseSeries();
-
-                this.Text = string.Format(_titlePrefix, "(Untitled)");
-
-                // update the UI
-                UpdateUI();
-            }
         }
 
         /// <summary>
@@ -1362,6 +1248,7 @@ namespace DicomMprViewerDemo
                 if (WindowState == FormWindowState.Maximized)
                     WindowState = FormWindowState.Normal;
                 WindowState = FormWindowState.Maximized;
+                statusStrip1.Visible = false;
             }
             else
             {
@@ -1374,6 +1261,7 @@ namespace DicomMprViewerDemo
                 WindowState = FormWindowState.Normal;
                 if (WindowState != _previousWindowState)
                     WindowState = _previousWindowState;
+                statusStrip1.Visible = true;
             }
         }
 

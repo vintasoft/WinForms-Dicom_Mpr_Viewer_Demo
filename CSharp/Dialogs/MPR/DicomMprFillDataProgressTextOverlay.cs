@@ -90,9 +90,9 @@ namespace DicomMprViewerDemo
         /// Acivates this instance on the specified viewer.
         /// </summary>
         /// <param name="viewer">The viewer.</param>
-        public override void Acivate(Vintasoft.Imaging.UI.ImageViewer viewer)
+        public override void Activate(Vintasoft.Imaging.UI.ImageViewer viewer)
         {
-            base.Acivate(viewer);
+            base.Activate(viewer);
             if (Tool != null && Tool.MprImageTool != null)
                 MprImage = Tool.MprImageTool.MprImage;
         }
