@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -142,6 +143,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the location on image in pixels.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Point LocationOnImage
         {
             get
@@ -158,6 +160,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the transformation from an image space to the slice space.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public PointFTransform TransformFromImageToSlice
         {
             get
@@ -174,6 +177,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the displayed image.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public VintasoftImage DisplayedImage
         {
             get
@@ -190,6 +194,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the <see cref="MprImage"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MprImage MprImage
         {
             get
@@ -206,6 +211,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the <see cref="MprSlice"/>.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MprSlice Slice
         {
             get

@@ -30,7 +30,6 @@ namespace DicomMprViewerDemo
         {
             Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard1 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
             Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings1 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
-            this.mprSlicePositionVScrollBar = new System.Windows.Forms.VScrollBar();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
             this.imageViewer1 = new Vintasoft.Imaging.UI.ImageViewer();
@@ -81,17 +80,6 @@ namespace DicomMprViewerDemo
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mprSlicePositionVScrollBar
-            // 
-            this.mprSlicePositionVScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mprSlicePositionVScrollBar.LargeChange = 1;
-            this.mprSlicePositionVScrollBar.Location = new System.Drawing.Point(720, 0);
-            this.mprSlicePositionVScrollBar.Name = "mprSlicePositionVScrollBar";
-            this.mprSlicePositionVScrollBar.Size = new System.Drawing.Size(17, 504);
-            this.mprSlicePositionVScrollBar.TabIndex = 1;
-            this.mprSlicePositionVScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.mprSlicePositionVScrollBar_Scroll);
-            // 
             // toolStripPanel
             // 
             this.toolStripPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -110,14 +98,14 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.CanChangeSizeMode = false;
             this.imageViewerToolStrip1.CanOpenFile = false;
             this.imageViewerToolStrip1.CanPrint = false;
+            this.imageViewerToolStrip1.CaptureFromCameraButtonEnabled = true;
             this.imageViewerToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.imageViewerToolStrip1.ImageViewer = this.imageViewer1;
-            this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Location = new System.Drawing.Point(3, 0);
             this.imageViewerToolStrip1.Name = "imageViewerToolStrip1";
             this.imageViewerToolStrip1.PageCount = 0;
             this.imageViewerToolStrip1.PrintButtonEnabled = true;
-            this.imageViewerToolStrip1.SaveButtonEnabled = true;
+            this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Size = new System.Drawing.Size(310, 25);
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
@@ -133,9 +121,15 @@ namespace DicomMprViewerDemo
             this.imageViewer1.BackColor = System.Drawing.Color.Transparent;
             this.imageViewer1.CenterImage = true;
             this.imageViewer1.Clipboard = winFormsSystemClipboard1;
+            this.imageViewer1.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.imageViewer1.FastScrollingInterval = 10;
+            this.imageViewer1.FastScrollingMinDistance = 5F;
+            this.imageViewer1.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.imageViewer1.FastScrollingScale = 0.5F;
             this.imageViewer1.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
             this.imageViewer1.ImageRenderingSettings = renderingSettings1;
             this.imageViewer1.ImageRotationAngle = 0;
+            this.imageViewer1.IsFastScrollingEnabled = true;
             this.imageViewer1.Location = new System.Drawing.Point(0, 0);
             this.imageViewer1.Name = "imageViewer1";
             this.imageViewer1.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -143,7 +137,7 @@ namespace DicomMprViewerDemo
             this.imageViewer1.ShortcutDelete = System.Windows.Forms.Shortcut.None;
             this.imageViewer1.ShortcutInsert = System.Windows.Forms.Shortcut.None;
             this.imageViewer1.ShortcutSelectAll = System.Windows.Forms.Shortcut.None;
-            this.imageViewer1.Size = new System.Drawing.Size(720, 504);
+            this.imageViewer1.Size = new System.Drawing.Size(737, 504);
             this.imageViewer1.SizeMode = Vintasoft.Imaging.UI.ImageSizeMode.Zoom;
             this.imageViewer1.TabIndex = 0;
             this.imageViewer1.Text = "imageViewer1";
@@ -187,7 +181,6 @@ namespace DicomMprViewerDemo
             // 
             this.viewerAndScrollPanel.Controls.Add(this.statusStrip1);
             this.viewerAndScrollPanel.Controls.Add(this.imageViewer1);
-            this.viewerAndScrollPanel.Controls.Add(this.mprSlicePositionVScrollBar);
             this.viewerAndScrollPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.viewerAndScrollPanel.Location = new System.Drawing.Point(0, 0);
             this.viewerAndScrollPanel.Name = "viewerAndScrollPanel";
@@ -512,7 +505,6 @@ namespace DicomMprViewerDemo
         #endregion
 
         private Vintasoft.Imaging.UI.ImageViewer imageViewer1;
-        private System.Windows.Forms.VScrollBar mprSlicePositionVScrollBar;
         private System.Windows.Forms.ToolStripPanel toolStripPanel;
         private DemosCommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
         private DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip dicomMprToolInteractionModeToolStrip1;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 using Vintasoft.Imaging.Dicom.Mpr;
@@ -33,6 +34,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Gets or sets the slice settings.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public VisualMprSliceAppearanceSettings SliceSettings
         {
             get
@@ -54,6 +56,7 @@ namespace DicomMprViewerDemo
         /// <b>True</b> - the control should show settings for curvilinear slice;
         /// <b>false</b> - the control should NOT show settings for curvilinear slice.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowCurvilinearSliceSettings
         {
             get

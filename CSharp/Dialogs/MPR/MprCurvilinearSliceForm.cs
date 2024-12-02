@@ -163,6 +163,8 @@ namespace DicomMprViewerDemo
             dicomMprToolInteractionModeToolStrip1.DicomMprTools = new DicomMprTool[] {
                 _planarSliceDicomMprTool, _curvilinearSliceDicomMprTool };
             view_negativeImageToolStripMenuItem.Checked = isNegativeImage;
+            _planarSliceDicomMprTool.MprImageTool.AllowRotate3D = false;
+            _planarSliceDicomMprTool.MprImageTool.ScrollProperties.Anchor = AnchorType.Left;
 
             // set appearance to DicomMprTool
             imageToolAppearanceSettings.SetMprToolSettings(_planarSliceDicomMprTool.MprImageTool);

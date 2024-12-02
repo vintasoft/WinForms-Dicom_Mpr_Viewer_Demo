@@ -162,6 +162,7 @@ namespace DicomMprViewerDemo
             // create DicomMprTool
             _dicomMprTool = _visualizationController.GetDicomMprToolAssociatedWithImageViewer(imageViewer1);
             dicomMprToolInteractionModeToolStrip1.DicomMprTools = new DicomMprTool[] { _dicomMprTool };
+            _dicomMprTool.MprImageTool.AllowRotate3D = false;
             _dicomMprTool.DicomViewerTool.DicomImageVoiLut = _defaultVoiLut;
             _dicomMprTool.DicomViewerTool.IsImageNegative = isNegativeImage;
             view_negativeImageToolStripMenuItem.Checked = isNegativeImage;
@@ -182,13 +183,8 @@ namespace DicomMprViewerDemo
             // set scroll bar and tool strip settings
 
             imageViewerToolStrip1.UseImageViewerImages = false;
-            int longAxisLength = GetPerpendicularAxisLengthInPixels(currentSlice);
-            mprSlicePositionVScrollBar.LargeChange = longAxisLength / 10;
-            mprSlicePositionVScrollBar.Maximum = longAxisLength + 1 + mprSlicePositionVScrollBar.LargeChange;
-            imageViewerToolStrip1.PageCount = longAxisLength;
-
-            mprSlicePositionVScrollBar.Value = GetPerpendicularAxisPositionPixels(currentSlice);
-            imageViewerToolStrip1.SelectedPageIndex = mprSlicePositionVScrollBar.Value;
+            imageViewerToolStrip1.PageCount = GetPerpendicularAxisLengthInPixels(currentSlice);
+            imageViewerToolStrip1.SelectedPageIndex = GetPerpendicularAxisPositionPixels(currentSlice);
 
             currentSlice.PropertyChanged += new EventHandler<ObjectPropertyChangedEventArgs>(currentSlice_PropertyChanged);
 
@@ -733,28 +729,6 @@ namespace DicomMprViewerDemo
         #endregion
 
 
-        #region Scrollbar
-
-        /// <summary>
-        /// Moves the slice.
-        /// </summary>
-        private void mprSlicePositionVScrollBar_Scroll(object sender, ScrollEventArgs e)
-        {
-            if (!_isInitialized)
-                return;
-
-            int value = e.NewValue;
-            int currentValue = GetPerpendicularAxisPositionPixels(_currentSlice);
-
-            if (value != currentValue)
-            {
-                SetPerpendicularAxisPositionPixels(_currentSlice, value);
-            }
-        }
-
-        #endregion
-
-
         #region Image viewer toolstrip
 
         /// <summary>
@@ -817,9 +791,9 @@ namespace DicomMprViewerDemo
         /// </returns>
         private int GetPerpendicularAxisPositionPixels(MprPlanarSlice slice)
         {
-            int xAxisPx = _visualizationController.MprImage.XDataLength;
-            int yAxisPx = _visualizationController.MprImage.YDataLength;
-            int zAxisPx = _visualizationController.MprImage.ZDataLength;
+            int xAxisPx = _visualizationController.MprImage.XDataLength - 1;
+            int yAxisPx = _visualizationController.MprImage.YDataLength - 1;
+            int zAxisPx = _visualizationController.MprImage.ZDataLength - 1;
             double xAxisMm = _visualizationController.MprImage.XLength;
             double yAxisMm = _visualizationController.MprImage.YLength;
             double zAxisMm = _visualizationController.MprImage.ZLength;
@@ -876,9 +850,9 @@ namespace DicomMprViewerDemo
         {
             VintasoftPoint3D newLocation = slice.Location;
 
-            int xAxisPx = _visualizationController.MprImage.XDataLength;
-            int yAxisPx = _visualizationController.MprImage.YDataLength;
-            int zAxisPx = _visualizationController.MprImage.ZDataLength;
+            int xAxisPx = _visualizationController.MprImage.XDataLength - 1;
+            int yAxisPx = _visualizationController.MprImage.YDataLength - 1;
+            int zAxisPx = _visualizationController.MprImage.ZDataLength - 1;
             double xAxisMm = _visualizationController.MprImage.XLength;
             double yAxisMm = _visualizationController.MprImage.YLength;
             double zAxisMm = _visualizationController.MprImage.ZLength;
@@ -932,10 +906,6 @@ namespace DicomMprViewerDemo
             // if value must be changed in tool strip
             if (imageViewerToolStrip1.SelectedPageIndex != perpendicularAxisPosition)
                 imageViewerToolStrip1.SelectedPageIndex = perpendicularAxisPosition;
-
-            // if value must be changed in scroll bar
-            if (mprSlicePositionVScrollBar.Value != perpendicularAxisPosition)
-                mprSlicePositionVScrollBar.Value = perpendicularAxisPosition;
         }
 
         /// <summary>

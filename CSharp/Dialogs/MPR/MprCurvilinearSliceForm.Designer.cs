@@ -29,7 +29,9 @@ namespace DicomMprViewerDemo
         private void InitializeComponent()
         {
             Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard1 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
+            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings1 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
             Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard2 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
+            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings2 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.viewersPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -129,7 +131,15 @@ namespace DicomMprViewerDemo
             this.planarSliceImageViewer.CenterImage = true;
             this.planarSliceImageViewer.Clipboard = winFormsSystemClipboard1;
             this.planarSliceImageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.planarSliceImageViewer.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.planarSliceImageViewer.FastScrollingInterval = 10;
+            this.planarSliceImageViewer.FastScrollingMinDistance = 5F;
+            this.planarSliceImageViewer.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.planarSliceImageViewer.FastScrollingScale = 0.5F;
             this.planarSliceImageViewer.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
+            this.planarSliceImageViewer.ImageRenderingSettings = renderingSettings1;
+            this.planarSliceImageViewer.ImageRotationAngle = 0;
+            this.planarSliceImageViewer.IsFastScrollingEnabled = true;
             this.planarSliceImageViewer.Location = new System.Drawing.Point(0, 0);
             this.planarSliceImageViewer.Name = "planarSliceImageViewer";
             this.planarSliceImageViewer.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -147,7 +157,15 @@ namespace DicomMprViewerDemo
             this.curvilinearSliceImageViewer.CenterImage = true;
             this.curvilinearSliceImageViewer.Clipboard = winFormsSystemClipboard2;
             this.curvilinearSliceImageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.curvilinearSliceImageViewer.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
+            this.curvilinearSliceImageViewer.FastScrollingInterval = 10;
+            this.curvilinearSliceImageViewer.FastScrollingMinDistance = 5F;
+            this.curvilinearSliceImageViewer.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
+            this.curvilinearSliceImageViewer.FastScrollingScale = 0.5F;
             this.curvilinearSliceImageViewer.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
+            this.curvilinearSliceImageViewer.ImageRenderingSettings = renderingSettings2;
+            this.curvilinearSliceImageViewer.ImageRotationAngle = 0;
+            this.curvilinearSliceImageViewer.IsFastScrollingEnabled = true;
             this.curvilinearSliceImageViewer.Location = new System.Drawing.Point(0, 0);
             this.curvilinearSliceImageViewer.Name = "curvilinearSliceImageViewer";
             this.curvilinearSliceImageViewer.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -171,8 +189,8 @@ namespace DicomMprViewerDemo
             // 
             // toolStripPanel
             // 
-            this.toolStripPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStripPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.toolStripPanel.Controls.Add(this.imageViewerToolStrip1);
             this.toolStripPanel.Controls.Add(this.dicomMprToolInteractionModeToolStrip1);
             this.toolStripPanel.Location = new System.Drawing.Point(0, 22);
@@ -188,14 +206,14 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.CanNavigate = false;
             this.imageViewerToolStrip1.CanOpenFile = false;
             this.imageViewerToolStrip1.CanPrint = false;
+            this.imageViewerToolStrip1.CaptureFromCameraButtonEnabled = true;
             this.imageViewerToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.imageViewerToolStrip1.ImageViewer = null;
-            this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Location = new System.Drawing.Point(3, 0);
             this.imageViewerToolStrip1.Name = "imageViewerToolStrip1";
             this.imageViewerToolStrip1.PageCount = 0;
             this.imageViewerToolStrip1.PrintButtonEnabled = true;
-            this.imageViewerToolStrip1.SaveButtonEnabled = true;
+            this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Size = new System.Drawing.Size(145, 25);
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
@@ -204,16 +222,14 @@ namespace DicomMprViewerDemo
             // dicomMprToolInteractionModeToolStrip1
             // 
             this.dicomMprToolInteractionModeToolStrip1.DicomMprTools = null;
-            this.dicomMprToolInteractionModeToolStrip1.DisabledInteractionModes = null;
             this.dicomMprToolInteractionModeToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(152, 0);
             this.dicomMprToolInteractionModeToolStrip1.Name = "dicomMprToolInteractionModeToolStrip1";
-            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(249, 25);
+            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(218, 25);
             this.dicomMprToolInteractionModeToolStrip1.SupportedInteractionModes = new Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode[] {
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Browse,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Pan,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Roll,
-        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Rotate3D,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.WindowLevel,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Zoom,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure};
@@ -253,77 +269,77 @@ namespace DicomMprViewerDemo
             // 
             this.file_saveImageToolStripMenuItem.Name = "file_saveImageToolStripMenuItem";
             this.file_saveImageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.file_saveImageToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_saveImageToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_saveImageToolStripMenuItem.Text = "Save Image...";
             this.file_saveImageToolStripMenuItem.Click += new System.EventHandler(this.file_saveImageToolStripMenuItem_Click);
             // 
             // file_saveAllImagesToolStripMenuItem
             // 
             this.file_saveAllImagesToolStripMenuItem.Name = "file_saveAllImagesToolStripMenuItem";
-            this.file_saveAllImagesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.S)));
-            this.file_saveAllImagesToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_saveAllImagesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.file_saveAllImagesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_saveAllImagesToolStripMenuItem.Text = "Save All Images...";
             this.file_saveAllImagesToolStripMenuItem.Click += new System.EventHandler(this.file_saveAllImagesToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(274, 6);
             // 
             // file_copyImageToClipboardToolStripMenuItem
             // 
             this.file_copyImageToClipboardToolStripMenuItem.Name = "file_copyImageToClipboardToolStripMenuItem";
             this.file_copyImageToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.file_copyImageToClipboardToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_copyImageToClipboardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_copyImageToClipboardToolStripMenuItem.Text = "Copy Image To Clipboard";
             this.file_copyImageToClipboardToolStripMenuItem.Click += new System.EventHandler(this.file_copyImageToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(274, 6);
             // 
             // file_saveImageSliceToolStripMenuItem
             // 
             this.file_saveImageSliceToolStripMenuItem.Name = "file_saveImageSliceToolStripMenuItem";
             this.file_saveImageSliceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.file_saveImageSliceToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_saveImageSliceToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_saveImageSliceToolStripMenuItem.Text = "Save Image Slice...";
             this.file_saveImageSliceToolStripMenuItem.Click += new System.EventHandler(this.file_saveImageSliceToolStripMenuItem_Click);
             // 
             // file_saveAllImagesSlicesToolStripMenuItem
             // 
             this.file_saveAllImagesSlicesToolStripMenuItem.Name = "file_saveAllImagesSlicesToolStripMenuItem";
-            this.file_saveAllImagesSlicesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
-                        | System.Windows.Forms.Keys.S)));
-            this.file_saveAllImagesSlicesToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_saveAllImagesSlicesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.file_saveAllImagesSlicesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_saveAllImagesSlicesToolStripMenuItem.Text = "Save All Images Slices...";
             this.file_saveAllImagesSlicesToolStripMenuItem.Click += new System.EventHandler(this.file_saveAllImagesSlicesToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(274, 6);
             // 
             // file_copyImageSliceToClipboardToolStripMenuItem
             // 
             this.file_copyImageSliceToClipboardToolStripMenuItem.Name = "file_copyImageSliceToClipboardToolStripMenuItem";
             this.file_copyImageSliceToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.file_copyImageSliceToClipboardToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.file_copyImageSliceToClipboardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.file_copyImageSliceToClipboardToolStripMenuItem.Text = "Copy Image Slice To Clipboard";
             this.file_copyImageSliceToClipboardToolStripMenuItem.Click += new System.EventHandler(this.file_copyImageSliceToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(276, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(274, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.file_exitToolStripMenuItem_Click);
             // 
@@ -535,9 +551,9 @@ namespace DicomMprViewerDemo
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 662);
             this.Controls.Add(this.mainPanel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "MprCurvilinearSliceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MPR Curvilinear Slice";

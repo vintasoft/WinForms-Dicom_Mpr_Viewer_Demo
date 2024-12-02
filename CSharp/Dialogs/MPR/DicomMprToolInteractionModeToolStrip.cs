@@ -12,6 +12,7 @@ using Vintasoft.Imaging.UI.VisualTools;
 
 using DemosCommonCode;
 using DemosCommonCode.CustomControls;
+using System.ComponentModel;
 
 namespace DicomMprViewerDemo
 {
@@ -168,6 +169,7 @@ namespace DicomMprViewerDemo
         /// <value>
         /// Default value is <b>null</b>.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public DicomMprTool[] DicomMprTools
         {
             get
@@ -221,6 +223,7 @@ namespace DicomMprViewerDemo
         /// Gets or sets the supported interaction modes of toolbar.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown if <i>value</i> is <b>null</b>.</exception>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public DicomMprToolInteractionMode[] SupportedInteractionModes
         {
             get
@@ -250,6 +253,7 @@ namespace DicomMprViewerDemo
         /// <value>
         /// Default value is <b>null</b>.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public DicomMprToolInteractionMode[] DisabledInteractionModes
         {
             get

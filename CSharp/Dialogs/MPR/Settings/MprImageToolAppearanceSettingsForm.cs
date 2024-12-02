@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -117,6 +118,7 @@ namespace DicomMprViewerDemo
         /// <value>
         /// <b>true</b> if color mark settings can be changed; otherwise, <b>false</b>.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CanChangeColorMarkSettings
         {
             get
@@ -144,6 +146,7 @@ namespace DicomMprViewerDemo
         /// <value>
         /// <b>true</b> if the slice type can be changed; otherwise, <b>false</b>.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CanChangeSliceType
         {
             get

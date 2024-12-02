@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 using Vintasoft.Imaging.Codecs.Encoders;
@@ -37,6 +38,7 @@ namespace DemosCommonCode.Imaging.Codecs.Dialogs
         /// <summary>
         /// Gets or sets a GIF encoder settings.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public GifEncoderSettings EncoderSettings
         {
             get
@@ -62,6 +64,7 @@ namespace DemosCommonCode.Imaging.Codecs.Dialogs
         /// <b>True</b> - encoder can add images to the existing GIF file;
         /// <b>false</b> - encoder can NOT add images to the existing GIF file.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CanAddImagesToExistingFile
         {
             get
@@ -81,6 +84,7 @@ namespace DemosCommonCode.Imaging.Codecs.Dialogs
         /// <b>True</b> - encoder must add images to the existing GIF file;
         /// <b>false</b> - encoder must delete the existing GIF file if necessary, create new GIF file and add images to the new GIF file.
         /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool AddImagesToExistingFile
         {
             get
