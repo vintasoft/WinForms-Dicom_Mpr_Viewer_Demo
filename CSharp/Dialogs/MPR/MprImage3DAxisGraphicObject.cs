@@ -126,7 +126,7 @@ namespace Vintasoft.Imaging.Dicom.Mpr.UI
         }
 
         /// <summary>
-        /// Determines that point belongs the object.
+        /// Returns a value indicating whether point belongs the object.
         /// </summary>
         /// <param name="x">X coordinate of point in object space.</param>
         /// <param name="y">Y coordinate of point in object space.</param>
@@ -135,6 +135,22 @@ namespace Vintasoft.Imaging.Dicom.Mpr.UI
         /// otherwise, <b>false</b>.
         /// </returns>
         public override bool IsPointOnObject(float x, float y)
+        {
+            return IsPointOnObject(x, y, false);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether point belongs the object.
+        /// </summary>
+        /// <param name="x">X coordinate of point in object space.</param>
+        /// <param name="y">Y coordinate of point in object space.</param>
+        /// <param name="ignoreContainmentCheckDistance">A value indicating whether the point must be checked on the object only
+        /// (ignore the "containment" region around object that is used for object selection).</param>
+        /// <returns>
+        /// <b>true</b> if point belongs the object;
+        /// otherwise, <b>false</b>.
+        /// </returns>
+        public override bool IsPointOnObject(float x, float y, bool ignoreContainmentCheckDistance)
         {
             return false;
         }

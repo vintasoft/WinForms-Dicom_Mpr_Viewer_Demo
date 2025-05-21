@@ -329,6 +329,9 @@ namespace DemosCommonCode.Imaging.Codecs
                         return true;
                     }
 
+                case "Psd":
+                    return true;
+
 #if NETCOREAPP
                 case "Webp":
                     using (WebpEncoderSettingsForm webpEncoderSettingsForm = new WebpEncoderSettingsForm())
