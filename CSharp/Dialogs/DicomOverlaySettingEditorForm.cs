@@ -274,6 +274,8 @@ namespace DicomMprViewerDemo
             _supportedItems.Add(new MprPlanarSliceLocationTextOverlay());
             _supportedItems.Add(new MprPlanarSliceThicknessTextOverlay());
 
+            _supportedItems.Add(new MprImagePointLuminanceTextOverlay());
+
 
             _supportedItems.Sort(TextOverlayComparer);
             foreach (TextOverlay textOverlay in _supportedItems)

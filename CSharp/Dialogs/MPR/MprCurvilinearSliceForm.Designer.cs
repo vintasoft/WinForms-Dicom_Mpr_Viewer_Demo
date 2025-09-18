@@ -28,10 +28,6 @@ namespace DicomMprViewerDemo
         /// </summary>
         private void InitializeComponent()
         {
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard1 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings1 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard2 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings2 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.viewersPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -67,6 +63,7 @@ namespace DicomMprViewerDemo
             this.view_showAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.view_showPatientDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.view_showMPRParametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.view_showSlicePropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.view_useInterpolationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.view_automaticallyChangeZoomWhenSliceBuildingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -129,17 +126,8 @@ namespace DicomMprViewerDemo
             // 
             this.planarSliceImageViewer.BackColor = System.Drawing.Color.Black;
             this.planarSliceImageViewer.CenterImage = true;
-            this.planarSliceImageViewer.Clipboard = winFormsSystemClipboard1;
             this.planarSliceImageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.planarSliceImageViewer.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
-            this.planarSliceImageViewer.FastScrollingInterval = 10;
-            this.planarSliceImageViewer.FastScrollingMinDistance = 5F;
-            this.planarSliceImageViewer.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
-            this.planarSliceImageViewer.FastScrollingScale = 0.5F;
             this.planarSliceImageViewer.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.planarSliceImageViewer.ImageRenderingSettings = renderingSettings1;
-            this.planarSliceImageViewer.ImageRotationAngle = 0;
-            this.planarSliceImageViewer.IsFastScrollingEnabled = true;
             this.planarSliceImageViewer.Location = new System.Drawing.Point(0, 0);
             this.planarSliceImageViewer.Name = "planarSliceImageViewer";
             this.planarSliceImageViewer.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -155,17 +143,8 @@ namespace DicomMprViewerDemo
             // 
             this.curvilinearSliceImageViewer.BackColor = System.Drawing.Color.Black;
             this.curvilinearSliceImageViewer.CenterImage = true;
-            this.curvilinearSliceImageViewer.Clipboard = winFormsSystemClipboard2;
             this.curvilinearSliceImageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.curvilinearSliceImageViewer.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
-            this.curvilinearSliceImageViewer.FastScrollingInterval = 10;
-            this.curvilinearSliceImageViewer.FastScrollingMinDistance = 5F;
-            this.curvilinearSliceImageViewer.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
-            this.curvilinearSliceImageViewer.FastScrollingScale = 0.5F;
             this.curvilinearSliceImageViewer.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.curvilinearSliceImageViewer.ImageRenderingSettings = renderingSettings2;
-            this.curvilinearSliceImageViewer.ImageRotationAngle = 0;
-            this.curvilinearSliceImageViewer.IsFastScrollingEnabled = true;
             this.curvilinearSliceImageViewer.Location = new System.Drawing.Point(0, 0);
             this.curvilinearSliceImageViewer.Name = "curvilinearSliceImageViewer";
             this.curvilinearSliceImageViewer.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -211,21 +190,20 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.ImageViewer = null;
             this.imageViewerToolStrip1.Location = new System.Drawing.Point(3, 0);
             this.imageViewerToolStrip1.Name = "imageViewerToolStrip1";
-            this.imageViewerToolStrip1.PageCount = 0;
             this.imageViewerToolStrip1.PrintButtonEnabled = true;
             this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Size = new System.Drawing.Size(145, 25);
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
-            this.imageViewerToolStrip1.UseImageViewerImages = true;
             // 
             // dicomMprToolInteractionModeToolStrip1
             // 
             this.dicomMprToolInteractionModeToolStrip1.DicomMprTools = null;
+            this.dicomMprToolInteractionModeToolStrip1.DisabledInteractionModes = null;
             this.dicomMprToolInteractionModeToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(152, 0);
             this.dicomMprToolInteractionModeToolStrip1.Name = "dicomMprToolInteractionModeToolStrip1";
-            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(218, 25);
+            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(195, 25);
             this.dicomMprToolInteractionModeToolStrip1.SupportedInteractionModes = new Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode[] {
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Browse,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Pan,
@@ -358,6 +336,7 @@ namespace DicomMprViewerDemo
             this.view_showAxisToolStripMenuItem,
             this.view_showPatientDirectionToolStripMenuItem,
             this.view_showMPRParametersToolStripMenuItem,
+            this.view_showSlicePropertiesToolStripMenuItem,
             this.toolStripSeparator3,
             this.view_useInterpolationToolStripMenuItem,
             this.view_automaticallyChangeZoomWhenSliceBuildingToolStripMenuItem,
@@ -462,8 +441,15 @@ namespace DicomMprViewerDemo
             // 
             this.view_showMPRParametersToolStripMenuItem.Name = "view_showMPRParametersToolStripMenuItem";
             this.view_showMPRParametersToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
-            this.view_showMPRParametersToolStripMenuItem.Text = "Show MPR Parameters";
+            this.view_showMPRParametersToolStripMenuItem.Text = "Show MPR Parameters...";
             this.view_showMPRParametersToolStripMenuItem.Click += new System.EventHandler(this.view_showMPRParametersToolStripMenuItem_Click);
+            // 
+            // view_showSlicePropertiesToolStripMenuItem
+            // 
+            this.view_showSlicePropertiesToolStripMenuItem.Name = "view_showSlicePropertiesToolStripMenuItem";
+            this.view_showSlicePropertiesToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.view_showSlicePropertiesToolStripMenuItem.Text = "Show Slice Properties...";
+            this.view_showSlicePropertiesToolStripMenuItem.Click += new System.EventHandler(this.view_showSlicePropertiesToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -620,6 +606,6 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem view_textOverlaySettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-
+        private System.Windows.Forms.ToolStripMenuItem view_showSlicePropertiesToolStripMenuItem;
     }
 }

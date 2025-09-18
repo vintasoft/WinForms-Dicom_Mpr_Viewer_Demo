@@ -22,6 +22,7 @@ using Vintasoft.Imaging.ImageProcessing;
 using Vintasoft.Imaging.Metadata;
 using Vintasoft.Imaging.UI;
 using Vintasoft.Imaging.UI.VisualTools;
+using Vintasoft.Imaging.UI.VisualTools.GraphicObjects;
 
 namespace DicomMprViewerDemo
 {
@@ -36,12 +37,12 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Controller of source data in MPR image.
         /// </summary>
-        MprSourceDataController _mprSourceDataController = new MprSourceDataController();
+        MprSourceDataController _mprSourceDataController;
 
         /// <summary>
         /// The MPR settings manager.
         /// </summary>
-        MprImageToolAppearanceSettings _mprSettingsManager = new MprImageToolAppearanceSettings();
+        MprImageToolAppearanceSettings _mprSettingsManager;
 
         /// <summary>
         /// The visualization controller that manages the visualization of MPR image in image viewers.
@@ -88,6 +89,17 @@ namespace DicomMprViewerDemo
         /// </summary> 
         bool _isMprCubeInitialized = false;
 
+        /// <summary>
+        /// Dictionary: the tool strip menu item => rulers units of measure.
+        /// </summary>
+        Dictionary<ToolStripMenuItem, UnitOfMeasure> _toolStripMenuItemToRulersUnitOfMeasure =
+            new Dictionary<ToolStripMenuItem, UnitOfMeasure>();
+
+        /// <summary>
+        /// Current rulers unit menu item.
+        /// </summary>
+        ToolStripMenuItem _currentRulersUnitOfMeasureMenuItem = null;
+
         #endregion
 
 
@@ -98,6 +110,9 @@ namespace DicomMprViewerDemo
         {
             // register the evaluation license for VintaSoft Imaging .NET SDK
             Vintasoft.Imaging.ImagingGlobalSettings.Register("REG_USER", "REG_EMAIL", "EXPIRATION_DATE", "REG_CODE");
+
+            _mprSourceDataController = new MprSourceDataController();
+            _mprSettingsManager = new MprImageToolAppearanceSettings();
 
             InitializeComponent();
 
@@ -489,6 +504,63 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
+        /// Handles the Click event of showRulersInViewerToolStripMenuItem object.
+        /// </summary>
+        private void showRulersInViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showRulersInViewerToolStripMenuItem.Checked ^= true;
+
+            SetRulersVisibility(showRulersInViewerToolStripMenuItem.Checked);
+        }
+
+        /// <summary>
+        /// Handles the Click event of rulersColorToolStripMenuItem object.
+        /// </summary>
+        private void rulersColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // init dialog
+
+            Color? color = null;
+            foreach (DicomMprTool mprTool in _dicomMprTools)
+            {
+                foreach (GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
+                {
+                    if (graphicalOverlay is ImageRulerGraphicObject)
+                    {
+                        ImageRulerGraphicObject ruler = (ImageRulerGraphicObject)graphicalOverlay;
+
+                        color = ruler.RulerPen.Color;
+                        break;
+                    }
+                }
+
+                if (color != null)
+                    break;
+            }
+            colorDialog1.Color = color.Value;
+
+
+            // show dialog
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // update rulers
+
+                foreach (DicomMprTool mprTool in _dicomMprTools)
+                {
+                    foreach (GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
+                    {
+                        if (graphicalOverlay is ImageRulerGraphicObject)
+                        {
+                            ImageRulerGraphicObject ruler = (ImageRulerGraphicObject)graphicalOverlay;
+
+                            ruler.RulerPen.Color = colorDialog1.Color;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Handles the Click event of showMPRParametersToolStripMenuItem object.
         /// </summary>
         private void showMPRParametersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -817,7 +889,7 @@ namespace DicomMprViewerDemo
                         if (seriesIdentifiers.Count > 0)
                             control.FocusedSeriesIdentifier = seriesIdentifiers[0];
                     }
-                    
+
                     InitializeMprCube(control.FocusedSeriesIdentifier);
                 }
             }
@@ -904,6 +976,9 @@ namespace DicomMprViewerDemo
             useInterpolationToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             showAxisToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             show3DAxisToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            showRulersInViewerToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            rulersColorToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            rulersUnitOfMeasureToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             showMPRParametersToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
             fullScreenToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
@@ -1088,7 +1163,28 @@ namespace DicomMprViewerDemo
                     useInterpolationToolStripMenuItem.Checked = true;
 
                     oldVisualizationController.SetProperties(_visualizationController);
+
+                    foreach (DicomMprTool mprTool in _dicomMprTools)
+                    {
+                        mprTool.DicomViewerTool.IsGraphicalOverlayVisible = true;
+
+                        foreach (GraphicObject overlay in mprTool.DicomViewerTool.GraphicalOverlay)
+                        {
+                            if (overlay is ImageRulerGraphicObject)
+                            {
+                                ImageRulerGraphicObject ruler = (ImageRulerGraphicObject)overlay;
+                                ruler.Padding = 20;
+                            }
+                        }
+
+                        mprTool.DicomViewerTool.GraphicalOverlay.Add(new MprImage3DAxisGraphicObject(_visualizationController));
+                        mprTool.TextOverlay.Insert(0, new MprImagePointLuminanceTextOverlay(AnchorType.BottomLeft));
+                    }
+
+                    InitUnitOfMeasuresForRulers();
+
                     Set3DAxisVisibility(show3DAxisToolStripMenuItem.Checked);
+                    SetRulersVisibility(showRulersInViewerToolStripMenuItem.Checked);
 
                     oldVisualizationController.Dispose();
                 }
@@ -1166,21 +1262,28 @@ namespace DicomMprViewerDemo
         /// <param name="visibility">The visibility of 3D axis.</param>
         private void Set3DAxisVisibility(bool visibility)
         {
-            if (visibility)
+            foreach (DicomMprTool mprTool in _dicomMprTools)
             {
-                foreach (DicomMprTool mprTool in _dicomMprTools)
+                foreach (GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
                 {
-                    mprTool.DicomViewerTool.GraphicalOverlay.Clear();
-                    mprTool.DicomViewerTool.GraphicalOverlay.Add(new MprImage3DAxisGraphicObject(_visualizationController));
-                    mprTool.DicomViewerTool.IsGraphicalOverlayVisible = true;
+                    if (graphicalOverlay is MprImage3DAxisGraphicObject)
+                        graphicalOverlay.IsVisible = visibility;
                 }
             }
-            else
+        }
+
+        /// <summary>
+        /// Changes the visibility of rulers.
+        /// </summary>
+        /// <param name="visibility">The visibility of rulers.</param>
+        private void SetRulersVisibility(bool visibility)
+        {
+            foreach (DicomMprTool mprTool in _dicomMprTools)
             {
-                foreach (DicomMprTool mprTool in _dicomMprTools)
+                foreach (Vintasoft.Imaging.UI.VisualTools.GraphicObjects.GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
                 {
-                    mprTool.DicomViewerTool.IsGraphicalOverlayVisible = false;
-                    mprTool.DicomViewerTool.GraphicalOverlay.Clear();
+                    if (graphicalOverlay is ImageRulerGraphicObject)
+                        graphicalOverlay.IsVisible = visibility;
                 }
             }
         }
@@ -1369,6 +1472,79 @@ namespace DicomMprViewerDemo
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Initializes the unit of measures for rulers.
+        /// </summary>
+        private void InitUnitOfMeasuresForRulers()
+        {
+            UnitOfMeasure[] unitsOfMeasure = new UnitOfMeasure[] {
+                UnitOfMeasure.Centimeters,
+                UnitOfMeasure.Inches,
+                UnitOfMeasure.Millimeters,
+                UnitOfMeasure.Pixels
+            };
+
+            rulersUnitOfMeasureToolStripMenuItem.DropDownItems.Clear();
+            _toolStripMenuItemToRulersUnitOfMeasure.Clear();
+
+            UnitOfMeasure? currentUnit = null;
+
+            foreach (DicomMprTool mprTool in _dicomMprTools)
+            {
+                foreach (GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
+                {
+                    if (graphicalOverlay is ImageRulerGraphicObject)
+                    {
+                        ImageRulerGraphicObject ruler = (ImageRulerGraphicObject)graphicalOverlay;
+
+                        currentUnit = ruler.UnitOfMeasure;
+                        break;
+                    }
+                }
+
+                if (currentUnit != null)
+                    break;
+            }
+
+
+            foreach (UnitOfMeasure unit in unitsOfMeasure)
+            {
+                ToolStripMenuItem menuItem = new ToolStripMenuItem(unit.ToString());
+                _toolStripMenuItemToRulersUnitOfMeasure.Add(menuItem, unit);
+                menuItem.Click += new EventHandler(rulersUnitOfMeasureToolStripMenuItem_Click);
+                if (unit == currentUnit)
+                {
+                    menuItem.Checked = true;
+                    _currentRulersUnitOfMeasureMenuItem = menuItem;
+                }
+                rulersUnitOfMeasureToolStripMenuItem.DropDownItems.Add(menuItem);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of rulersUnitOfMeasureToolStripMenuItem object.
+        /// </summary>
+        private void rulersUnitOfMeasureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _currentRulersUnitOfMeasureMenuItem.Checked = false;
+            _currentRulersUnitOfMeasureMenuItem = (ToolStripMenuItem)sender;
+
+            foreach (DicomMprTool mprTool in _dicomMprTools)
+            {
+                foreach (GraphicObject graphicalOverlay in mprTool.DicomViewerTool.GraphicalOverlay)
+                {
+                    if (graphicalOverlay is ImageRulerGraphicObject)
+                    {
+                        ImageRulerGraphicObject ruler = (ImageRulerGraphicObject)graphicalOverlay;
+
+                        ruler.UnitOfMeasure = _toolStripMenuItemToRulersUnitOfMeasure[_currentRulersUnitOfMeasureMenuItem];
+                    }
+                }
+            }
+
+            _currentRulersUnitOfMeasureMenuItem.Checked = true;
         }
 
         #endregion

@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
+
+using DemosCommonCode;
+using DemosCommonCode.Imaging;
+using DemosCommonCode.Imaging.Codecs;
 
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Codecs.ImageFiles.Dicom;
@@ -12,10 +17,6 @@ using Vintasoft.Imaging.ImageProcessing;
 using Vintasoft.Imaging.UI;
 using Vintasoft.Imaging.UI.VisualTools;
 using Vintasoft.Imaging.UI.VisualTools.UserInteraction;
-
-using DemosCommonCode;
-using DemosCommonCode.Imaging;
-using DemosCommonCode.Imaging.Codecs;
 
 
 namespace DicomMprViewerDemo
@@ -537,6 +538,62 @@ namespace DicomMprViewerDemo
                     _mprParametersForm.Close();
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles the showSlicePropertiesToolStripMenuItem_Click event of view object.
+        /// </summary>
+        private void view_showSlicePropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // get curvlinear slice tool
+            DicomMprTool dicomMprToolWithCurvlinearSlice = _visualizationController.GetDicomMprToolAssociatedWithImageViewer(curvilinearSliceImageViewer);
+            // get curvlinear slice
+            MprCurvilinearSlice curvlinearSlice = (MprCurvilinearSlice)dicomMprToolWithCurvlinearSlice.MprImageTool.FocusedSlice;
+
+            if (curvlinearSlice == null)
+                return;
+
+            // get curvlinear slice reference points
+            VintasoftPoint3D[] curvlinearSliceReferencePoints = curvlinearSlice.GetReferencePointsInWorldSpace();
+
+
+            // get planar slice tool
+            DicomMprTool dicomMprToolWithPlanarSlice = _visualizationController.GetDicomMprToolAssociatedWithImageViewer(planarSliceImageViewer);
+            // get planar slice
+            MprPlanarSlice planarSlice = (MprPlanarSlice)dicomMprToolWithPlanarSlice.MprImageTool.FocusedSlice;
+
+            // get transform from planar slice to viewer space
+            MprSliceView planarSliceView = dicomMprToolWithPlanarSlice.MprImageTool.FocusedSliceView;
+            PointFTransform transformFromPlanarSliceToViewerSpace = planarSliceView.GetPointTransform(planarSliceImageViewer, planarSliceImageViewer.Image);
+
+
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine("Curvlinear slice reference points");
+
+
+            for (int i = 0; i < curvlinearSliceReferencePoints.Length; i++)
+            {
+                // get point in world space
+                VintasoftPoint3D pointInWorldSpace = curvlinearSliceReferencePoints[i];
+                // calculate point in planar slice space
+                Vintasoft.Primitives.VintasoftPoint pointInPlanarSliceSpace = planarSlice.GetPointProjectionOnSlice(pointInWorldSpace);
+                // calculate point in viewer space
+                PointF pointInViewerSpace = transformFromPlanarSliceToViewerSpace.TransformPoint(VintasoftDrawingConverter.Convert(pointInPlanarSliceSpace));
+
+
+                // add points information
+
+                builder.AppendLine(string.Format("Point{0}", i + 1));
+                builder.AppendLine(string.Format("World space: {0:F1} {1:F1} {2:F1}", pointInWorldSpace.X, pointInWorldSpace.Y, pointInWorldSpace.Z));
+                builder.AppendLine(string.Format("Planar slice: {0:F1} {1:F1}", pointInPlanarSliceSpace.X, pointInPlanarSliceSpace.Y));
+                builder.AppendLine(string.Format("Viewer space: {0:F1} {1:f1}", pointInViewerSpace.X, pointInViewerSpace.Y));
+
+                if (i != curvlinearSliceReferencePoints.Length - 1)
+                    builder.AppendLine();
+            }
+
+            // show points information
+            MessageBox.Show(builder.ToString());
         }
 
 
