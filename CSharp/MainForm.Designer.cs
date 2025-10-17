@@ -75,6 +75,10 @@ namespace DicomMprViewerDemo
             this.showAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.show3DAxisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMPRParametersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.showRulersInViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rulersColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rulersUnitOfMeasureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topPanelAlwaysVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +88,14 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mPRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.planarSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sagittalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coronalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.multiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiSliceOnSagittalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiSliceOnCoronalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.multiSliceOnAxialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.curvilinearSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.curvilinearSliceOnSagittalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.curvilinearSliceOnCoronalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,11 +110,8 @@ namespace DicomMprViewerDemo
             this.dicomMprToolInteractionModeToolStrip1 = new DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip();
             this.openDicomFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.showRulersInViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
-            this.rulersColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rulersUnitOfMeasureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.viewersPanel.SuspendLayout();
@@ -592,6 +597,31 @@ namespace DicomMprViewerDemo
             this.showMPRParametersToolStripMenuItem.Text = "Show MPR Parameters";
             this.showMPRParametersToolStripMenuItem.Click += new System.EventHandler(this.showMPRParametersToolStripMenuItem_Click);
             // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(277, 6);
+            // 
+            // showRulersInViewerToolStripMenuItem
+            // 
+            this.showRulersInViewerToolStripMenuItem.Name = "showRulersInViewerToolStripMenuItem";
+            this.showRulersInViewerToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.showRulersInViewerToolStripMenuItem.Text = "Show Rulers In Viewer";
+            this.showRulersInViewerToolStripMenuItem.Click += new System.EventHandler(this.showRulersInViewerToolStripMenuItem_Click);
+            // 
+            // rulersColorToolStripMenuItem
+            // 
+            this.rulersColorToolStripMenuItem.Name = "rulersColorToolStripMenuItem";
+            this.rulersColorToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.rulersColorToolStripMenuItem.Text = "Rulers Color...";
+            this.rulersColorToolStripMenuItem.Click += new System.EventHandler(this.rulersColorToolStripMenuItem_Click);
+            // 
+            // rulersUnitOfMeasureToolStripMenuItem
+            // 
+            this.rulersUnitOfMeasureToolStripMenuItem.Name = "rulersUnitOfMeasureToolStripMenuItem";
+            this.rulersUnitOfMeasureToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.rulersUnitOfMeasureToolStripMenuItem.Text = "Rulers Unit Of Measure";
+            // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
@@ -652,42 +682,77 @@ namespace DicomMprViewerDemo
             // mPRToolStripMenuItem
             // 
             this.mPRToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sagittalToolStripMenuItem,
-            this.coronalToolStripMenuItem,
-            this.axialToolStripMenuItem,
-            this.toolStripSeparator14,
+            this.planarSliceToolStripMenuItem,
+            this.multiSliceToolStripMenuItem,
             this.curvilinearSliceToolStripMenuItem,
             this.toolStripSeparator15,
-            this.mprImagePropertiesToolStripMenuItem});
+            this.mprImagePropertiesToolStripMenuItem,
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem});
             this.mPRToolStripMenuItem.Name = "mPRToolStripMenuItem";
             this.mPRToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.mPRToolStripMenuItem.Text = "MPR";
             // 
+            // planarSliceToolStripMenuItem
+            // 
+            this.planarSliceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sagittalToolStripMenuItem,
+            this.coronalToolStripMenuItem,
+            this.axialToolStripMenuItem});
+            this.planarSliceToolStripMenuItem.Name = "planarSliceToolStripMenuItem";
+            this.planarSliceToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.planarSliceToolStripMenuItem.Text = "Planar Slice";
+            // 
             // sagittalToolStripMenuItem
             // 
             this.sagittalToolStripMenuItem.Name = "sagittalToolStripMenuItem";
-            this.sagittalToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.sagittalToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.sagittalToolStripMenuItem.Text = "Sagittal...";
             this.sagittalToolStripMenuItem.Click += new System.EventHandler(this.sagittalToolStripMenuItem_Click);
             // 
             // coronalToolStripMenuItem
             // 
             this.coronalToolStripMenuItem.Name = "coronalToolStripMenuItem";
-            this.coronalToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.coronalToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.coronalToolStripMenuItem.Text = "Coronal...";
             this.coronalToolStripMenuItem.Click += new System.EventHandler(this.coronalToolStripMenuItem_Click);
             // 
             // axialToolStripMenuItem
             // 
             this.axialToolStripMenuItem.Name = "axialToolStripMenuItem";
-            this.axialToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.axialToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.axialToolStripMenuItem.Text = "Axial...";
             this.axialToolStripMenuItem.Click += new System.EventHandler(this.axialToolStripMenuItem_Click);
             // 
-            // toolStripSeparator14
+            // multiSliceToolStripMenuItem
             // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(197, 6);
+            this.multiSliceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.multiSliceOnSagittalToolStripMenuItem,
+            this.multiSliceOnCoronalToolStripMenuItem,
+            this.multiSliceOnAxialToolStripMenuItem});
+            this.multiSliceToolStripMenuItem.Name = "multiSliceToolStripMenuItem";
+            this.multiSliceToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.multiSliceToolStripMenuItem.Text = "Multi Slice";
+            // 
+            // multiSliceOnSagittalToolStripMenuItem
+            // 
+            this.multiSliceOnSagittalToolStripMenuItem.Name = "multiSliceOnSagittalToolStripMenuItem";
+            this.multiSliceOnSagittalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.multiSliceOnSagittalToolStripMenuItem.Text = "On Sagittal...";
+            this.multiSliceOnSagittalToolStripMenuItem.Click += new System.EventHandler(this.multiSliceOnSagittalToolStripMenuItem_Click);
+            // 
+            // multiSliceOnCoronalToolStripMenuItem
+            // 
+            this.multiSliceOnCoronalToolStripMenuItem.Name = "multiSliceOnCoronalToolStripMenuItem";
+            this.multiSliceOnCoronalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.multiSliceOnCoronalToolStripMenuItem.Text = "On Coronal...";
+            this.multiSliceOnCoronalToolStripMenuItem.Click += new System.EventHandler(this.multiSliceOnCoronalToolStripMenuItem_Click);
+            // 
+            // multiSliceOnAxialToolStripMenuItem
+            // 
+            this.multiSliceOnAxialToolStripMenuItem.Name = "multiSliceOnAxialToolStripMenuItem";
+            this.multiSliceOnAxialToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.multiSliceOnAxialToolStripMenuItem.Text = "On Axial...";
+            this.multiSliceOnAxialToolStripMenuItem.Click += new System.EventHandler(this.multiSliceOnAxialToolStripMenuItem_Click);
             // 
             // curvilinearSliceToolStripMenuItem
             // 
@@ -696,39 +761,39 @@ namespace DicomMprViewerDemo
             this.curvilinearSliceOnCoronalToolStripMenuItem,
             this.curvilinearSliceOnAxialToolStripMenuItem});
             this.curvilinearSliceToolStripMenuItem.Name = "curvilinearSliceToolStripMenuItem";
-            this.curvilinearSliceToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.curvilinearSliceToolStripMenuItem.Text = "Curved MPR";
+            this.curvilinearSliceToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.curvilinearSliceToolStripMenuItem.Text = "Curved And Multi Slice";
             // 
             // curvilinearSliceOnSagittalToolStripMenuItem
             // 
             this.curvilinearSliceOnSagittalToolStripMenuItem.Name = "curvilinearSliceOnSagittalToolStripMenuItem";
-            this.curvilinearSliceOnSagittalToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.curvilinearSliceOnSagittalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.curvilinearSliceOnSagittalToolStripMenuItem.Text = "On Sagittal...";
             this.curvilinearSliceOnSagittalToolStripMenuItem.Click += new System.EventHandler(this.curvilinearSliceOnSagittalToolStripMenuItem_Click);
             // 
             // curvilinearSliceOnCoronalToolStripMenuItem
             // 
             this.curvilinearSliceOnCoronalToolStripMenuItem.Name = "curvilinearSliceOnCoronalToolStripMenuItem";
-            this.curvilinearSliceOnCoronalToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.curvilinearSliceOnCoronalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.curvilinearSliceOnCoronalToolStripMenuItem.Text = "On Coronal...";
             this.curvilinearSliceOnCoronalToolStripMenuItem.Click += new System.EventHandler(this.curvilinearSliceOnCoronalToolStripMenuItem_Click);
             // 
             // curvilinearSliceOnAxialToolStripMenuItem
             // 
             this.curvilinearSliceOnAxialToolStripMenuItem.Name = "curvilinearSliceOnAxialToolStripMenuItem";
-            this.curvilinearSliceOnAxialToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.curvilinearSliceOnAxialToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.curvilinearSliceOnAxialToolStripMenuItem.Text = "On Axial...";
             this.curvilinearSliceOnAxialToolStripMenuItem.Click += new System.EventHandler(this.curvilinearSliceOnAxialToolStripMenuItem_Click);
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(297, 6);
             // 
             // mprImagePropertiesToolStripMenuItem
             // 
             this.mprImagePropertiesToolStripMenuItem.Name = "mprImagePropertiesToolStripMenuItem";
-            this.mprImagePropertiesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.mprImagePropertiesToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.mprImagePropertiesToolStripMenuItem.Text = "MPR Image Properties...";
             this.mprImagePropertiesToolStripMenuItem.Click += new System.EventHandler(this.mprImagePropertiesToolStripMenuItem_Click);
             // 
@@ -812,30 +877,12 @@ namespace DicomMprViewerDemo
             // 
             this.folderBrowserDialog1.ShowNewFolderButton = false;
             // 
-            // showRulersInViewerToolStripMenuItem
+            // perpendicularMultiSliceDefaultSettingsToolStripMenuItem
             // 
-            this.showRulersInViewerToolStripMenuItem.Name = "showRulersInViewerToolStripMenuItem";
-            this.showRulersInViewerToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.showRulersInViewerToolStripMenuItem.Text = "Show Rulers In Viewer";
-            this.showRulersInViewerToolStripMenuItem.Click += new System.EventHandler(this.showRulersInViewerToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(277, 6);
-            // 
-            // rulersColorToolStripMenuItem
-            // 
-            this.rulersColorToolStripMenuItem.Name = "rulersColorToolStripMenuItem";
-            this.rulersColorToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.rulersColorToolStripMenuItem.Text = "Rulers Color...";
-            this.rulersColorToolStripMenuItem.Click += new System.EventHandler(this.rulersColorToolStripMenuItem_Click);
-            // 
-            // rulersUnitOfMeasureToolStripMenuItem
-            // 
-            this.rulersUnitOfMeasureToolStripMenuItem.Name = "rulersUnitOfMeasureToolStripMenuItem";
-            this.rulersUnitOfMeasureToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.rulersUnitOfMeasureToolStripMenuItem.Text = "Rulers Unit Of Measure";
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem.Name = "perpendicularMultiSliceDefaultSettingsToolStripMenuItem";
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem.Text = "Perpendicular Multi Slice Default Settings...";
+            this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem.Click += new System.EventHandler(this.perpendicularMultiSliceDefaultSettingsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -937,10 +984,6 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem mPRToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sagittalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem coronalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem axialToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem curvilinearSliceToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem mprImagePropertiesToolStripMenuItem;
@@ -954,5 +997,14 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem rulersColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rulersUnitOfMeasureToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripMenuItem planarSliceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sagittalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem coronalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem axialToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multiSliceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multiSliceOnSagittalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multiSliceOnCoronalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem multiSliceOnAxialToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perpendicularMultiSliceDefaultSettingsToolStripMenuItem;
     }
 }

@@ -82,16 +82,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="Vintasoft.Imaging" Version="14.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="14.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="14.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="14.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="7.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="7.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="7.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="7.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="10.1.12.1" />
-    <PackageReference Include="Vintasoft.Imaging.UI" Version="14.1.12.1" />
+    <PackageReference Include="Vintasoft.Imaging" Version="14.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="14.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="14.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="14.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="7.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="7.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="7.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="7.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="10.1.14.1" />
+    <PackageReference Include="Vintasoft.Imaging.UI" Version="14.1.14.1" />
     <PackageReference Include="Vintasoft.Shared" Version="4.5.0.1" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +118,12 @@
     </Compile>
     <Compile Include="CustomControls\ColorSampleControl\ColorSampleControl.designer.cs">
       <DependentUpon>ColorSampleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PaddingFEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\PaddingFEditorControl.Designer.cs">
+      <DependentUpon>PaddingFEditorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\ValueEditorControl.cs">
       <SubType>UserControl</SubType>
@@ -246,6 +252,12 @@
     <Compile Include="Dialogs\MPR\DicomMprToolInteractionModeToolStrip.Designer.cs">
       <DependentUpon>DicomMprToolInteractionModeToolStrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicularMultiSliceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicularMultiSliceForm.Designer.cs">
+      <DependentUpon>MprPerpendicularMultiSliceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\MPR\Mpr2DForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,6 +282,18 @@
     </Compile>
     <Compile Include="Dialogs\MPR\MprParametersViewerForm.Designer.cs">
       <DependentUpon>MprParametersViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicualrMultiSliceColumnCountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicualrMultiSliceColumnCountForm.Designer.cs">
+      <DependentUpon>MprPerpendicualrMultiSliceColumnCountForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicularMultiSliceDefaultSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MPR\MprPerpendicularMultiSliceDefaultSettingsForm.Designer.cs">
+      <DependentUpon>MprPerpendicularMultiSliceDefaultSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettings.cs" />
     <Compile Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettingsForm.cs">
@@ -307,6 +331,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\ColorSampleControl\ColorSampleControl.resx">
       <DependentUpon>ColorSampleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\PaddingFEditorControl.resx">
+      <DependentUpon>PaddingFEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\ValueEditorControl.resx">
       <DependentUpon>ValueEditorControl.cs</DependentUpon>
@@ -365,6 +393,10 @@
       <DependentUpon>DicomMprToolInteractionModeToolStrip.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprPerpendicularMultiSliceForm.resx">
+      <DependentUpon>MprPerpendicularMultiSliceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\MPR\Mpr2DForm.resx">
       <DependentUpon>Mpr2DForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -380,6 +412,12 @@
     <EmbeddedResource Include="Dialogs\MPR\MprParametersViewerForm.resx">
       <DependentUpon>MprParametersViewerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprPerpendicualrMultiSliceColumnCountForm.resx">
+      <DependentUpon>MprPerpendicualrMultiSliceColumnCountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MPR\MprPerpendicularMultiSliceDefaultSettingsForm.resx">
+      <DependentUpon>MprPerpendicularMultiSliceDefaultSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\MPR\Settings\MprImageToolAppearanceSettingsForm.resx">
       <DependentUpon>MprImageToolAppearanceSettingsForm.cs</DependentUpon>

@@ -18,7 +18,7 @@ namespace DicomMprViewerDemo
         /// Initializes a new instance of the <see cref="VisualMprSliceAppearanceEditorControl"/> class.
         /// </summary>
         public VisualMprSliceAppearanceEditorControl()
-        {            
+        {
             InitializeComponent();
 
             Init();
@@ -70,6 +70,28 @@ namespace DicomMprViewerDemo
             }
         }
 
+        bool _showPerpendicularMultiSliceSettings = false;
+        /// <summary>
+        /// Gets or set a value indicating whether the control should show settings for perpendicular multi slice.
+        /// </summary>
+        /// <value>
+        /// <b>True</b> - the control should show settings for perpendicular multi slice;
+        /// <b>false</b> - the control should NOT show settings for perpendicular multi slice.
+        /// </value>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool ShowPerpendicularMultiSliceSettings
+        {
+            get
+            {
+                return _showPerpendicularMultiSliceSettings;
+            }
+            set
+            {
+                _showPerpendicularMultiSliceSettings = value;
+                UpdateUI();
+            }
+        }
+
         #endregion
 
 
@@ -98,10 +120,13 @@ namespace DicomMprViewerDemo
             {
                 sliceColorPanelControl.Color = SliceSettings.SliceColor;
                 sliceLineWidthNumericUpDown.Value = (decimal)SliceSettings.SliceLineWidth;
+                focusedSliceColorPanelControl.Color = SliceSettings.FocusedSliceColor;
+                focusedSliceLineWidthNumericUpDown.Value = (decimal)SliceSettings.FocusedSliceLineWidth;
                 markerPointDiameterNumericUpDown.Value = (decimal)SliceSettings.MarkerPointDiameter;
                 thicknessNumericUpDown.Value = (decimal)SliceSettings.Thickness;
                 renderingModeComboBox.SelectedItem = SliceSettings.RenderingMode;
                 curveTensionNumericUpDown.Value = (decimal)SliceSettings.CurveTension;
+                sliceCountNumericUpDown.Value = (decimal)SliceSettings.SliceCount;
             }
 
             if ((MprSliceRenderingMode)renderingModeComboBox.SelectedItem == MprSliceRenderingMode.MPR)
@@ -115,17 +140,31 @@ namespace DicomMprViewerDemo
 
             if (ShowCurvilinearSliceSettings)
             {
-                curveTensionLabel.Visible = true;
-                curveTensionNumericUpDown.Visible = true;
-                propertiesGroupBox.Refresh();
+                curveTensionLabel.Enabled = true;
+                curveTensionNumericUpDown.Enabled = true;
             }
             else
             {
-                curveTensionNumericUpDown.Visible = false;
-                curveTensionLabel.Visible = false;
-                propertiesGroupBox.Refresh();
+                curveTensionNumericUpDown.Enabled = false;
+                curveTensionLabel.Enabled = false;
             }
 
+            if (ShowPerpendicularMultiSliceSettings)
+            {
+                sliceCountLabel.Enabled = true;
+                sliceCountNumericUpDown.Enabled = true;
+                focusedSliceColorPanelControl.Enabled = true;
+                focusedSliceLineWidthNumericUpDown.Enabled = true;
+            }
+            else
+            {
+                sliceCountLabel.Enabled = false;
+                sliceCountNumericUpDown.Enabled = false;
+                focusedSliceColorPanelControl.Enabled = false;
+                focusedSliceLineWidthNumericUpDown.Enabled = false;
+            }
+
+            propertiesGroupBox.Refresh();
         }
 
         /// <summary>
@@ -144,6 +183,24 @@ namespace DicomMprViewerDemo
         {
             if (SliceSettings != null)
                 SliceSettings.SliceLineWidth = (float)sliceLineWidthNumericUpDown.Value;
+        }
+
+        /// <summary>
+        /// Handles the ColorChanged event of focusedSliceColorPanelControl object.
+        /// </summary>
+        private void focusedSliceColorPanelControl_ColorChanged(object sender, EventArgs e)
+        {
+            if (SliceSettings != null)
+                SliceSettings.FocusedSliceColor = focusedSliceColorPanelControl.Color;
+        }
+
+        /// <summary>
+        /// Handles the ValueChanged event of focusedSliceLineWidthNumericUpDown object.
+        /// </summary>
+        private void focusedSliceLineWidthNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (SliceSettings != null)
+                SliceSettings.FocusedSliceLineWidth = (float)focusedSliceLineWidthNumericUpDown.Value;
         }
 
         /// <summary>
@@ -191,7 +248,17 @@ namespace DicomMprViewerDemo
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Handles the ValueChanged event of sliceCountNumericUpDown object.
+        /// </summary>
+        private void sliceCountNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (SliceSettings != null)
+            {
+                SliceSettings.SliceCount = (int)sliceCountNumericUpDown.Value;
+            }
+        }
 
+        #endregion
     }
 }

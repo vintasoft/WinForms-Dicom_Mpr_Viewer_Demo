@@ -59,6 +59,38 @@ namespace DicomMprViewerDemo
             }
         }
 
+        Color _focusedSliceColor = Color.Gray;
+        /// <summary>
+        /// Gets or sets a focused slice color.
+        /// </summary>
+        public Color FocusedSliceColor
+        {
+            get
+            {
+                return _focusedSliceColor;
+            }
+            set
+            {
+                _focusedSliceColor = value;
+            }
+        }
+
+        float _focusedSliceLineWidth = 2;
+        /// <summary>
+        /// Gets or sets a focused slice line width.
+        /// </summary>
+        public float FocusedSliceLineWidth
+        {
+            get
+            {
+                return _focusedSliceLineWidth;
+            }
+            set
+            {
+                _focusedSliceLineWidth = value;
+            }
+        }
+
         float _markerPointDiameter = 4;
         /// <summary>
         /// Gets or sets a marker point diameter.
@@ -123,6 +155,22 @@ namespace DicomMprViewerDemo
             }
         }
 
+        int _sliceCount = 50;
+        /// <summary>
+        /// Gets or sets the planar slice count.
+        /// </summary>
+        public int SliceCount
+        {
+            get
+            {
+                return _sliceCount;
+            }
+            set
+            {
+                _sliceCount = value;
+            }
+        }
+
         #endregion
 
 
@@ -137,10 +185,13 @@ namespace DicomMprViewerDemo
         {
             manager.SliceColor = SliceColor;
             manager.SliceLineWidth = SliceLineWidth;
+            manager.FocusedSliceColor = FocusedSliceColor;
+            manager.FocusedSliceLineWidth = FocusedSliceLineWidth;
             manager.MarkerPointDiameter = MarkerPointDiameter;
             manager.Thickness = Thickness;
             manager.RenderingMode = RenderingMode;
             manager.CurveTension = CurveTension;
+            manager.SliceCount = SliceCount;
         }
 
         /// <summary>
@@ -154,10 +205,15 @@ namespace DicomMprViewerDemo
             sliceVisualizer.SlicePen = slicePen;
             previousPen.Dispose();
 
+            Pen focusedSlicePen = new Pen(FocusedSliceColor, FocusedSliceLineWidth);
+            previousPen = sliceVisualizer.FocusedSlicePen;
+            sliceVisualizer.FocusedSlicePen = focusedSlicePen;
+            previousPen.Dispose();
+
             sliceVisualizer.MarkerPointDiameter = MarkerPointDiameter;
             sliceVisualizer.Slice.Thickness = Thickness;
             sliceVisualizer.Slice.RenderingMode = RenderingMode;
-            
+
             MprCurvilinearSlice slice = sliceVisualizer.Slice as MprCurvilinearSlice;
             if (slice != null)
             {
@@ -179,6 +235,43 @@ namespace DicomMprViewerDemo
                 sliceVisualizer.SliceThicknessPen = thicknessPen;
                 if (previousPen != null)
                     previousPen.Dispose();
+            }
+
+            MprPerpendicularMultiSlice multiSlice = sliceVisualizer.Slice as MprPerpendicularMultiSlice;
+
+            if (multiSlice != null)
+            {
+                multiSlice.SliceCount = SliceCount;
+            }
+        }
+
+        /// <summary>
+        /// Updates the current settings from specified visualizer.
+        /// </summary>
+        /// <param name="visualizer">The visualizer.</param>
+        public void Update(MprSliceVisualizer visualizer)
+        {
+            SliceColor = visualizer.SlicePen.Color;
+            SliceLineWidth = visualizer.SlicePen.Width;
+
+            FocusedSliceColor = visualizer.FocusedSlicePen.Color;
+            FocusedSliceLineWidth = visualizer.FocusedSlicePen.Width;
+
+            MarkerPointDiameter = (float)visualizer.MarkerPointDiameter;
+            Thickness = (float)visualizer.Slice.Thickness;
+            RenderingMode = visualizer.Slice.RenderingMode;
+
+            if (visualizer.Slice is MprCurvilinearSlice)
+            {
+                MprCurvilinearSlice curvilinearSlice = (MprCurvilinearSlice)visualizer.Slice;
+
+                CurveTension = curvilinearSlice.CurveTension;
+            }
+            else if (visualizer.Slice is MprPerpendicularMultiSlice)
+            {
+                MprPerpendicularMultiSlice perpendicularMultiSlice = (MprPerpendicularMultiSlice)visualizer.Slice;
+
+                SliceCount = perpendicularMultiSlice.SliceCount;
             }
         }
 

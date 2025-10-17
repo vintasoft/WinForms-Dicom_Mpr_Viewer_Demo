@@ -33,9 +33,11 @@ namespace DicomMprViewerDemo
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.markerPointDiameterNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.sliceColorPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
             this.appearanceGroupBox = new System.Windows.Forms.GroupBox();
+            this.sliceColorPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.sliceCountNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.sliceCountLabel = new System.Windows.Forms.Label();
             this.curveTensionNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.curveTensionLabel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -43,12 +45,16 @@ namespace DicomMprViewerDemo
             this.renderingModeComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.focusedSliceColorPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
+            this.focusedSliceLineWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.sliceLineWidthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markerPointDiameterNumericUpDown)).BeginInit();
             this.appearanceGroupBox.SuspendLayout();
             this.propertiesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliceCountNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.curveTensionNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thicknessNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.focusedSliceLineWidthNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -56,22 +62,22 @@ namespace DicomMprViewerDemo
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Slice Color";
+            this.label1.Text = "Slice Pen";
             // 
             // sliceLineWidthNumericUpDown
             // 
             this.sliceLineWidthNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.sliceLineWidthNumericUpDown.Location = new System.Drawing.Point(130, 51);
+            this.sliceLineWidthNumericUpDown.Location = new System.Drawing.Point(130, 22);
             this.sliceLineWidthNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.sliceLineWidthNumericUpDown.Name = "sliceLineWidthNumericUpDown";
-            this.sliceLineWidthNumericUpDown.Size = new System.Drawing.Size(145, 20);
+            this.sliceLineWidthNumericUpDown.Size = new System.Drawing.Size(69, 20);
             this.sliceLineWidthNumericUpDown.TabIndex = 2;
             this.sliceLineWidthNumericUpDown.Value = new decimal(new int[] {
             1,
@@ -85,9 +91,9 @@ namespace DicomMprViewerDemo
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 55);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Slice Line Width";
+            this.label2.Text = "Focused Slice Pen";
             // 
             // label3
             // 
@@ -118,23 +124,12 @@ namespace DicomMprViewerDemo
             0});
             this.markerPointDiameterNumericUpDown.ValueChanged += new System.EventHandler(this.markerPointDiameterNumericUpDown_ValueChanged);
             // 
-            // sliceColorPanelControl
-            // 
-            this.sliceColorPanelControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.sliceColorPanelControl.CanEditAlphaChannel = false;
-            this.sliceColorPanelControl.Color = System.Drawing.Color.Transparent;
-            this.sliceColorPanelControl.DefaultColor = System.Drawing.Color.Empty;
-            this.sliceColorPanelControl.Location = new System.Drawing.Point(130, 21);
-            this.sliceColorPanelControl.Name = "sliceColorPanelControl";
-            this.sliceColorPanelControl.Size = new System.Drawing.Size(145, 22);
-            this.sliceColorPanelControl.TabIndex = 0;
-            this.sliceColorPanelControl.ColorChanged += new System.EventHandler(this.sliceColorPanelControl_ColorChanged);
-            // 
             // appearanceGroupBox
             // 
             this.appearanceGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.appearanceGroupBox.Controls.Add(this.focusedSliceColorPanelControl);
+            this.appearanceGroupBox.Controls.Add(this.focusedSliceLineWidthNumericUpDown);
             this.appearanceGroupBox.Controls.Add(this.label2);
             this.appearanceGroupBox.Controls.Add(this.sliceColorPanelControl);
             this.appearanceGroupBox.Controls.Add(this.label1);
@@ -148,11 +143,27 @@ namespace DicomMprViewerDemo
             this.appearanceGroupBox.TabStop = false;
             this.appearanceGroupBox.Text = "Appearance";
             // 
+            // sliceColorPanelControl
+            // 
+            this.sliceColorPanelControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sliceColorPanelControl.CanEditAlphaChannel = false;
+            this.sliceColorPanelControl.Color = System.Drawing.Color.Transparent;
+            this.sliceColorPanelControl.DefaultColor = System.Drawing.Color.Empty;
+            this.sliceColorPanelControl.Location = new System.Drawing.Point(205, 21);
+            this.sliceColorPanelControl.Name = "sliceColorPanelControl";
+            this.sliceColorPanelControl.Size = new System.Drawing.Size(70, 22);
+            this.sliceColorPanelControl.TabIndex = 0;
+            this.sliceColorPanelControl.ColorChanged += new System.EventHandler(this.sliceColorPanelControl_ColorChanged);
+            // 
             // propertiesGroupBox
             // 
-            this.propertiesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.propertiesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.propertiesGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.propertiesGroupBox.Controls.Add(this.sliceCountNumericUpDown);
+            this.propertiesGroupBox.Controls.Add(this.sliceCountLabel);
             this.propertiesGroupBox.Controls.Add(this.curveTensionNumericUpDown);
             this.propertiesGroupBox.Controls.Add(this.curveTensionLabel);
             this.propertiesGroupBox.Controls.Add(this.label7);
@@ -162,10 +173,44 @@ namespace DicomMprViewerDemo
             this.propertiesGroupBox.Controls.Add(this.label5);
             this.propertiesGroupBox.Location = new System.Drawing.Point(1, 116);
             this.propertiesGroupBox.Name = "propertiesGroupBox";
-            this.propertiesGroupBox.Size = new System.Drawing.Size(281, 104);
+            this.propertiesGroupBox.Size = new System.Drawing.Size(281, 131);
             this.propertiesGroupBox.TabIndex = 9;
             this.propertiesGroupBox.TabStop = false;
             this.propertiesGroupBox.Text = "Properties";
+            // 
+            // sliceCountNumericUpDown
+            // 
+            this.sliceCountNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sliceCountNumericUpDown.Location = new System.Drawing.Point(130, 103);
+            this.sliceCountNumericUpDown.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.sliceCountNumericUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.sliceCountNumericUpDown.Name = "sliceCountNumericUpDown";
+            this.sliceCountNumericUpDown.Size = new System.Drawing.Size(116, 20);
+            this.sliceCountNumericUpDown.TabIndex = 19;
+            this.sliceCountNumericUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.sliceCountNumericUpDown.ValueChanged += new System.EventHandler(this.sliceCountNumericUpDown_ValueChanged);
+            // 
+            // sliceCountLabel
+            // 
+            this.sliceCountLabel.AutoSize = true;
+            this.sliceCountLabel.Location = new System.Drawing.Point(6, 105);
+            this.sliceCountLabel.Name = "sliceCountLabel";
+            this.sliceCountLabel.Size = new System.Drawing.Size(35, 13);
+            this.sliceCountLabel.TabIndex = 18;
+            this.sliceCountLabel.Text = "Count";
             // 
             // curveTensionNumericUpDown
             // 
@@ -255,21 +300,56 @@ namespace DicomMprViewerDemo
             this.label5.TabIndex = 8;
             this.label5.Text = "Thickness";
             // 
+            // focusedSliceColorPanelControl
+            // 
+            this.focusedSliceColorPanelControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.focusedSliceColorPanelControl.CanEditAlphaChannel = false;
+            this.focusedSliceColorPanelControl.Color = System.Drawing.Color.Transparent;
+            this.focusedSliceColorPanelControl.DefaultColor = System.Drawing.Color.Empty;
+            this.focusedSliceColorPanelControl.Location = new System.Drawing.Point(205, 50);
+            this.focusedSliceColorPanelControl.Name = "focusedSliceColorPanelControl";
+            this.focusedSliceColorPanelControl.Size = new System.Drawing.Size(70, 22);
+            this.focusedSliceColorPanelControl.TabIndex = 6;
+            this.focusedSliceColorPanelControl.ColorChanged += new System.EventHandler(this.focusedSliceColorPanelControl_ColorChanged);
+            // 
+            // focusedSliceLineWidthNumericUpDown
+            // 
+            this.focusedSliceLineWidthNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.focusedSliceLineWidthNumericUpDown.Location = new System.Drawing.Point(130, 51);
+            this.focusedSliceLineWidthNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.focusedSliceLineWidthNumericUpDown.Name = "focusedSliceLineWidthNumericUpDown";
+            this.focusedSliceLineWidthNumericUpDown.Size = new System.Drawing.Size(69, 20);
+            this.focusedSliceLineWidthNumericUpDown.TabIndex = 7;
+            this.focusedSliceLineWidthNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.focusedSliceLineWidthNumericUpDown.ValueChanged += new System.EventHandler(this.focusedSliceLineWidthNumericUpDown_ValueChanged);
+            // 
             // VisualMprSliceAppearanceEditorControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.propertiesGroupBox);
             this.Controls.Add(this.appearanceGroupBox);
             this.Name = "VisualMprSliceAppearanceEditorControl";
-            this.Size = new System.Drawing.Size(285, 223);
+            this.Size = new System.Drawing.Size(285, 250);
             ((System.ComponentModel.ISupportInitialize)(this.sliceLineWidthNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.markerPointDiameterNumericUpDown)).EndInit();
             this.appearanceGroupBox.ResumeLayout(false);
             this.appearanceGroupBox.PerformLayout();
             this.propertiesGroupBox.ResumeLayout(false);
             this.propertiesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliceCountNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.curveTensionNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.thicknessNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.focusedSliceLineWidthNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -291,5 +371,9 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown curveTensionNumericUpDown;
         private System.Windows.Forms.Label curveTensionLabel;
+        private System.Windows.Forms.NumericUpDown sliceCountNumericUpDown;
+        private System.Windows.Forms.Label sliceCountLabel;
+        private DemosCommonCode.CustomControls.ColorPanelControl focusedSliceColorPanelControl;
+        private System.Windows.Forms.NumericUpDown focusedSliceLineWidthNumericUpDown;
     }
 }

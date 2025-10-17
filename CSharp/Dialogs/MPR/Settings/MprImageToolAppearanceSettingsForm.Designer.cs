@@ -70,7 +70,7 @@ namespace DicomMprViewerDemo
             this.sliceSettingsGroupBox.Controls.Add(this.sliceAppearanceEditorControl);
             this.sliceSettingsGroupBox.Location = new System.Drawing.Point(326, 12);
             this.sliceSettingsGroupBox.Name = "sliceSettingsGroupBox";
-            this.sliceSettingsGroupBox.Size = new System.Drawing.Size(302, 272);
+            this.sliceSettingsGroupBox.Size = new System.Drawing.Size(302, 302);
             this.sliceSettingsGroupBox.TabIndex = 0;
             this.sliceSettingsGroupBox.TabStop = false;
             this.sliceSettingsGroupBox.Text = "Slice Settings";
@@ -115,7 +115,8 @@ namespace DicomMprViewerDemo
             this.sliceAppearanceEditorControl.Location = new System.Drawing.Point(6, 47);
             this.sliceAppearanceEditorControl.Name = "sliceAppearanceEditorControl";
             this.sliceAppearanceEditorControl.ShowCurvilinearSliceSettings = false;
-            this.sliceAppearanceEditorControl.Size = new System.Drawing.Size(288, 220);
+            this.sliceAppearanceEditorControl.ShowPerpendicularMultiSliceSettings = false;
+            this.sliceAppearanceEditorControl.Size = new System.Drawing.Size(288, 249);
             this.sliceAppearanceEditorControl.SliceSettings = null;
             this.sliceAppearanceEditorControl.TabIndex = 2;
             // 
@@ -142,7 +143,7 @@ namespace DicomMprViewerDemo
             this.colorMarkVisibleCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.colorMarkVisibleCheckBox.AutoSize = true;
-            this.colorMarkVisibleCheckBox.Location = new System.Drawing.Point(339, 290);
+            this.colorMarkVisibleCheckBox.Location = new System.Drawing.Point(339, 320);
             this.colorMarkVisibleCheckBox.Name = "colorMarkVisibleCheckBox";
             this.colorMarkVisibleCheckBox.Size = new System.Drawing.Size(110, 17);
             this.colorMarkVisibleCheckBox.TabIndex = 3;
@@ -238,7 +239,7 @@ namespace DicomMprViewerDemo
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(472, 469);
+            this.okButton.Location = new System.Drawing.Point(472, 499);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -250,7 +251,7 @@ namespace DicomMprViewerDemo
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(553, 469);
+            this.buttonCancel.Location = new System.Drawing.Point(553, 499);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 12;
@@ -279,7 +280,7 @@ namespace DicomMprViewerDemo
             this.colorMarkGroupBox.Controls.Add(this.colorMarkHeigthNumericUpDown);
             this.colorMarkGroupBox.Controls.Add(this.focusedImageViewerColorMarkPanelControl);
             this.colorMarkGroupBox.Controls.Add(this.focusedImageViewerMarkSizeNumericUpDown);
-            this.colorMarkGroupBox.Location = new System.Drawing.Point(326, 292);
+            this.colorMarkGroupBox.Location = new System.Drawing.Point(326, 322);
             this.colorMarkGroupBox.Name = "colorMarkGroupBox";
             this.colorMarkGroupBox.Size = new System.Drawing.Size(302, 168);
             this.colorMarkGroupBox.TabIndex = 14;
@@ -318,7 +319,7 @@ namespace DicomMprViewerDemo
             this.visualizationPerformanceGroupBox.Controls.Add(this.maxThreadValueEditorControl);
             this.visualizationPerformanceGroupBox.Location = new System.Drawing.Point(13, 12);
             this.visualizationPerformanceGroupBox.Name = "visualizationPerformanceGroupBox";
-            this.visualizationPerformanceGroupBox.Size = new System.Drawing.Size(302, 448);
+            this.visualizationPerformanceGroupBox.Size = new System.Drawing.Size(302, 478);
             this.visualizationPerformanceGroupBox.TabIndex = 15;
             this.visualizationPerformanceGroupBox.TabStop = false;
             this.visualizationPerformanceGroupBox.Text = "Visualization Performance";
@@ -392,7 +393,7 @@ namespace DicomMprViewerDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(640, 502);
+            this.ClientSize = new System.Drawing.Size(640, 532);
             this.Controls.Add(this.visualizationPerformanceGroupBox);
             this.Controls.Add(this.colorMarkVisibleCheckBox);
             this.Controls.Add(this.colorMarkGroupBox);

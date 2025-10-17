@@ -714,6 +714,45 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
+        /// Handles the Click event of multiSliceOnSagittalToolStripMenuItem object.
+        /// </summary>
+        private void multiSliceOnSagittalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MprImage mprImage = _mprSourceDataController.MprImage;
+            // create the planar slice
+            MprPlanarSlice planarSlice = mprImage.CreateSagittalSlice(mprImage.XLength / 2.0);
+
+            // show the slice
+            ShowMprMultiSliceForm(planarSlice);
+        }
+
+        /// <summary>
+        /// Handles the Click event of multiSliceOnCoronalToolStripMenuItem object.
+        /// </summary>
+        private void multiSliceOnCoronalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MprImage mprImage = _mprSourceDataController.MprImage;
+            // create the planar slice
+            MprPlanarSlice planarSlice = mprImage.CreateCoronalSlice(mprImage.YLength / 2.0);
+
+            // show the slice
+            ShowMprMultiSliceForm(planarSlice);
+        }
+
+        /// <summary>
+        /// Handles the Click event of multiSliceOnAxialToolStripMenuItem object.
+        /// </summary>
+        private void multiSliceOnAxialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MprImage mprImage = _mprSourceDataController.MprImage;
+            // create the planar slice
+            MprPlanarSlice planarSlice = mprImage.CreateAxialSlice(mprImage.ZLength / 2.0);
+
+            // show the slice
+            ShowMprMultiSliceForm(planarSlice);
+        }
+
+        /// <summary>
         /// Handles the Click event of curvilinearSliceOnSagittalToolStripMenuItem object.
         /// </summary>
         private void curvilinearSliceOnSagittalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -760,6 +799,21 @@ namespace DicomMprViewerDemo
             using (PropertyGridForm dlg = new PropertyGridForm(_mprSourceDataController.MprImage, "MPR Image"))
             {
                 dlg.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of perpendicularMultiSliceDefaultSettingsToolStripMenuItem object.
+        /// </summary>
+        private void perpendicularMultiSliceDefaultSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (MprPerpendicularMultiSliceDefaultSettingsForm dlg =
+                new MprPerpendicularMultiSliceDefaultSettingsForm())
+            {
+                dlg.Owner = this;
+                dlg.ShowDialog();
+
+                _mprSettingsManager.PerpendicularMultiSliceAppearance.SliceCount = MprPerpendicularMultiSlice.DefaultSliceCount;
             }
         }
 
@@ -992,9 +1046,15 @@ namespace DicomMprViewerDemo
             sagittalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             coronalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             axialToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+
+            multiSliceOnSagittalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            multiSliceOnCoronalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+            multiSliceOnAxialToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+
             curvilinearSliceOnSagittalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             curvilinearSliceOnCoronalToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
             curvilinearSliceOnAxialToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
+
             mprImagePropertiesToolStripMenuItem.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
 
             dicomMprToolInteractionModeToolStrip1.Enabled = isMprCubeInitialized && !isDicomSeriesOpening;
@@ -1412,6 +1472,33 @@ namespace DicomMprViewerDemo
 
             // create dialog
             using (Mpr2DForm dlg = new Mpr2DForm(
+                _mprSourceDataController.MprImage,
+                planarSlice,
+                voiLut,
+                isNegative,
+                _mprSettingsManager))
+            {
+                // set start position on dialog
+                dlg.StartPosition = FormStartPosition.CenterParent;
+                dlg.Owner = this;
+
+                // show dialog
+                dlg.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Shows the MPR multi slice.
+        /// </summary>
+        /// <param name="planarSlice">The planar slice.</param>
+        private void ShowMprMultiSliceForm(MprPlanarSlice planarSlice)
+        {
+            // get VOI LUT of current frame
+            DicomImageVoiLookupTable voiLut = FocusedViewerDicomMprTool.DicomViewerTool.DicomImageVoiLut;
+            bool isNegative = FocusedViewerDicomMprTool.DicomViewerTool.IsImageNegative;
+
+            // create dialog
+            using (MprPerpendicularMultiSliceForm dlg = new MprPerpendicularMultiSliceForm(
                 _mprSourceDataController.MprImage,
                 planarSlice,
                 voiLut,

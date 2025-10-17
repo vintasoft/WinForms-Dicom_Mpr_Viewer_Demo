@@ -23,6 +23,11 @@
         /// <summary>
         /// The curvilinear slice type.
         /// </summary>
-        Curvilinear = 3
+        Curvilinear = 3,
+
+        /// <summary>
+        /// The multi slice type.
+        /// </summary>
+        Multi = 4,
     }
 }

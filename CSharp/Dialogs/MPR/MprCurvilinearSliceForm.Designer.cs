@@ -32,7 +32,9 @@ namespace DicomMprViewerDemo
             this.viewersPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.planarSliceImageViewer = new Vintasoft.Imaging.UI.ImageViewer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.curvilinearSliceImageViewer = new Vintasoft.Imaging.UI.ImageViewer();
+            this.perpendicularMultiSliceImageViewer = new Vintasoft.Imaging.UI.ImageViewer();
             this.topPanel = new System.Windows.Forms.Panel();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
@@ -46,6 +48,9 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.file_saveImageSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.file_saveAllImagesSlicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.savePerpendicularMultiSliceImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.file_copyImageSliceToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -75,11 +80,16 @@ namespace DicomMprViewerDemo
             this.view_settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.slice_buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel.SuspendLayout();
             this.viewersPanel.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.toolStripPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -117,7 +127,7 @@ namespace DicomMprViewerDemo
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.curvilinearSliceImageViewer);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(884, 610);
             this.splitContainer1.SplitterDistance = 401;
             this.splitContainer1.TabIndex = 0;
@@ -139,6 +149,25 @@ namespace DicomMprViewerDemo
             this.planarSliceImageViewer.TabIndex = 0;
             this.planarSliceImageViewer.Text = "imageViewer1";
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.curvilinearSliceImageViewer);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.perpendicularMultiSliceImageViewer);
+            this.splitContainer2.Panel2Collapsed = true;
+            this.splitContainer2.Size = new System.Drawing.Size(479, 610);
+            this.splitContainer2.SplitterDistance = 305;
+            this.splitContainer2.TabIndex = 1;
+            // 
             // curvilinearSliceImageViewer
             // 
             this.curvilinearSliceImageViewer.BackColor = System.Drawing.Color.Black;
@@ -155,6 +184,23 @@ namespace DicomMprViewerDemo
             this.curvilinearSliceImageViewer.Size = new System.Drawing.Size(479, 610);
             this.curvilinearSliceImageViewer.TabIndex = 0;
             this.curvilinearSliceImageViewer.Text = "imageViewer2";
+            // 
+            // perpendicularMultiSliceImageViewer
+            // 
+            this.perpendicularMultiSliceImageViewer.BackColor = System.Drawing.Color.Black;
+            this.perpendicularMultiSliceImageViewer.CenterImage = true;
+            this.perpendicularMultiSliceImageViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.perpendicularMultiSliceImageViewer.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
+            this.perpendicularMultiSliceImageViewer.Location = new System.Drawing.Point(0, 0);
+            this.perpendicularMultiSliceImageViewer.Name = "perpendicularMultiSliceImageViewer";
+            this.perpendicularMultiSliceImageViewer.ShortcutCopy = System.Windows.Forms.Shortcut.None;
+            this.perpendicularMultiSliceImageViewer.ShortcutCut = System.Windows.Forms.Shortcut.None;
+            this.perpendicularMultiSliceImageViewer.ShortcutDelete = System.Windows.Forms.Shortcut.None;
+            this.perpendicularMultiSliceImageViewer.ShortcutInsert = System.Windows.Forms.Shortcut.None;
+            this.perpendicularMultiSliceImageViewer.ShortcutSelectAll = System.Windows.Forms.Shortcut.None;
+            this.perpendicularMultiSliceImageViewer.Size = new System.Drawing.Size(150, 46);
+            this.perpendicularMultiSliceImageViewer.TabIndex = 1;
+            this.perpendicularMultiSliceImageViewer.Text = "imageViewer2";
             // 
             // topPanel
             // 
@@ -235,6 +281,9 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator6,
             this.file_saveImageSliceToolStripMenuItem,
             this.file_saveAllImagesSlicesToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.savePerpendicularMultiSliceImageToolStripMenuItem,
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem,
             this.toolStripSeparator7,
             this.file_copyImageSliceToClipboardToolStripMenuItem,
             this.toolStripSeparator9,
@@ -247,7 +296,7 @@ namespace DicomMprViewerDemo
             // 
             this.file_saveImageToolStripMenuItem.Name = "file_saveImageToolStripMenuItem";
             this.file_saveImageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.file_saveImageToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_saveImageToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_saveImageToolStripMenuItem.Text = "Save Image...";
             this.file_saveImageToolStripMenuItem.Click += new System.EventHandler(this.file_saveImageToolStripMenuItem_Click);
             // 
@@ -256,33 +305,33 @@ namespace DicomMprViewerDemo
             this.file_saveAllImagesToolStripMenuItem.Name = "file_saveAllImagesToolStripMenuItem";
             this.file_saveAllImagesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.file_saveAllImagesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_saveAllImagesToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_saveAllImagesToolStripMenuItem.Text = "Save All Images...";
             this.file_saveAllImagesToolStripMenuItem.Click += new System.EventHandler(this.file_saveAllImagesToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(279, 6);
             // 
             // file_copyImageToClipboardToolStripMenuItem
             // 
             this.file_copyImageToClipboardToolStripMenuItem.Name = "file_copyImageToClipboardToolStripMenuItem";
             this.file_copyImageToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.file_copyImageToClipboardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_copyImageToClipboardToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_copyImageToClipboardToolStripMenuItem.Text = "Copy Image To Clipboard";
             this.file_copyImageToClipboardToolStripMenuItem.Click += new System.EventHandler(this.file_copyImageToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(279, 6);
             // 
             // file_saveImageSliceToolStripMenuItem
             // 
             this.file_saveImageSliceToolStripMenuItem.Name = "file_saveImageSliceToolStripMenuItem";
             this.file_saveImageSliceToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.file_saveImageSliceToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_saveImageSliceToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_saveImageSliceToolStripMenuItem.Text = "Save Image Slice...";
             this.file_saveImageSliceToolStripMenuItem.Click += new System.EventHandler(this.file_saveImageSliceToolStripMenuItem_Click);
             // 
@@ -291,33 +340,52 @@ namespace DicomMprViewerDemo
             this.file_saveAllImagesSlicesToolStripMenuItem.Name = "file_saveAllImagesSlicesToolStripMenuItem";
             this.file_saveAllImagesSlicesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.file_saveAllImagesSlicesToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_saveAllImagesSlicesToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_saveAllImagesSlicesToolStripMenuItem.Text = "Save All Images Slices...";
             this.file_saveAllImagesSlicesToolStripMenuItem.Click += new System.EventHandler(this.file_saveAllImagesSlicesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(279, 6);
+            // 
+            // savePerpendicularMultiSliceImageToolStripMenuItem
+            // 
+            this.savePerpendicularMultiSliceImageToolStripMenuItem.Name = "savePerpendicularMultiSliceImageToolStripMenuItem";
+            this.savePerpendicularMultiSliceImageToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.savePerpendicularMultiSliceImageToolStripMenuItem.Text = "Save Perpendicular Multi Slice Image...";
+            this.savePerpendicularMultiSliceImageToolStripMenuItem.Click += new System.EventHandler(this.savePerpendicularMultiSliceImageToolStripMenuItem_Click);
+            // 
+            // savePerpendicularMultiSliceImagesToolStripMenuItem
+            // 
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem.Name = "savePerpendicularMultiSliceImagesToolStripMenuItem";
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem.Text = "Save Perpendicular Multi Slice Images...";
+            this.savePerpendicularMultiSliceImagesToolStripMenuItem.Click += new System.EventHandler(this.savePerpendicularMultiSliceImagesToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(279, 6);
             // 
             // file_copyImageSliceToClipboardToolStripMenuItem
             // 
             this.file_copyImageSliceToClipboardToolStripMenuItem.Name = "file_copyImageSliceToClipboardToolStripMenuItem";
             this.file_copyImageSliceToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.file_copyImageSliceToClipboardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.file_copyImageSliceToClipboardToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.file_copyImageSliceToClipboardToolStripMenuItem.Text = "Copy Image Slice To Clipboard";
             this.file_copyImageSliceToClipboardToolStripMenuItem.Click += new System.EventHandler(this.file_copyImageSliceToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(279, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.file_exitToolStripMenuItem_Click);
             // 
@@ -520,7 +588,9 @@ namespace DicomMprViewerDemo
             // sliceToolStripMenuItem
             // 
             this.sliceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.slice_buildToolStripMenuItem});
+            this.slice_buildToolStripMenuItem,
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem,
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem});
             this.sliceToolStripMenuItem.Name = "sliceToolStripMenuItem";
             this.sliceToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.sliceToolStripMenuItem.Text = "Slice";
@@ -528,9 +598,24 @@ namespace DicomMprViewerDemo
             // slice_buildToolStripMenuItem
             // 
             this.slice_buildToolStripMenuItem.Name = "slice_buildToolStripMenuItem";
-            this.slice_buildToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
-            this.slice_buildToolStripMenuItem.Text = "Build";
+            this.slice_buildToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.slice_buildToolStripMenuItem.Text = "Build Curvlinear";
             this.slice_buildToolStripMenuItem.Click += new System.EventHandler(this.slice_buildToolStripMenuItem_Click);
+            // 
+            // slice_createPerpendicularMultiSliceToolStripMenuItem
+            // 
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem.Name = "slice_createPerpendicularMultiSliceToolStripMenuItem";
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem.Text = "Create Perpendicular Multi Slice";
+            this.slice_createPerpendicularMultiSliceToolStripMenuItem.Click += new System.EventHandler(this.slice_createPerpendicularMultiSliceToolStripMenuItem_Click);
+            // 
+            // perpendicularMultiSlicePropertiesToolStripMenuItem
+            // 
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem.Enabled = false;
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem.Name = "perpendicularMultiSlicePropertiesToolStripMenuItem";
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem.Text = "Perpendicular Multi Slice Properties...";
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem.Click += new System.EventHandler(this.perpendicularMultiSlicePropertiesToolStripMenuItem_Click);
             // 
             // MprCurvilinearSliceForm
             // 
@@ -548,6 +633,9 @@ namespace DicomMprViewerDemo
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.ResumeLayout(false);
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             this.toolStripPanel.ResumeLayout(false);
@@ -607,5 +695,12 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem view_showSlicePropertiesToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private Vintasoft.Imaging.UI.ImageViewer perpendicularMultiSliceImageViewer;
+        private System.Windows.Forms.ToolStripMenuItem slice_createPerpendicularMultiSliceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perpendicularMultiSlicePropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem savePerpendicularMultiSliceImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem savePerpendicularMultiSliceImagesToolStripMenuItem;
     }
 }

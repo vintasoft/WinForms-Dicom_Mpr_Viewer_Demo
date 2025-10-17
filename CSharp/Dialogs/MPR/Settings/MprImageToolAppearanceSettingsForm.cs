@@ -36,6 +36,11 @@ namespace DicomMprViewerDemo
         VisualMprSliceAppearanceSettings _curvilinearSliceSettings;
 
         /// <summary>
+        /// The multi slice appearance settings.
+        /// </summary>
+        VisualMprSliceAppearanceSettings _multiSliceSettings;
+
+        /// <summary>
         /// The available slice types.
         /// </summary>
         SliceType[] _availableSliceTypes;
@@ -224,6 +229,12 @@ namespace DicomMprViewerDemo
                 Manager.CurvilinearSliceAppearance.CopyTo(_curvilinearSliceSettings);
             }
 
+            if (CanChangeSliceSettings(SliceType.Multi))
+            {
+                _multiSliceSettings = new VisualMprSliceAppearanceSettings();
+                Manager.PerpendicularMultiSliceAppearance.CopyTo(_multiSliceSettings);
+            }
+
             if (_availableSliceTypes == null ||
                 _availableSliceTypes.Length == 0)
             {
@@ -232,6 +243,7 @@ namespace DicomMprViewerDemo
                 sliceTypeComboBox.Items.Add(SliceType.Coronal);
                 sliceTypeComboBox.Items.Add(SliceType.Axial);
                 sliceTypeComboBox.Items.Add(SliceType.Curvilinear);
+                sliceTypeComboBox.Items.Add(SliceType.Multi);
             }
             else
             {
@@ -304,6 +316,9 @@ namespace DicomMprViewerDemo
             if (_curvilinearSliceSettings != null)
                 _curvilinearSliceSettings.CopyTo(Manager.CurvilinearSliceAppearance);
 
+            if (_multiSliceSettings != null)
+                _multiSliceSettings.CopyTo(Manager.PerpendicularMultiSliceAppearance);
+
             if (CanChangeColorMarkSettings)
             {
                 // color mark settings
@@ -362,6 +377,7 @@ namespace DicomMprViewerDemo
         private void sliceTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             sliceAppearanceEditorControl.ShowCurvilinearSliceSettings = false;
+            sliceAppearanceEditorControl.ShowPerpendicularMultiSliceSettings = false;
 
             switch ((SliceType)sliceTypeComboBox.SelectedItem)
             {
@@ -380,6 +396,11 @@ namespace DicomMprViewerDemo
                 case SliceType.Curvilinear:
                     sliceAppearanceEditorControl.ShowCurvilinearSliceSettings = true;
                     sliceAppearanceEditorControl.SliceSettings = _curvilinearSliceSettings;
+                    break;
+
+                case SliceType.Multi:
+                    sliceAppearanceEditorControl.SliceSettings = _multiSliceSettings;
+                    sliceAppearanceEditorControl.ShowPerpendicularMultiSliceSettings = true;
                     break;
             }
         }
