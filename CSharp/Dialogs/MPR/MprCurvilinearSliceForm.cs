@@ -869,11 +869,19 @@ namespace DicomMprViewerDemo
         #region 'Slice' menu
 
         /// <summary>
-        /// Starts the building of curvilinear slice.
+        /// Handles the build_byPointsToolStripMenuItem_Click event of slice object.
         /// </summary>
-        private void slice_buildToolStripMenuItem_Click(object sender, EventArgs e)
+        private void slice_build_byPointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StartBuildCurvilinearSlice();
+            StartBuildCurvilinearSlice(false);
+        }
+
+        /// <summary>
+        /// Handles the build_freehandToolStripMenuItem_Click event of slice object.
+        /// </summary>
+        private void slice_build_freehandToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartBuildCurvilinearSlice(true);
         }
 
         /// <summary>
@@ -885,6 +893,8 @@ namespace DicomMprViewerDemo
                 return;
 
             RemovePerpendicualMultiSlice();
+
+            showHidePerpendicularMultiSliceToolStripMenuItem.Checked = true;
 
             // create multi slice
             _perpendicularMultiSlice = new MprPerpendicularMultiSlice(_currentCurvilinearSlice);
@@ -911,6 +921,7 @@ namespace DicomMprViewerDemo
             savePerpendicularMultiSliceImageToolStripMenuItem.Enabled = true;
             savePerpendicularMultiSliceImagesToolStripMenuItem.Enabled = true;
             perpendicularMultiSlicePropertiesToolStripMenuItem.Enabled = true;
+            showHidePerpendicularMultiSliceToolStripMenuItem.Enabled = true;
 
 
             ImageViewer[] viewers = new ImageViewer[] {
@@ -929,6 +940,34 @@ namespace DicomMprViewerDemo
 
                 if (sliceView != null)
                     sliceView.HoveredSliceIndexChanged += MultiSliceView_HoveredSliceIndexChanged;
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of showHidePerpendicularMultiSliceToolStripMenuItem object.
+        /// </summary>
+        private void showHidePerpendicularMultiSliceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHidePerpendicularMultiSliceToolStripMenuItem.Checked ^= true;
+
+            splitContainer2.Panel2Collapsed = !showHidePerpendicularMultiSliceToolStripMenuItem.Checked;
+
+            ImageViewer[] viewers = new ImageViewer[] {
+                planarSliceImageViewer,
+                curvilinearSliceImageViewer,
+                perpendicularMultiSliceImageViewer};
+
+            foreach (ImageViewer viewer in viewers)
+            {
+                // get MPR tool
+                DicomMprTool mprTool = _visualizationController.GetDicomMprToolAssociatedWithImageViewer(viewer);
+
+                // find slice view
+                MprPerpendicularMultiSliceView sliceView =
+                    mprTool.MprImageTool.FindSliceView(_perpendicularMultiSlice) as MprPerpendicularMultiSliceView;
+
+                if (sliceView != null)
+                    sliceView.IsVisible = showHidePerpendicularMultiSliceToolStripMenuItem.Checked;
             }
         }
 
@@ -992,7 +1031,7 @@ namespace DicomMprViewerDemo
             {
                 DicomImageVoiLookupTable newVoiLut = new DicomImageVoiLookupTable(e.WindowCenter, e.WindowWidth);
 
-                DicomMprTool[] tools = new DicomMprTool[] { 
+                DicomMprTool[] tools = new DicomMprTool[] {
                     _planarSliceDicomMprTool,
                     _curvilinearSliceDicomMprTool,
                     _perpendicularMultiSliceDicomMprTool };
@@ -1078,7 +1117,8 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// Starts the building of curvilinear slice.
         /// </summary>
-        private void StartBuildCurvilinearSlice()
+        /// <param name="useFreehandBuilder">The value indicating whether the freehand builder must be used.</param>
+        private void StartBuildCurvilinearSlice(bool useFreehandBuilder)
         {
             // if previous curvlinear slice must be removed
             if (_curvilinearSliceDicomMprTool.MprImageTool.FocusedSlice != null)
@@ -1099,7 +1139,15 @@ namespace DicomMprViewerDemo
             _imageToolAppearanceSettings.SetCurvilinearSliceSettings(curvilinearSliceVisualizer);
 
             // start the building of curvilinear slice
-            MprSliceView curvilinearSliceView = _planarSliceDicomMprTool.MprImageTool.AddAndBuildSlice(curvilinearSliceVisualizer);
+            MprPolylineSliceView curvilinearSliceView =
+                (MprPolylineSliceView)_planarSliceDicomMprTool.MprImageTool.AddAndBuildSlice(curvilinearSliceVisualizer);
+
+            if (useFreehandBuilder)
+            {
+                PointBasedObjectFreehandBuilder builder = new PointBasedObjectFreehandBuilder(curvilinearSliceView, 2, 1);
+                builder.FinishBuildingByDoubleMouseClick = false;
+                curvilinearSliceView.Builder = builder;
+            }
 
             // show slice in the right viewer
             _visualizationController.ShowSliceInViewer(curvilinearSliceImageViewer, curvilinearSlice);
@@ -1303,6 +1351,7 @@ namespace DicomMprViewerDemo
             perpendicularMultiSlicePropertiesToolStripMenuItem.Enabled = false;
             savePerpendicularMultiSliceImageToolStripMenuItem.Enabled = false;
             savePerpendicularMultiSliceImagesToolStripMenuItem.Enabled = false;
+            showHidePerpendicularMultiSliceToolStripMenuItem.Enabled = false;
         }
 
         /// <summary>
@@ -1438,7 +1487,7 @@ namespace DicomMprViewerDemo
 
             base.OnShown(e);
 
-            StartBuildCurvilinearSlice();
+            StartBuildCurvilinearSlice(false);
         }
 
         /// <summary>

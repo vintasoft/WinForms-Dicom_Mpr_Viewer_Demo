@@ -80,8 +80,12 @@ namespace DicomMprViewerDemo
             this.view_settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.slice_buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.slice_build_byPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.slice_build_freehandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.slice_createPerpendicularMultiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perpendicularMultiSlicePropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHidePerpendicularMultiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainPanel.SuspendLayout();
             this.viewersPanel.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -589,18 +593,41 @@ namespace DicomMprViewerDemo
             // 
             this.sliceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.slice_buildToolStripMenuItem,
+            this.toolStripSeparator11,
             this.slice_createPerpendicularMultiSliceToolStripMenuItem,
-            this.perpendicularMultiSlicePropertiesToolStripMenuItem});
+            this.perpendicularMultiSlicePropertiesToolStripMenuItem,
+            this.showHidePerpendicularMultiSliceToolStripMenuItem});
             this.sliceToolStripMenuItem.Name = "sliceToolStripMenuItem";
             this.sliceToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.sliceToolStripMenuItem.Text = "Slice";
             // 
             // slice_buildToolStripMenuItem
             // 
+            this.slice_buildToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.slice_build_byPointsToolStripMenuItem,
+            this.slice_build_freehandToolStripMenuItem});
             this.slice_buildToolStripMenuItem.Name = "slice_buildToolStripMenuItem";
             this.slice_buildToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.slice_buildToolStripMenuItem.Text = "Build Curvlinear";
-            this.slice_buildToolStripMenuItem.Click += new System.EventHandler(this.slice_buildToolStripMenuItem_Click);
+            // 
+            // slice_build_byPointsToolStripMenuItem
+            // 
+            this.slice_build_byPointsToolStripMenuItem.Name = "slice_build_byPointsToolStripMenuItem";
+            this.slice_build_byPointsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.slice_build_byPointsToolStripMenuItem.Text = "By Points";
+            this.slice_build_byPointsToolStripMenuItem.Click += new System.EventHandler(this.slice_build_byPointsToolStripMenuItem_Click);
+            // 
+            // slice_build_freehandToolStripMenuItem
+            // 
+            this.slice_build_freehandToolStripMenuItem.Name = "slice_build_freehandToolStripMenuItem";
+            this.slice_build_freehandToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.slice_build_freehandToolStripMenuItem.Text = "Freehand";
+            this.slice_build_freehandToolStripMenuItem.Click += new System.EventHandler(this.slice_build_freehandToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(267, 6);
             // 
             // slice_createPerpendicularMultiSliceToolStripMenuItem
             // 
@@ -616,6 +643,15 @@ namespace DicomMprViewerDemo
             this.perpendicularMultiSlicePropertiesToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.perpendicularMultiSlicePropertiesToolStripMenuItem.Text = "Perpendicular Multi Slice Properties...";
             this.perpendicularMultiSlicePropertiesToolStripMenuItem.Click += new System.EventHandler(this.perpendicularMultiSlicePropertiesToolStripMenuItem_Click);
+            // 
+            // showHidePerpendicularMultiSliceToolStripMenuItem
+            // 
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.Checked = true;
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.Name = "showHidePerpendicularMultiSliceToolStripMenuItem";
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.Text = "Show/Hide Perpendicular Multi Slice";
+            this.showHidePerpendicularMultiSliceToolStripMenuItem.Click += new System.EventHandler(this.showHidePerpendicularMultiSliceToolStripMenuItem_Click);
             // 
             // MprCurvilinearSliceForm
             // 
@@ -702,5 +738,9 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem savePerpendicularMultiSliceImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savePerpendicularMultiSliceImagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem showHidePerpendicularMultiSliceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem slice_build_byPointsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem slice_build_freehandToolStripMenuItem;
     }
 }
