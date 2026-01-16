@@ -65,6 +65,9 @@ namespace DicomMprViewerDemo
             this.view_fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.view_topPanelAlwaysVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.processingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.view_settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPanel.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -134,13 +137,14 @@ namespace DicomMprViewerDemo
             this.dicomMprToolInteractionModeToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(314, 0);
             this.dicomMprToolInteractionModeToolStrip1.Name = "dicomMprToolInteractionModeToolStrip1";
-            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(172, 25);
+            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(195, 25);
             this.dicomMprToolInteractionModeToolStrip1.SupportedInteractionModes = new Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode[] {
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Browse,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Pan,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.WindowLevel,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Zoom,
-        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure};
+        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure,
+        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.ViewProcessing};
             this.dicomMprToolInteractionModeToolStrip1.TabIndex = 4;
             // 
             // mainPanel
@@ -328,6 +332,8 @@ namespace DicomMprViewerDemo
             this.view_fullScreenToolStripMenuItem,
             this.view_topPanelAlwaysVisibleToolStripMenuItem,
             this.toolStripSeparator2,
+            this.processingToolStripMenuItem,
+            this.toolStripSeparator8,
             this.view_settingsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -443,6 +449,26 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
             // 
+            // processingToolStripMenuItem
+            // 
+            this.processingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.processingToolStripComboBox});
+            this.processingToolStripMenuItem.Name = "processingToolStripMenuItem";
+            this.processingToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.processingToolStripMenuItem.Text = "Processing";
+            // 
+            // processingToolStripComboBox
+            // 
+            this.processingToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.processingToolStripComboBox.Name = "processingToolStripComboBox";
+            this.processingToolStripComboBox.Size = new System.Drawing.Size(121, 23);
+            this.processingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.processingToolStripComboBox_SelectedIndexChanged);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(277, 6);
+            // 
             // view_settingsToolStripMenuItem
             // 
             this.view_settingsToolStripMenuItem.Name = "view_settingsToolStripMenuItem";
@@ -518,5 +544,8 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Vintasoft.Imaging.UI.ImageViewer multiSliceImageViewer;
+        private System.Windows.Forms.ToolStripMenuItem processingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripComboBox processingToolStripComboBox;
     }
 }

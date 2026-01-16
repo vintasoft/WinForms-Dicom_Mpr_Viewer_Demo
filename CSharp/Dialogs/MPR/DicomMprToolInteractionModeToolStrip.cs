@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+
+using DemosCommonCode;
+using DemosCommonCode.CustomControls;
 
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Annotation.Measurements;
 using Vintasoft.Imaging.Annotation.UI;
 using Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools;
 using Vintasoft.Imaging.UI.VisualTools;
-
-using DemosCommonCode;
-using DemosCommonCode.CustomControls;
-using System.ComponentModel;
 
 namespace DicomMprViewerDemo
 {
@@ -105,7 +105,7 @@ namespace DicomMprViewerDemo
         /// <summary>
         /// The available mouse buttons.
         /// </summary>
-        MouseButtons[] _availableMouseButtons = new MouseButtons[] { 
+        MouseButtons[] _availableMouseButtons = new MouseButtons[] {
             MouseButtons.Left, MouseButtons.Middle, MouseButtons.Right
         };
 
@@ -130,6 +130,7 @@ namespace DicomMprViewerDemo
                         DicomMprToolInteractionMode.Roll,
                         DicomMprToolInteractionMode.Rotate3D,
                         DicomMprToolInteractionMode.Zoom,
+                        DicomMprToolInteractionMode.ViewProcessing,
                         DicomMprToolInteractionMode.WindowLevel,
                         DicomMprToolInteractionMode.Measure};
 
@@ -151,6 +152,8 @@ namespace DicomMprViewerDemo
                 "Dialogs.MPR.Icons.WindowLevel_{0}{1}{2}.png");
             _interactionModeToIconNameFormat.Add(DicomMprToolInteractionMode.Zoom,
                 "Dialogs.MPR.Icons.Zoom_{0}{1}{2}.png");
+            _interactionModeToIconNameFormat.Add(DicomMprToolInteractionMode.ViewProcessing,
+                "Dialogs.MPR.Icons.ViewProcessing_{0}{1}{2}.png");
 
             // initialize buttons
             InitButtons();
@@ -978,28 +981,14 @@ namespace DicomMprViewerDemo
         /// </returns>
         private MouseButtons GetMouseButtonsForInteractionMode(DicomMprToolInteractionMode interactionMode)
         {
-            // the result mouse buttons
-            MouseButtons resultMouseButton = MouseButtons.None;
-
             // get the active DICOM MPR tool
             DicomMprTool dicomMprTool = GetActiveMprTool();
 
-            // if active tool exists
-            if (dicomMprTool != null)
-            {
-                // for each available mouse button
-                foreach (MouseButtons button in _availableMouseButtons)
-                {
-                    // get an interaction mode for mouse button
-                    DicomMprToolInteractionMode mouseButtonInteractionMode = dicomMprTool.GetInteractionMode(button);
-                    // if interaction mode for mouse button equals to the analyzing interaction mode
-                    if (mouseButtonInteractionMode == interactionMode)
-                        // add mouse button to the result
-                        resultMouseButton |= button;
-                }
-            }
+            // if active tool not exists
+            if (dicomMprTool == null)
+                return MouseButtons.None;
 
-            return resultMouseButton;
+            return dicomMprTool.GetMouseButtonsForInteractionMode(interactionMode);
         }
 
         /// <summary>

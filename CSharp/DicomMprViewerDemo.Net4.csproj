@@ -82,16 +82,16 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="Vintasoft.Imaging" Version="15.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="15.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="15.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="15.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="8.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="8.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="8.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="8.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="11.0.0.1" />
-    <PackageReference Include="Vintasoft.Imaging.UI" Version="15.0.0.1" />
+    <PackageReference Include="Vintasoft.Imaging" Version="15.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Gdi" Version="15.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation" Version="15.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Annotation.UI" Version="15.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom" Version="8.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr" Version="8.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.Mpr.UI" Version="8.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Dicom.UI" Version="8.0.1.1" />
+    <PackageReference Include="Vintasoft.Imaging.Jpeg2000Codec" Version="10.1.0.1" />
+    <PackageReference Include="Vintasoft.Imaging.UI" Version="15.0.1.1" />
     <PackageReference Include="Vintasoft.Shared" Version="4.6.1.1" />
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +319,14 @@
     <Compile Include="MprSourceDataController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_000.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_001.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_010.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_011.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_100.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_101.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_110.png" />
+    <EmbeddedResource Include="Dialogs\MPR\Icons\ViewProcessing_111.png" />
     <Content Include="directives.txt" />
     <EmbeddedResource Include="CustomControls\AnchorTypeEditorControl.resx">
       <DependentUpon>AnchorTypeEditorControl.cs</DependentUpon>

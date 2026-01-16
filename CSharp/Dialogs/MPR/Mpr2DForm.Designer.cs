@@ -28,8 +28,6 @@ namespace DicomMprViewerDemo
         /// </summary>
         private void InitializeComponent()
         {
-            Vintasoft.Imaging.Utils.WinFormsSystemClipboard winFormsSystemClipboard1 = new Vintasoft.Imaging.Utils.WinFormsSystemClipboard();
-            Vintasoft.Imaging.Codecs.Decoders.RenderingSettings renderingSettings1 = new Vintasoft.Imaging.Codecs.Decoders.RenderingSettings();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
             this.imageViewer1 = new Vintasoft.Imaging.UI.ImageViewer();
@@ -65,6 +63,9 @@ namespace DicomMprViewerDemo
             this.view_fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.view_topPanelAlwaysVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.processingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.view_settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showAnimationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,13 +104,11 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.ImageViewer = this.imageViewer1;
             this.imageViewerToolStrip1.Location = new System.Drawing.Point(3, 0);
             this.imageViewerToolStrip1.Name = "imageViewerToolStrip1";
-            this.imageViewerToolStrip1.PageCount = 0;
             this.imageViewerToolStrip1.PrintButtonEnabled = true;
             this.imageViewerToolStrip1.ScanButtonEnabled = true;
             this.imageViewerToolStrip1.Size = new System.Drawing.Size(310, 25);
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
-            this.imageViewerToolStrip1.UseImageViewerImages = true;
             this.imageViewerToolStrip1.SaveFile += new System.EventHandler(this.file_saveImageSliceToolStripMenuItem_Click);
             this.imageViewerToolStrip1.PageIndexChanged += new System.EventHandler<DemosCommonCode.Imaging.PageIndexChangedEventArgs>(this.imageViewerToolStrip1_PageIndexChanged);
             // 
@@ -120,16 +119,7 @@ namespace DicomMprViewerDemo
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imageViewer1.BackColor = System.Drawing.Color.Transparent;
             this.imageViewer1.CenterImage = true;
-            this.imageViewer1.Clipboard = winFormsSystemClipboard1;
-            this.imageViewer1.FastScrollingCursor = System.Windows.Forms.Cursors.SizeAll;
-            this.imageViewer1.FastScrollingInterval = 10;
-            this.imageViewer1.FastScrollingMinDistance = 5F;
-            this.imageViewer1.FastScrollingMouseButton = System.Windows.Forms.MouseButtons.Middle;
-            this.imageViewer1.FastScrollingScale = 0.5F;
             this.imageViewer1.FocusPointAnchor = Vintasoft.Imaging.AnchorType.None;
-            this.imageViewer1.ImageRenderingSettings = renderingSettings1;
-            this.imageViewer1.ImageRotationAngle = 0;
-            this.imageViewer1.IsFastScrollingEnabled = true;
             this.imageViewer1.Location = new System.Drawing.Point(0, 0);
             this.imageViewer1.Name = "imageViewer1";
             this.imageViewer1.ShortcutCopy = System.Windows.Forms.Shortcut.None;
@@ -149,13 +139,14 @@ namespace DicomMprViewerDemo
             this.dicomMprToolInteractionModeToolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.dicomMprToolInteractionModeToolStrip1.Location = new System.Drawing.Point(437, 0);
             this.dicomMprToolInteractionModeToolStrip1.Name = "dicomMprToolInteractionModeToolStrip1";
-            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(172, 25);
+            this.dicomMprToolInteractionModeToolStrip1.Size = new System.Drawing.Size(195, 25);
             this.dicomMprToolInteractionModeToolStrip1.SupportedInteractionModes = new Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode[] {
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Browse,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Pan,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.WindowLevel,
         Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Zoom,
-        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure};
+        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.Measure,
+        Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools.DicomMprToolInteractionMode.ViewProcessing};
             this.dicomMprToolInteractionModeToolStrip1.TabIndex = 4;
             // 
             // mainPanel
@@ -307,6 +298,8 @@ namespace DicomMprViewerDemo
             this.view_fullScreenToolStripMenuItem,
             this.view_topPanelAlwaysVisibleToolStripMenuItem,
             this.toolStripSeparator2,
+            this.processingToolStripMenuItem,
+            this.toolStripSeparator8,
             this.view_settingsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -421,6 +414,26 @@ namespace DicomMprViewerDemo
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(277, 6);
+            // 
+            // processingToolStripMenuItem
+            // 
+            this.processingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.processingToolStripComboBox});
+            this.processingToolStripMenuItem.Name = "processingToolStripMenuItem";
+            this.processingToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.processingToolStripMenuItem.Text = "Processing";
+            // 
+            // processingToolStripComboBox
+            // 
+            this.processingToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.processingToolStripComboBox.Name = "processingToolStripComboBox";
+            this.processingToolStripComboBox.Size = new System.Drawing.Size(121, 23);
+            this.processingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.processingToolStripComboBox_SelectedIndexChanged);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(277, 6);
             // 
             // view_settingsToolStripMenuItem
             // 
@@ -545,5 +558,8 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem animationDelayToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox animationDelay_valueToolStripComboBox;
         private System.Windows.Forms.ToolStripMenuItem animationRepeatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripComboBox processingToolStripComboBox;
     }
 }

@@ -19,6 +19,8 @@ using Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools;
 using Vintasoft.Imaging.Dicom.UI;
 using Vintasoft.Imaging.Dicom.UI.VisualTools;
 using Vintasoft.Imaging.ImageProcessing;
+using Vintasoft.Imaging.ImageProcessing.Color;
+using Vintasoft.Imaging.ImageProcessing.Filters;
 using Vintasoft.Imaging.Metadata;
 using Vintasoft.Imaging.UI;
 using Vintasoft.Imaging.UI.VisualTools;
@@ -100,6 +102,18 @@ namespace DicomMprViewerDemo
         /// </summary>
         ToolStripMenuItem _currentRulersUnitOfMeasureMenuItem = null;
 
+        /// <summary>
+        /// The processing commands, which can be applied to an image region of DICOM MPR viewer.
+        /// </summary>
+        ProcessingCommandBase[] _processingCommands = new ProcessingCommandBase[]
+        {
+            null,
+            new InvertCommand(),
+            new BlurCommand(7),
+            new SharpenCommand(),
+            new Vintasoft.Imaging.ImageProcessing.Fft.Filters.ImageSharpeningCommand()
+        };
+
         #endregion
 
 
@@ -129,6 +143,17 @@ namespace DicomMprViewerDemo
 
             dicomSeriesManagerControl1.AddedFileCountChanged += DicomSeriesManagerControl1_AddedFileCountChanged;
             dicomSeriesManagerControl1.FocusedSeriesIdentifierChanged += DicomSeriesManagerControl1_FocusedSeriesIdentifierChanged;
+
+            foreach (ProcessingCommandBase processingCommand in _processingCommands)
+            {
+                string processingCommandName = "None";
+
+                if (processingCommand != null)
+                    processingCommandName = processingCommand.Name;
+
+                processingToolStripComboBox.Items.Add(processingCommandName);
+            }
+            processingToolStripComboBox.SelectedIndex = 0;
 
             UpdateUI();
         }
@@ -666,6 +691,23 @@ namespace DicomMprViewerDemo
                 dialog.ShowDialog();
             }
             UpdateDicomMprSettings();
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of processingToolStripComboBox object.
+        /// </summary>
+        private void processingToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_dicomMprTools == null)
+                return;
+
+            UpdateViewProcessingCommands();
+
+            foreach (DicomMprTool tool in _dicomMprTools)
+            {
+                if (tool.GetMouseButtonsForInteractionMode(DicomMprToolInteractionMode.ViewProcessing) == MouseButtons.None)
+                    tool.SetInteractionMode(MouseButtons.Left, DicomMprToolInteractionMode.ViewProcessing);
+            }
         }
 
         #endregion
@@ -1249,6 +1291,8 @@ namespace DicomMprViewerDemo
                     oldVisualizationController.Dispose();
                 }
 
+                UpdateViewProcessingCommands();
+
                 imageViewer1.Focus();
 
                 return true;
@@ -1315,6 +1359,23 @@ namespace DicomMprViewerDemo
 
 
         #region 'View' menu
+
+        /// <summary>
+        /// Updates the <see cref="DicomMprTool.ViewProcessingCommand"/>.
+        /// </summary>
+        private void UpdateViewProcessingCommands()
+        {
+            if (_dicomMprTools == null)
+                return;
+
+            ProcessingCommandBase command = _processingCommands[processingToolStripComboBox.SelectedIndex];
+
+            if (_dicomMprTools[0].ViewProcessingCommand == command)
+                return;
+
+            foreach (DicomMprTool tool in _dicomMprTools)
+                tool.ViewProcessingCommand = command;
+        }
 
         /// <summary>
         /// Changes the visibility of 3D axis.

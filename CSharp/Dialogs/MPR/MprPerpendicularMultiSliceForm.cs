@@ -14,6 +14,8 @@ using Vintasoft.Imaging.Dicom.Mpr.UI;
 using Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools;
 using Vintasoft.Imaging.Dicom.UI.VisualTools;
 using Vintasoft.Imaging.ImageProcessing;
+using Vintasoft.Imaging.ImageProcessing.Color;
+using Vintasoft.Imaging.ImageProcessing.Filters;
 using Vintasoft.Imaging.UI;
 using Vintasoft.Imaging.UI.VisualTools;
 using Vintasoft.Primitives;
@@ -100,6 +102,16 @@ namespace DicomMprViewerDemo
         /// </summary>
         SliceType _sliceType;
 
+        /// <summary>
+        /// The processing commands, which can be applied to an image region of DICOM MPR viewer.
+        /// </summary>
+        ProcessingCommandBase[] _processingCommands = new ProcessingCommandBase[]
+        {
+            null,
+            new InvertCommand(),
+            new BlurCommand(7),
+            new SharpenCommand(),
+        };
 
         #region Animation
 
@@ -251,6 +263,17 @@ namespace DicomMprViewerDemo
                 if (sliceView != null)
                     sliceView.HoveredSliceIndexChanged += MultiSliceView_HoveredSliceIndexChanged;
             }
+
+            foreach (ProcessingCommandBase processingCommand in _processingCommands)
+            {
+                string processingCommandName = "None";
+
+                if (processingCommand != null)
+                    processingCommandName = processingCommand.Name;
+
+                processingToolStripComboBox.Items.Add(processingCommandName);
+            }
+            processingToolStripComboBox.SelectedIndex = 0;
 
             _isInitialized = true;
         }
@@ -629,6 +652,24 @@ namespace DicomMprViewerDemo
             // hide the color mark
             _planarSliceDicomMprTool.MprImageTool.IsFocusedSliceColorMarkVisible = false;
             _multiSliceDicomMprTool.MprImageTool.IsFocusedSliceColorMarkVisible = false;
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of processingToolStripComboBox object.
+        /// </summary>
+        private void processingToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcessingCommandBase command = _processingCommands[processingToolStripComboBox.SelectedIndex];
+
+            if (_planarSliceDicomMprTool.ViewProcessingCommand == command)
+                return;
+
+            if (_planarSliceDicomMprTool.GetMouseButtonsForInteractionMode(DicomMprToolInteractionMode.ViewProcessing) == MouseButtons.None)
+                _planarSliceDicomMprTool.SetInteractionMode(MouseButtons.Left, DicomMprToolInteractionMode.ViewProcessing);
+
+
+            _planarSliceDicomMprTool.ViewProcessingCommand = command;
+            _multiSliceDicomMprTool.ViewProcessingCommand = command;
         }
 
         #endregion
