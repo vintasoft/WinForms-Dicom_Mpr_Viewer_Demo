@@ -151,6 +151,7 @@ namespace DicomMprViewerDemo
             new InvertCommand(),
             new BlurCommand(7),
             new SharpenCommand(),
+            new Vintasoft.Imaging.ImageProcessing.Fft.Filters.ImageSharpeningCommand()
         };
 
         #endregion
@@ -246,9 +247,11 @@ namespace DicomMprViewerDemo
                 if (processingCommand != null)
                     processingCommandName = processingCommand.Name;
 
-                processingToolStripComboBox.Items.Add(processingCommandName);
+                viewProcessingToolStripComboBox.Items.Add(processingCommandName);
+                viewerProcessingToolStripComboBox.Items.Add(processingCommandName);
             }
-            processingToolStripComboBox.SelectedIndex = 0;
+            viewProcessingToolStripComboBox.SelectedIndex = 0;
+            viewerProcessingToolStripComboBox.SelectedIndex = 0;
         }
 
         #endregion
@@ -888,11 +891,11 @@ namespace DicomMprViewerDemo
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of processingToolStripComboBox object.
+        /// Handles the SelectedIndexChanged event of viewProcessingToolStripComboBox object.
         /// </summary>
-        private void processingToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void viewProcessingToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ProcessingCommandBase command = _processingCommands[processingToolStripComboBox.SelectedIndex];
+            ProcessingCommandBase command = _processingCommands[viewProcessingToolStripComboBox.SelectedIndex];
 
             if (_planarSliceDicomMprTool.ViewProcessingCommand == command)
                 return;
@@ -903,6 +906,21 @@ namespace DicomMprViewerDemo
             _planarSliceDicomMprTool.ViewProcessingCommand = command;
             _curvilinearSliceDicomMprTool.ViewProcessingCommand = command;
             _perpendicularMultiSliceDicomMprTool.ViewProcessingCommand = command;
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of viewerProcessingToolStripComboBox object.
+        /// </summary>
+        private void viewerProcessingToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ProcessingCommandBase command = _processingCommands[viewerProcessingToolStripComboBox.SelectedIndex];
+
+            if (_planarSliceDicomMprTool.DicomViewerTool.DisplayedImageProcessing == command)
+                return;
+
+            _planarSliceDicomMprTool.DicomViewerTool.DisplayedImageProcessing = command;
+            _curvilinearSliceDicomMprTool.DicomViewerTool.DisplayedImageProcessing = command;
+            _perpendicularMultiSliceDicomMprTool.DicomViewerTool.DisplayedImageProcessing = command;
         }
 
         #endregion

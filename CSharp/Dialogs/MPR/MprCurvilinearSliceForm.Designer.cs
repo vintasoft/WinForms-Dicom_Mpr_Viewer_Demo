@@ -78,8 +78,8 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.view_textOverlaySettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.processingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.processingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.viewProcessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewProcessingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.view_settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +90,8 @@ namespace DicomMprViewerDemo
             this.slice_createPerpendicularMultiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perpendicularMultiSlicePropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showHidePerpendicularMultiSliceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewerProcessingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewerProcessingToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.mainPanel.SuspendLayout();
             this.viewersPanel.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -423,7 +425,8 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator8,
             this.view_textOverlaySettingsToolStripMenuItem,
             this.toolStripSeparator12,
-            this.processingToolStripMenuItem,
+            this.viewProcessingToolStripMenuItem,
+            this.viewerProcessingToolStripMenuItem,
             this.toolStripSeparator13,
             this.view_settingsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
@@ -595,20 +598,20 @@ namespace DicomMprViewerDemo
             this.toolStripSeparator12.Name = "toolStripSeparator12";
             this.toolStripSeparator12.Size = new System.Drawing.Size(332, 6);
             // 
-            // processingToolStripMenuItem
+            // viewProcessingToolStripMenuItem
             // 
-            this.processingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.processingToolStripComboBox});
-            this.processingToolStripMenuItem.Name = "processingToolStripMenuItem";
-            this.processingToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
-            this.processingToolStripMenuItem.Text = "Processing";
+            this.viewProcessingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewProcessingToolStripComboBox});
+            this.viewProcessingToolStripMenuItem.Name = "viewProcessingToolStripMenuItem";
+            this.viewProcessingToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.viewProcessingToolStripMenuItem.Text = "View Processing";
             // 
-            // processingToolStripComboBox
+            // viewProcessingToolStripComboBox
             // 
-            this.processingToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.processingToolStripComboBox.Name = "processingToolStripComboBox";
-            this.processingToolStripComboBox.Size = new System.Drawing.Size(121, 23);
-            this.processingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.processingToolStripComboBox_SelectedIndexChanged);
+            this.viewProcessingToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewProcessingToolStripComboBox.Name = "viewProcessingToolStripComboBox";
+            this.viewProcessingToolStripComboBox.Size = new System.Drawing.Size(121, 23);
+            this.viewProcessingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.viewProcessingToolStripComboBox_SelectedIndexChanged);
             // 
             // toolStripSeparator13
             // 
@@ -685,6 +688,21 @@ namespace DicomMprViewerDemo
             this.showHidePerpendicularMultiSliceToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.showHidePerpendicularMultiSliceToolStripMenuItem.Text = "Show/Hide Perpendicular Multi Slice";
             this.showHidePerpendicularMultiSliceToolStripMenuItem.Click += new System.EventHandler(this.showHidePerpendicularMultiSliceToolStripMenuItem_Click);
+            // 
+            // viewerProcessingToolStripMenuItem
+            // 
+            this.viewerProcessingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewerProcessingToolStripComboBox});
+            this.viewerProcessingToolStripMenuItem.Name = "viewerProcessingToolStripMenuItem";
+            this.viewerProcessingToolStripMenuItem.Size = new System.Drawing.Size(335, 22);
+            this.viewerProcessingToolStripMenuItem.Text = "Viewer Processing";
+            // 
+            // viewerProcessingToolStripComboBox
+            // 
+            this.viewerProcessingToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewerProcessingToolStripComboBox.Name = "viewerProcessingToolStripComboBox";
+            this.viewerProcessingToolStripComboBox.Size = new System.Drawing.Size(121, 23);
+            this.viewerProcessingToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.viewerProcessingToolStripComboBox_SelectedIndexChanged);
             // 
             // MprCurvilinearSliceForm
             // 
@@ -776,8 +794,10 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripMenuItem slice_build_byPointsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem slice_build_freehandToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripMenuItem processingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewProcessingToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
-        private System.Windows.Forms.ToolStripComboBox processingToolStripComboBox;
+        private System.Windows.Forms.ToolStripComboBox viewProcessingToolStripComboBox;
+        private System.Windows.Forms.ToolStripMenuItem viewerProcessingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox viewerProcessingToolStripComboBox;
     }
 }
