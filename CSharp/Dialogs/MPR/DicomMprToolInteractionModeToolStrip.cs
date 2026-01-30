@@ -9,6 +9,8 @@ using DemosCommonCode;
 using DemosCommonCode.CustomControls;
 
 using Vintasoft.Imaging;
+using Vintasoft.Imaging.Annotation;
+using Vintasoft.Imaging.Annotation.Formatters;
 using Vintasoft.Imaging.Annotation.Measurements;
 using Vintasoft.Imaging.Annotation.UI;
 using Vintasoft.Imaging.Dicom.Mpr.UI.VisualTools;
@@ -95,6 +97,16 @@ namespace DicomMprViewerDemo
         /// The menu button that deletes all measurement annotations in all image viewers.
         /// </summary>
         ToolStripMenuItem _measurementAnnotationDeleteAllOnViewersMenuButton;
+
+        /// <summary>
+        /// The menu button that loads the measurement annotations in focused image viewer.
+        /// </summary>
+        ToolStripMenuItem _measurementAnnotationLoadMenuButton;
+
+        /// <summary>
+        /// The menu button that saves the measurement annotations in focused image viewer.
+        /// </summary>
+        ToolStripMenuItem _measurementAnnotationSaveMenuButton;
 
 
         /// <summary>
@@ -373,6 +385,8 @@ namespace DicomMprViewerDemo
             _menuButtonToInteractionMode.Clear();
             _measurementAnnotationDeleteMenuButton = null;
             _measurementAnnotationDeleteAllMenuButton = null;
+            _measurementAnnotationLoadMenuButton = null;
+            _measurementAnnotationSaveMenuButton = null;
 
             // for each suported interaction mode
             foreach (DicomMprToolInteractionMode interactionMode in _supportedInteractionModes)
@@ -553,6 +567,20 @@ namespace DicomMprViewerDemo
             measureMenuButtonItems.Add(unitsOfMeasureButton);
 
 
+            // add seperator
+            measureMenuButtonItems.Add(new ToolStripSeparator());
+
+            // add "Load Measurements" button
+            _measurementAnnotationLoadMenuButton = new ToolStripMenuItem("Load Measurements...");
+            _measurementAnnotationLoadMenuButton.Click += measurementAnnotationLoadMenuButton_Click;
+            measureMenuButtonItems.Add(_measurementAnnotationLoadMenuButton);
+
+            // add "Save Measurements" button
+            _measurementAnnotationSaveMenuButton = new ToolStripMenuItem("Save Measurements...");
+            _measurementAnnotationSaveMenuButton.Click += measurementAnnotationSaveMenuButton_Click;
+            measureMenuButtonItems.Add(_measurementAnnotationSaveMenuButton);
+
+
             measureMenuButton.DropDown.AutoSize = true;
         }
 
@@ -714,6 +742,88 @@ namespace DicomMprViewerDemo
                 if (dicomMprTool.MeasureTool.DeleteAllAction.IsEnabled)
                     // remove all measurement annotations
                     dicomMprTool.MeasureTool.DeleteAllAction.Execute();
+            }
+        }
+
+        /// <summary>
+        /// Loads the measurement annotations in active DICOM MPR tool.
+        /// </summary>
+        private void measurementAnnotationLoadMenuButton_Click(object sender, EventArgs e)
+        {
+            // get active DICOM MPR tool
+            DicomMprTool dicomMprTool = GetActiveMprTool();
+            if (dicomMprTool == null)
+                return;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.FileName = null;
+                openFileDialog.Filter =
+                    "Binary Annotations(*.vsabm)|*.vsabm|XMP Annotations(*.xmpm)|*.xmpm|All Formats(*.vsabm;*.xmpm)|*.vsabm;*.xmpm";
+                openFileDialog.FilterIndex = 3;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        using (FileStream fs = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
+                        {
+                            ImageMeasureTool visualTool = dicomMprTool.MeasureTool;
+                            // get the annotation collection
+                            AnnotationDataCollection annotations = visualTool.AnnotationViewCollection.DataCollection;
+                            // clear the annotation collection
+                            annotations.ClearAndDisposeItems();
+                            // add annotations from stream to the annotation collection
+                            annotations.AddFromStream(fs, visualTool.ImageViewer.Image.Resolution);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DemosTools.ShowErrorMessage(ex);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Saves the measurement annotations in active DICOM MPR tool.
+        /// </summary>
+        private void measurementAnnotationSaveMenuButton_Click(object sender, EventArgs e)
+        {
+            // get active DICOM MPR tool
+            DicomMprTool dicomMprTool = GetActiveMprTool();
+            if (dicomMprTool == null)
+                return;
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.FileName = null;
+                saveFileDialog.Filter = "Binary Annotations|*.vsabm|XMP Annotations|*.xmpm";
+                saveFileDialog.FilterIndex = 1;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.ReadWrite))
+                        {
+                            AnnotationFormatter annotationFormatter = null;
+                            if (saveFileDialog.FilterIndex == 1)
+                                annotationFormatter = new AnnotationVintasoftBinaryFormatter();
+                            else if (saveFileDialog.FilterIndex == 2)
+                                annotationFormatter = new AnnotationVintasoftXmpFormatter();
+
+                            ImageMeasureTool visualTool = dicomMprTool.MeasureTool;
+                            AnnotationDataCollection annotations = visualTool.AnnotationViewCollection.DataCollection;
+
+                            annotationFormatter.Serialize(fs, annotations);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DemosTools.ShowErrorMessage(ex);
+                    }
+                }
             }
         }
 
