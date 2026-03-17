@@ -8,7 +8,7 @@ using Vintasoft.Imaging.Codecs.ImageFiles.Dicom;
 using Vintasoft.Imaging.Dicom.Mpr;
 using Vintasoft.Imaging.Dicom.Mpr.UI;
 
-using DemosCommonCode;
+using CommonCode;
 
 
 namespace DicomMprViewerDemo

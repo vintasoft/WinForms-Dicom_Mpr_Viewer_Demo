@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class MprImageToolAppearanceSettingsForm
     {
@@ -45,14 +45,14 @@ namespace DicomMprViewerDemo
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.colorMarkGroupBox = new System.Windows.Forms.GroupBox();
-            this.colorMarkAnchorTypeEditor = new DemosCommonCode.CustomControls.AnchorTypeEditorControl();
-            this.focusedImageViewerColorMarkPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
+            this.colorMarkAnchorTypeEditor = new CommonCode.CustomControls.AnchorTypeEditorControl();
+            this.focusedImageViewerColorMarkPanelControl = new CommonCode.CustomControls.ColorPanelControl();
             this.visualizationPerformanceGroupBox = new System.Windows.Forms.GroupBox();
             this.limitMaxFpsCheckBox = new System.Windows.Forms.CheckBox();
-            this.complexityThresholdValueEditorControl = new DemosCommonCode.CustomControls.ValueEditorControl();
-            this.stepCountValueEditorControl = new DemosCommonCode.CustomControls.ValueEditorControl();
-            this.maxFpsValueEditorControl = new DemosCommonCode.CustomControls.ValueEditorControl();
-            this.maxThreadValueEditorControl = new DemosCommonCode.CustomControls.ValueEditorControl();
+            this.complexityThresholdValueEditorControl = new CommonCode.CustomControls.ValueEditorControl();
+            this.stepCountValueEditorControl = new CommonCode.CustomControls.ValueEditorControl();
+            this.maxFpsValueEditorControl = new CommonCode.CustomControls.ValueEditorControl();
+            this.maxThreadValueEditorControl = new CommonCode.CustomControls.ValueEditorControl();
             this.sliceSettingsGroupBox.SuspendLayout();
             this.sliceTypePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.focusedImageViewerMarkSizeNumericUpDown)).BeginInit();
@@ -433,7 +433,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.CheckBox colorMarkVisibleCheckBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private DemosCommonCode.CustomControls.ColorPanelControl focusedImageViewerColorMarkPanelControl;
+        private CommonCode.CustomControls.ColorPanelControl focusedImageViewerColorMarkPanelControl;
         private System.Windows.Forms.NumericUpDown focusedImageViewerMarkSizeNumericUpDown;
         private System.Windows.Forms.NumericUpDown colorMarkHeigthNumericUpDown;
         private System.Windows.Forms.NumericUpDown colorMarkWidthNumericUpDown;
@@ -442,12 +442,12 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox colorMarkGroupBox;
         private System.Windows.Forms.GroupBox visualizationPerformanceGroupBox;
-        private DemosCommonCode.CustomControls.ValueEditorControl maxThreadValueEditorControl;
-        private DemosCommonCode.CustomControls.ValueEditorControl complexityThresholdValueEditorControl;
-        private DemosCommonCode.CustomControls.ValueEditorControl stepCountValueEditorControl;
-        private DemosCommonCode.CustomControls.ValueEditorControl maxFpsValueEditorControl;
+        private CommonCode.CustomControls.ValueEditorControl maxThreadValueEditorControl;
+        private CommonCode.CustomControls.ValueEditorControl complexityThresholdValueEditorControl;
+        private CommonCode.CustomControls.ValueEditorControl stepCountValueEditorControl;
+        private CommonCode.CustomControls.ValueEditorControl maxFpsValueEditorControl;
         private System.Windows.Forms.CheckBox limitMaxFpsCheckBox;
         private System.Windows.Forms.Panel sliceTypePanel;
-        private DemosCommonCode.CustomControls.AnchorTypeEditorControl colorMarkAnchorTypeEditor;
+        private CommonCode.CustomControls.AnchorTypeEditorControl colorMarkAnchorTypeEditor;
     }
 }

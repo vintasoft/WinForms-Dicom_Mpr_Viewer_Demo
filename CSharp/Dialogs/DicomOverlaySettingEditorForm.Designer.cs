@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class DicomOverlaySettingEditorForm
     {
@@ -41,7 +41,7 @@ namespace DicomMprViewerDemo
             this.groupButton = new System.Windows.Forms.Button();
             this.ungroupButton = new System.Windows.Forms.Button();
             this.anchorTypeLabel = new System.Windows.Forms.Label();
-            this.anchorTypeEditor = new DemosCommonCode.CustomControls.AnchorTypeEditorControl();
+            this.anchorTypeEditor = new CommonCode.CustomControls.AnchorTypeEditorControl();
             this.SuspendLayout();
             // 
             // supportedItemsListBox
@@ -210,7 +210,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolTip buttonToolTip;
         private System.Windows.Forms.Button groupButton;
         private System.Windows.Forms.Button ungroupButton;
-        private DemosCommonCode.CustomControls.AnchorTypeEditorControl anchorTypeEditor;
+        private CommonCode.CustomControls.AnchorTypeEditorControl anchorTypeEditor;
         private System.Windows.Forms.Label anchorTypeLabel;
     }
 }

@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class MprCurvilinearSliceForm
     {
@@ -37,7 +37,7 @@ namespace DicomMprViewerDemo
             this.perpendicularMultiSliceImageViewer = new Vintasoft.Imaging.UI.ImageViewer();
             this.topPanel = new System.Windows.Forms.Panel();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
-            this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
+            this.imageViewerToolStrip1 = new CommonCode.Imaging.ImageViewerToolStrip();
             this.dicomMprToolInteractionModeToolStrip1 = new DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -745,7 +745,7 @@ namespace DicomMprViewerDemo
         private Vintasoft.Imaging.UI.ImageViewer planarSliceImageViewer;
         private Vintasoft.Imaging.UI.ImageViewer curvilinearSliceImageViewer;
         private System.Windows.Forms.ToolStripPanel toolStripPanel;
-        private DemosCommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
+        private CommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
         private DicomMprToolInteractionModeToolStrip dicomMprToolInteractionModeToolStrip1;
         private System.Windows.Forms.ToolStripMenuItem view_resetSceneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem view_fitSceneToolStripMenuItem;

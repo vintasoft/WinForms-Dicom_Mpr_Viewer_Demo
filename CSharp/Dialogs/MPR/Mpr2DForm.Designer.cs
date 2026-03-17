@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class Mpr2DForm
     {
@@ -29,7 +29,7 @@ namespace DicomMprViewerDemo
         private void InitializeComponent()
         {
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
-            this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
+            this.imageViewerToolStrip1 = new CommonCode.Imaging.ImageViewerToolStrip();
             this.imageViewer1 = new Vintasoft.Imaging.UI.ImageViewer();
             this.dicomMprToolInteractionModeToolStrip1 = new DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip();
             this.mainPanel = new System.Windows.Forms.Panel();
@@ -112,7 +112,7 @@ namespace DicomMprViewerDemo
             this.imageViewerToolStrip1.TabIndex = 3;
             this.imageViewerToolStrip1.Text = "imageViewerToolStrip1";
             this.imageViewerToolStrip1.SaveFile += new System.EventHandler(this.file_saveImageSliceToolStripMenuItem_Click);
-            this.imageViewerToolStrip1.PageIndexChanged += new System.EventHandler<DemosCommonCode.Imaging.PageIndexChangedEventArgs>(this.imageViewerToolStrip1_PageIndexChanged);
+            this.imageViewerToolStrip1.PageIndexChanged += new System.EventHandler<CommonCode.Imaging.PageIndexChangedEventArgs>(this.imageViewerToolStrip1_PageIndexChanged);
             // 
             // imageViewer1
             // 
@@ -537,7 +537,7 @@ namespace DicomMprViewerDemo
 
         private Vintasoft.Imaging.UI.ImageViewer imageViewer1;
         private System.Windows.Forms.ToolStripPanel toolStripPanel;
-        private DemosCommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
+        private CommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
         private DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip dicomMprToolInteractionModeToolStrip1;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Panel topPanel;

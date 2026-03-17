@@ -15,8 +15,8 @@ using Vintasoft.Imaging.UI.VisualTools;
 using Vintasoft.Imaging.ImageProcessing.Color;
 using Vintasoft.Imaging.ImageProcessing.Filters;
 
-using DemosCommonCode.Imaging;
-using DemosCommonCode.Imaging.Codecs;
+using CommonCode.Imaging;
+using CommonCode.Imaging.Codecs;
 
 
 namespace DicomMprViewerDemo

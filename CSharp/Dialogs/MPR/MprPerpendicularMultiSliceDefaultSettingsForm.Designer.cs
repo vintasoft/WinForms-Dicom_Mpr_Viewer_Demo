@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class MprPerpendicularMultiSliceDefaultSettingsForm
     {
@@ -32,7 +32,7 @@ namespace DicomMprViewerDemo
             this.label1 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.planarSliceMarginPaddingFEditorControl = new DemosCommonCode.CustomControls.PaddingFEditorControl();
+            this.planarSliceMarginPaddingFEditorControl = new CommonCode.CustomControls.PaddingFEditorControl();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sliceCountNumericUpDown)).BeginInit();
             this.SuspendLayout();
@@ -140,7 +140,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button buttonCancel;
-        private DemosCommonCode.CustomControls.PaddingFEditorControl planarSliceMarginPaddingFEditorControl;
+        private CommonCode.CustomControls.PaddingFEditorControl planarSliceMarginPaddingFEditorControl;
         private System.Windows.Forms.Label label2;
     }
 }

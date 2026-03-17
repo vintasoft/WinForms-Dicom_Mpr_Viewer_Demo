@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class VisualMprSliceAppearanceEditorControl
     {
@@ -34,7 +34,7 @@ namespace DicomMprViewerDemo
             this.label3 = new System.Windows.Forms.Label();
             this.markerPointDiameterNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.appearanceGroupBox = new System.Windows.Forms.GroupBox();
-            this.sliceColorPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
+            this.sliceColorPanelControl = new CommonCode.CustomControls.ColorPanelControl();
             this.propertiesGroupBox = new System.Windows.Forms.GroupBox();
             this.sliceCountNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.sliceCountLabel = new System.Windows.Forms.Label();
@@ -45,7 +45,7 @@ namespace DicomMprViewerDemo
             this.renderingModeComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.focusedSliceColorPanelControl = new DemosCommonCode.CustomControls.ColorPanelControl();
+            this.focusedSliceColorPanelControl = new CommonCode.CustomControls.ColorPanelControl();
             this.focusedSliceLineWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.sliceLineWidthNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.markerPointDiameterNumericUpDown)).BeginInit();
@@ -356,7 +356,7 @@ namespace DicomMprViewerDemo
 
         #endregion
 
-        private DemosCommonCode.CustomControls.ColorPanelControl sliceColorPanelControl;
+        private CommonCode.CustomControls.ColorPanelControl sliceColorPanelControl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown sliceLineWidthNumericUpDown;
         private System.Windows.Forms.Label label2;
@@ -373,7 +373,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.Label curveTensionLabel;
         private System.Windows.Forms.NumericUpDown sliceCountNumericUpDown;
         private System.Windows.Forms.Label sliceCountLabel;
-        private DemosCommonCode.CustomControls.ColorPanelControl focusedSliceColorPanelControl;
+        private CommonCode.CustomControls.ColorPanelControl focusedSliceColorPanelControl;
         private System.Windows.Forms.NumericUpDown focusedSliceLineWidthNumericUpDown;
     }
 }

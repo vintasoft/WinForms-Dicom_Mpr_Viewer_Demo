@@ -1,5 +1,5 @@
 ﻿
-namespace DemosCommonCode.Imaging.Codecs.Dialogs
+namespace CommonCode.Imaging.Codecs.Dialogs
 {
     partial class WebpEncoderSettingsForm
     {

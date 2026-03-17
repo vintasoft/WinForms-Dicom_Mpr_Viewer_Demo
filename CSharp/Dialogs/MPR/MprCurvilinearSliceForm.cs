@@ -3,9 +3,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using DemosCommonCode;
-using DemosCommonCode.Imaging;
-using DemosCommonCode.Imaging.Codecs;
+using CommonCode;
+using CommonCode.Imaging;
+using CommonCode.Imaging.Codecs;
 
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Codecs.ImageFiles.Dicom;

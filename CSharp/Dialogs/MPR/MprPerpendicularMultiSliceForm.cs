@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-using DemosCommonCode.Imaging;
-using DemosCommonCode.Imaging.Codecs;
+using CommonCode.Imaging;
+using CommonCode.Imaging.Codecs;
 
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Codecs.Encoders;

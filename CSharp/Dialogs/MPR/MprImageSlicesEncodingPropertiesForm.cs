@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 using Vintasoft.Imaging.Codecs.Encoders;
 
-using DemosCommonCode.Imaging.Codecs.Dialogs;
+using CommonCode.Imaging.Codecs.Dialogs;
 
 
 namespace DicomMprViewerDemo

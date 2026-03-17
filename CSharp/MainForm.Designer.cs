@@ -1,4 +1,4 @@
-namespace DicomMprViewerDemo
+﻿namespace DicomMprViewerDemo
 {
     partial class MainForm
     {
@@ -111,7 +111,7 @@ namespace DicomMprViewerDemo
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripPanel = new System.Windows.Forms.ToolStripPanel();
-            this.imageViewerToolStrip1 = new DemosCommonCode.Imaging.ImageViewerToolStrip();
+            this.imageViewerToolStrip1 = new CommonCode.Imaging.ImageViewerToolStrip();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.dicomMprToolInteractionModeToolStrip1 = new DicomMprViewerDemo.DicomMprToolInteractionModeToolStrip();
             this.openDicomFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -1021,7 +1021,7 @@ namespace DicomMprViewerDemo
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel imageInfoToolStripStatusLabel;
         private System.Windows.Forms.ToolStripPanel toolStripPanel;
-        private DemosCommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
+        private CommonCode.Imaging.ImageViewerToolStrip imageViewerToolStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private DicomMprToolInteractionModeToolStrip dicomMprToolInteractionModeToolStrip1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;

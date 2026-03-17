@@ -5,8 +5,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-using DemosCommonCode;
-using DemosCommonCode.CustomControls;
+using CommonCode;
+using CommonCode.CustomControls;
 
 using Vintasoft.Imaging;
 using Vintasoft.Imaging.Annotation;
