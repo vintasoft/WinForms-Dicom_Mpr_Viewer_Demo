@@ -120,6 +120,17 @@ namespace DicomMprViewerDemo
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes the <see cref="MainForm"/> class.
+        /// </summary>
+        static MainForm()
+        {
+            Jpeg2000AssemblyLoader.Load();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainForm"/> class.
+        /// </summary>
         public MainForm()
         {
             // register the evaluation license for VintaSoft Imaging .NET SDK
@@ -133,8 +144,6 @@ namespace DicomMprViewerDemo
             this.Text = "VintaSoft DICOM MPR Viewer Demo v" + ImagingGlobalSettings.ProductVersion;
 
             MoveDicomCodecToFirstPosition();
-
-            Jpeg2000AssemblyLoader.Load();
 
             // subscribe to the image viewers events
             imageViewer1.GotFocus += new EventHandler(ImageViewer_GotFocus);

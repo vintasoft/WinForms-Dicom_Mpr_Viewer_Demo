@@ -1,4 +1,4 @@
-﻿namespace DicomMprViewerDemo
+namespace DicomMprViewerDemo
 {
     partial class MainForm
     {
